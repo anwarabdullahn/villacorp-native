@@ -1,15 +1,16 @@
 package anwarabdullahn.com.villacorp_apps.Activity
 
-import android.app.Application
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.R
-import com.bumptech.glide.request.RequestOptions
-//import org.jetbrains.anko.toast
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import org.jetbrains.anko.toast
 
 class LoginActivity : AppCompatActivity() {
 
@@ -23,11 +24,23 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, DashboardActivity::class.java)
 
         loginBtn.setOnClickListener {
-            if ("".equals(usernameTxt.text.trim())){
-//                toast("Hi there!")
-//                toast(R.string.message)
-//                longToast("Wow, such a duration")
+            Log.d("userText", usernameTxt.text.toString())
+            if ("".equals(usernameTxt.text.trim().toString())){
+                toast("Username Harus diisi.")
+                return@setOnClickListener
             }
+
+            if ("".equals(passwordTxt.text.toString())){
+                toast("Password Harus diisi.")
+                return@setOnClickListener
+            }
+
+//            var body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),usernameTxt.text)
+
+//            Log.d("userText", usernameTxt.text.toString())
+//
+//            API.service().login()
+
 
         }
 
