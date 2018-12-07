@@ -14,4 +14,7 @@ public interface VillaService {
 
     @POST("login/")
     Call<User> login(@Body LoginRequest body);
+
+    @POST("logout/")
+    Call<APIResponse> logout();
 }

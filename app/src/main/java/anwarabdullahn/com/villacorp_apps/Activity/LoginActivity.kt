@@ -23,22 +23,22 @@ class LoginActivity : AppCompatActivity() {
 
         val usernameTxt = findViewById(R.id.username) as EditText
         val passwordTxt = findViewById(R.id.password) as EditText
-        val loginBtn    = findViewById(R.id.loginBtn) as Button
-        val intent = Intent(this, DashboardActivity::class.java)
+        val loginBtn = findViewById(R.id.loginBtn) as Button
+        val intent = Intent(this, MainActivity::class.java)
 
         if (API.isLoggedIn()) {
-            startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
+            startActivity(intent)
             finish()
         }
 
         loginBtn.setOnClickListener {
             Log.d("userText", usernameTxt.text.toString())
-            if ("".equals(usernameTxt.text.trim().toString())){
+            if ("".equals(usernameTxt.text.trim().toString())) {
                 toast("Username Harus diisi.")
                 return@setOnClickListener
             }
 
-            if ("".equals(passwordTxt.text.toString())){
+            if ("".equals(passwordTxt.text.toString())) {
                 toast("Password Harus diisi.")
                 return@setOnClickListener
             }
