@@ -10,12 +10,6 @@
         tools:openDrawer="start">
 
     <include
-            layout="@layout/first_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-
-    <include
             layout="@layout/app_bar_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

@@ -13,7 +13,9 @@ import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import anwarabdullahn.com.villacorp_apps.Activity.Fragment.DashboardFragment
 import anwarabdullahn.com.villacorp_apps.Activity.Fragment.FirstFragment
+import anwarabdullahn.com.villacorp_apps.Activity.Fragment.SecondFragment
 import anwarabdullahn.com.villacorp_apps.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -25,8 +27,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        toolbar.title = "VillaCorp.Systems"
         setSupportActionBar(toolbar)
-        val goLogin = Intent(this, LoginActivity::class.java)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -39,7 +41,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+        nav_view.getMenu().getItem(0).setChecked(true);
         nav_view.setNavigationItemSelectedListener(this)
+
+        val fm = supportFragmentManager.beginTransaction()
+        fm.replace(R.id.frameLayout,DashboardFragment())
+        fm.commit()
     }
 
     override fun onBackPressed() {
@@ -69,11 +76,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
+            R.id.nav_dashboard -> {
+                home(fragl = DashboardFragment())
+            }
             R.id.nav_profile -> {
                profile(fragl = FirstFragment())
-            }
-            R.id.nav_gallery -> {
-
             }
             R.id.nav_logout -> {
                 logout()
@@ -82,6 +89,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun home(fragl: DashboardFragment){
+        val fm = supportFragmentManager.beginTransaction()
+        fm.replace(R.id.frameLayout,fragl)
+        fm.commit()
     }
 
     private fun profile(fragl: FirstFragment){

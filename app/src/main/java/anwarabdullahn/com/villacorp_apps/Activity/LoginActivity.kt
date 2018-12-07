@@ -13,6 +13,7 @@ import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Model.User
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Request.LoginRequest
+import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
 
 class LoginActivity : AppCompatActivity() {
@@ -21,9 +22,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val usernameTxt = findViewById(R.id.username) as EditText
-        val passwordTxt = findViewById(R.id.password) as EditText
-        val loginBtn = findViewById(R.id.loginBtn) as Button
         val intent = Intent(this, MainActivity::class.java)
 
         if (API.isLoggedIn()) {
