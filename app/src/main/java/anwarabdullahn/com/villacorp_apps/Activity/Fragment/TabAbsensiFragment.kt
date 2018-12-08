@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import anwarabdullahn.com.villacorp_apps.R
 
-class  SecondFragment: Fragment(){
+class  TabAbsensiFragment: Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LayoutInflater.from(container?.context).inflate(R.layout.fragment_second, container,false)
+        return inflater.inflate(R.layout.tab_fragment_absensi,null)
+
     }
 }

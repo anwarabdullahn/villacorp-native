@@ -1,106 +1,67 @@
 package anwarabdullahn.com.villacorp_apps.Activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import android.support.v7.widget.Toolbar
+import android.view.View
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.API.APIResponse
-import anwarabdullahn.com.villacorp_apps.Activity.Fragment.DashboardFragment
-import anwarabdullahn.com.villacorp_apps.Activity.Fragment.FirstFragment
-import anwarabdullahn.com.villacorp_apps.Activity.Fragment.SecondFragment
+import anwarabdullahn.com.villacorp_apps.Activity.Fragment.ProfileFragment
+import anwarabdullahn.com.villacorp_apps.Activity.Fragment.TabFragment
 import anwarabdullahn.com.villacorp_apps.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 import org.jetbrains.anko.*
-import java.util.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
+
+    lateinit var mDraweLayout: DrawerLayout
+    lateinit var mNavigationView: NavigationView
+    lateinit var mFragmentManager: FragmentManager
+    lateinit var mFragmentTransaction: FragmentTransaction
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        toolbar.title = "VillaCorp.Systems"
-        setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        mDraweLayout = findViewById(R.id.drawer_layout) as DrawerLayout
+        mNavigationView = findViewById(R.id.nav_view) as NavigationView
 
-        val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
+        mFragmentManager = supportFragmentManager
+        mFragmentTransaction = mFragmentManager.beginTransaction()
+        mFragmentTransaction.replace(R.id.containerView, TabFragment()).commit()
 
-        nav_view.getMenu().getItem(0).setChecked(true);
-        nav_view.setNavigationItemSelectedListener(this)
-
-        val fm = supportFragmentManager.beginTransaction()
-        fm.replace(R.id.frameLayout,DashboardFragment())
-        fm.commit()
-    }
-
-    override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_dashboard -> {
-                home(fragl = DashboardFragment())
+        mNavigationView.setNavigationItemSelectedListener {
+            menuItem -> mDraweLayout.closeDrawers()
+            if (menuItem.itemId == R.id.nav_dashboard){
+                mNavigationView.getMenu().getItem(0).setChecked(true)
+                val ft = mFragmentManager.beginTransaction()
+                ft.replace(R.id.containerView, TabFragment()).commit()
             }
-            R.id.nav_profile -> {
-               profile(fragl = FirstFragment())
+            if (menuItem.itemId == R.id.nav_profile){
+                mNavigationView.getMenu().getItem(1).setChecked(true)
+                val ft = mFragmentManager.beginTransaction()
+                ft.replace(R.id.containerView, ProfileFragment()).commit()
             }
-            R.id.nav_logout -> {
+            if (menuItem.itemId == R.id.nav_logout){
                 logout()
             }
+            false
         }
+        mNavigationView.getMenu().getItem(0).setChecked(true)
+        
+        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+        toolbar.title = "VillaCorp.Systems"
+        val mDrawerToggle = ActionBarDrawerToggle(this, mDraweLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
 
-        drawer_layout.closeDrawer(GravityCompat.START)
-        return true
-    }
-
-    private fun home(fragl: DashboardFragment){
-        val fm = supportFragmentManager.beginTransaction()
-        fm.replace(R.id.frameLayout,fragl)
-        fm.commit()
-    }
-
-    private fun profile(fragl: FirstFragment){
-        val fm = supportFragmentManager.beginTransaction()
-        fm.replace(R.id.frameLayout,fragl)
-        fm.commit()
+        mDraweLayout.setDrawerListener(mDrawerToggle)
+        mDrawerToggle.syncState()
     }
 
     private fun logout(){
@@ -115,7 +76,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     }
 
                     override fun onError(error: APIError?) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        toast(error?.msg.toString())
                     }
 
                 })

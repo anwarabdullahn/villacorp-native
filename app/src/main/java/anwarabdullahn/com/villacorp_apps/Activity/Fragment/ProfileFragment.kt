@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import anwarabdullahn.com.villacorp_apps.R
 
-class  DashboardFragment: Fragment(){
+class  ProfileFragment: Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LayoutInflater.from(container?.context).inflate(R.layout.dashboard_layout, container,false)
+        return inflater.inflate(R.layout.fragment_profile,null)
 
     }
 }
