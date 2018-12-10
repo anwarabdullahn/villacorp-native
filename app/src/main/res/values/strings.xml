@@ -12,4 +12,9 @@
     <string name="nav_open">Open Navigation Drawer</string>
     <string name="nav_close">Close Navigation Drawer</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_message">Pesan</string>
+    <string name="title_profile">Akun</string>
+    <string name="title_info">Info</string>
+    <string name="title_excuse">Pengajuan</string>
 </resources>

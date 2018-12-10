@@ -2,6 +2,7 @@ package anwarabdullahn.com.villacorp_apps.Activity
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.widget.DrawerLayout
@@ -16,6 +17,7 @@ import anwarabdullahn.com.villacorp_apps.API.APIResponse
 import anwarabdullahn.com.villacorp_apps.Activity.Fragment.ProfileFragment
 import anwarabdullahn.com.villacorp_apps.Activity.Fragment.TabFragment
 import anwarabdullahn.com.villacorp_apps.R
+import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
 
@@ -55,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             false
         }
         mNavigationView.getMenu().getItem(0).setChecked(true)
-        
+
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         toolbar.title = "VillaCorp.Systems"
         val mDrawerToggle = ActionBarDrawerToggle(this, mDraweLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -65,10 +67,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logout(){
+        var loadingScreen: DialogFragment = LoadingHelper.getInstance()
         alert("Apakah Anda Yakin Ingin Keluar", "Logout") {
             yesButton {
+                loadingScreen.show(supportFragmentManager,"loading Screen")
                 API.service().logout().enqueue(object : APICallback<APIResponse>() {
                     override fun onSuccess(msg: APIResponse?) {
+                        loadingScreen.dismiss()
                         startActivity<LoginActivity>()
                         toast("Berhasil Logout")
                         finish()

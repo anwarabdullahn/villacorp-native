@@ -25,14 +25,15 @@ class  TabFragment: Fragment(){
     companion object {
         lateinit var tabLayout: TabLayout
         lateinit var viewPager: ViewPager
-        var int_items = 2
+        var int_items = 3
     }
 
     internal inner class MyAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
         override fun getItem(position: Int): Fragment? {
             when(position){
-                0 -> return TabStatusFragment()
-                1 -> return TabAbsensiFragment()
+                0 -> return TabHomeFragment()
+                1 -> return TabStatusFragment()
+                2 -> return TabAbsensiFragment()
             }
             return null
         }
@@ -43,8 +44,9 @@ class  TabFragment: Fragment(){
 
         override fun getPageTitle(position: Int): CharSequence? {
             when(position){
-                0 -> return "STATUS"
-                1 -> return "ABSENSI"
+                0 -> return "HOME"
+                1 -> return "STATUS"
+                2 -> return "ABSENSI"
             }
             return null
         }

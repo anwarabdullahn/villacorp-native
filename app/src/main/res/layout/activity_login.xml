@@ -8,8 +8,8 @@
         tools:context=".Activity.LoginActivity"
         android:background="#fff">
 
-    <ImageView android:layout_width="300dp" android:layout_height="55dp"
-               android:background="@drawable/logo"
+    <ImageView android:layout_width="250dp" android:layout_height="180dp"
+               android:background="@drawable/logo_villacorp"
                app:layout_constraintTop_toTopOf="parent"
                android:layout_marginTop="100dp" android:layout_marginEnd="42dp"
                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"

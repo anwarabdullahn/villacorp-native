@@ -13,11 +13,11 @@ import anwarabdullahn.com.villacorp_apps.Model.Status
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import kotlinx.android.synthetic.main.tab_fragment_status.*
-import org.jetbrains.anko.toast
 
-class  TabStatusFragment: Fragment(){
+class  InfoFragment: Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contentView = inflater.inflate(R.layout.tab_fragment_status,null)
+        val contentView = inflater.inflate(R.layout.fragment_info,null)
+
         var loadingScreen: DialogFragment = LoadingHelper.getInstance()
 
         loadingScreen.show(fragmentManager,"loading Screen")
@@ -36,5 +36,6 @@ class  TabStatusFragment: Fragment(){
         })
 
         return contentView
+
     }
 }
