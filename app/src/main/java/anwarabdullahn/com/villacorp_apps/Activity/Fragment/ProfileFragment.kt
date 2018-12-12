@@ -12,9 +12,12 @@ import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.API.APIResponse
 import anwarabdullahn.com.villacorp_apps.Activity.LoginActivity
+import anwarabdullahn.com.villacorp_apps.Model.Profile
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import com.orhanobut.hawk.Hawk
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import org.jetbrains.anko.*
 
@@ -22,7 +25,10 @@ class  ProfileFragment: Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val contentView = inflater.inflate(R.layout.fragment_profile,null)
 
-//        contentView.logoutBtn.setOnClickListener{logout()}
+        contentView.logoutBtn.setOnClickListener{logout()}
+
+        content()
+
 
         return contentView
 
@@ -52,5 +58,35 @@ class  ProfileFragment: Fragment(){
             }
             noButton {  }
         }.show()
+    }
+
+    fun content(){
+        var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+        loadingScreen.show(fragmentManager,"loading Screen")
+        API.service().profile().enqueue(object : APICallback<Profile>(){
+            override fun onSuccess(profile: Profile) {
+                loadingScreen.dismiss()
+                Picasso.get().load(profile.photo).resize(50, 50).centerCrop().into(photoImg)
+                karyawanNameTxt.text = profile.name
+                jabatanTxt.text = profile.jabatan
+                posisiTxt.text = " - " + profile.posisi
+                tempatLahirTxt.text = profile.birth_place
+                tanggalLahir.text = profile.birth_date
+                jenisKelaminTxt.text = profile.sex
+                agamaTxt.text = profile.religion
+                alamatTxt.text = profile.address
+                noTelponTxt.text = profile.phone
+                brandtxt.text = profile.brand
+                kantorTxt.text = profile.office
+                departmentTxt.text = profile.department
+                jadwalKerjaTxt.text = profile.schedule
+            }
+
+            override fun onError(error: APIError?) {
+                loadingScreen.dismiss()
+                activity!!.toast(error?.msg.toString())
+            }
+
+        })
     }
 }

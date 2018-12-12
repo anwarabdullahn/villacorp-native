@@ -13,14 +13,27 @@ import anwarabdullahn.com.villacorp_apps.Model.Info
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import kotlinx.android.synthetic.main.fragment_info.*
+import kotlinx.android.synthetic.main.fragment_info.view.*
 
 class  InfoFragment: Fragment(){
+    var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val contentView = inflater.inflate(R.layout.fragment_info,null)
 
-        var loadingScreen: DialogFragment = LoadingHelper.getInstance()
 
         loadingScreen.show(fragmentManager,"loading Screen")
+        content()
+        contentView.swipeUp.setOnRefreshListener {
+            content()
+            contentView.swipeUp.isRefreshing = false
+        }
+
+        return contentView
+
+    }
+
+    fun content(){
         API.service().status().enqueue(object: APICallback<Info>(){
             override fun onSuccess(info: Info) {
                 loadingScreen.dismiss()
@@ -51,8 +64,5 @@ class  InfoFragment: Fragment(){
             }
 
         })
-
-        return contentView
-
     }
 }

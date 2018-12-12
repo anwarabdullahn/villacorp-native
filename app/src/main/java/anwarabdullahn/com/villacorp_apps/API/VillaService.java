@@ -2,6 +2,7 @@ package anwarabdullahn.com.villacorp_apps.API;
 
 
 import anwarabdullahn.com.villacorp_apps.Model.Info;
+import anwarabdullahn.com.villacorp_apps.Model.Profile;
 import anwarabdullahn.com.villacorp_apps.Model.User;
 import anwarabdullahn.com.villacorp_apps.Request.LoginRequest;
 import retrofit2.Call;
@@ -19,4 +20,7 @@ public interface VillaService {
 
     @GET("info/")
     Call<Info> status();
+
+    @GET("profile/")
+    Call<Profile> profile();
 }

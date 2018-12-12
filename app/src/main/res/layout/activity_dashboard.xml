@@ -19,7 +19,7 @@
                    tools:layout_editor_absoluteX="16dp"/>
     </android.support.v7.widget.Toolbar>
 
-    <ScrollView
+    <FrameLayout
             android:id="@+id/holderFragment" android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="0dp"
