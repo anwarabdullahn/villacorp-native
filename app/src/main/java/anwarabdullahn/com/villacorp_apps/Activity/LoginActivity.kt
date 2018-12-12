@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
             API.service().login(body).enqueue(object : APICallback<User>() {
                 override fun onSuccess(user: User) {
                     loadingScreen.dismiss()
-                    Log.d("Token", user.key)
+                    Log.d("Key User", user.key)
                     API.setCurrentUser(user)
                     API.setToken(user.key)
 

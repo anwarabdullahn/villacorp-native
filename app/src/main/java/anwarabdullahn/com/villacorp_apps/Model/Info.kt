@@ -2,7 +2,22 @@ package anwarabdullahn.com.villacorp_apps.Model
 
 import com.google.gson.annotations.SerializedName
 
-data class Absensi(
+data class Info(
+
+    @SerializedName("succes")
+    var succes: String,
+
+    @SerializedName("jmlsisacuti")
+    var jmlsisacuti: Int,
+
+    @SerializedName("periode")
+    var periode: String,
+
+    @SerializedName("sisaHariKerja")
+    var sisaHariKerja: String,
+
+    @SerializedName("hakdop")
+    var hakdop: Int,
 
     @SerializedName("haritelatkerja")
     var haritelatkerja: HariTelatKerja,

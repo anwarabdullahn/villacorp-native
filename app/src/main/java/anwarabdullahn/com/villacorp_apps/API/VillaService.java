@@ -1,8 +1,7 @@
 package anwarabdullahn.com.villacorp_apps.API;
 
 
-import anwarabdullahn.com.villacorp_apps.Model.Absensi;
-import anwarabdullahn.com.villacorp_apps.Model.Status;
+import anwarabdullahn.com.villacorp_apps.Model.Info;
 import anwarabdullahn.com.villacorp_apps.Model.User;
 import anwarabdullahn.com.villacorp_apps.Request.LoginRequest;
 import retrofit2.Call;
@@ -18,9 +17,6 @@ public interface VillaService {
     @POST("logout/")
     Call<APIResponse> logout();
 
-    @GET("status/")
-    Call<Status> status();
-
-    @GET("absensi/")
-    Call<Absensi> absensi();
+    @GET("info/")
+    Call<Info> status();
 }

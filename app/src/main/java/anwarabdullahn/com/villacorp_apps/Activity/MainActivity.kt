@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.View
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
@@ -18,6 +19,7 @@ import anwarabdullahn.com.villacorp_apps.Activity.Fragment.ProfileFragment
 import anwarabdullahn.com.villacorp_apps.Activity.Fragment.TabFragment
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
 
@@ -68,6 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun logout(){
         var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+        Log.d("Token ", Hawk.get("TOKEN"))
         alert("Apakah Anda Yakin Ingin Keluar", "Logout") {
             yesButton {
                 loadingScreen.show(supportFragmentManager,"loading Screen")
@@ -81,12 +84,18 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     override fun onError(error: APIError?) {
+                        loadingScreen.dismiss()
                         toast(error?.msg.toString())
                     }
 
                 })
             }
-            noButton {  }
+            noButton {
+                startActivity<LoginActivity>()
+                toast("Berhasil Logout")
+                finish()
+                API.logOut()
+            }
         }.show()
     }
 }
