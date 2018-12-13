@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:background="@color/colorAccentDark"
+                                             android:layout_height="wrap_content">
+
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                                        android:background="@color/colorWhite"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent">
+        <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                                     android:layout_height="match_parent">
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#ccc"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"/>
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#ccc"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent" android:id="@+id/view"
+                  app:layout_constraintHorizontal_bias="0.0" app:layout_constraintBottom_toBottomOf="parent"
+            />
+            <ImageView android:layout_width="40dp" android:layout_height="60dp" android:src="@drawable/ic_email"
+                       app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                       android:layout_marginStart="8dp" android:id="@+id/imageView14"
+                       app:layout_constraintBottom_toBottomOf="parent"/>
+            <ImageView android:layout_width="15dp" android:layout_height="20dp" android:src="@drawable/ic_time"
+                       android:id="@+id/imageView15" android:tint="#aeaeae"
+                       app:layout_constraintTop_toBottomOf="@+id/pesanJudulTxt"
+                       app:layout_constraintStart_toEndOf="@+id/imageView14" android:layout_marginStart="8dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="Judul Pesan"
+                      app:layout_constraintTop_toTopOf="@+id/imageView14"
+                      android:textColor="#000" app:layout_constraintStart_toEndOf="@+id/imageView14"
+                      android:layout_marginTop="10dp" android:id="@+id/pesanJudulTxt" android:layout_marginStart="8dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="1 tahun yang lalu"
+                      app:layout_constraintTop_toTopOf="@+id/imageView15"
+                      app:layout_constraintStart_toEndOf="@+id/imageView15" android:layout_marginStart="1dp"
+                      android:id="@+id/pesanWaktuTxt"/>
+        </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+</android.support.constraint.ConstraintLayout>

@@ -22,12 +22,19 @@ import kotlinx.android.synthetic.main.fragment_profile.view.*
 import org.jetbrains.anko.*
 
 class  ProfileFragment: Fragment(){
+    var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val contentView = inflater.inflate(R.layout.fragment_profile,null)
 
         contentView.logoutBtn.setOnClickListener{logout()}
 
+        loadingScreen.show(fragmentManager,"loading Screen")
         content()
+        contentView.swipeUp.setOnRefreshListener {
+            content()
+            swipeUp.isRefreshing = false
+        }
 
 
         return contentView
@@ -35,7 +42,6 @@ class  ProfileFragment: Fragment(){
     }
 
     private fun logout(){
-        var loadingScreen: DialogFragment = LoadingHelper.getInstance()
         Log.d("Token ", Hawk.get("TOKEN"))
         activity!!.alert("Apakah Anda Yakin Ingin Keluar", "Logout") {
             yesButton {
@@ -61,8 +67,6 @@ class  ProfileFragment: Fragment(){
     }
 
     fun content(){
-        var loadingScreen: DialogFragment = LoadingHelper.getInstance()
-        loadingScreen.show(fragmentManager,"loading Screen")
         API.service().profile().enqueue(object : APICallback<Profile>(){
             override fun onSuccess(profile: Profile) {
                 loadingScreen.dismiss()

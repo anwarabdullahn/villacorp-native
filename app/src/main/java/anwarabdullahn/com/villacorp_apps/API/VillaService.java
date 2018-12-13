@@ -2,6 +2,7 @@ package anwarabdullahn.com.villacorp_apps.API;
 
 
 import anwarabdullahn.com.villacorp_apps.Model.Info;
+import anwarabdullahn.com.villacorp_apps.Model.Pesans;
 import anwarabdullahn.com.villacorp_apps.Model.Profile;
 import anwarabdullahn.com.villacorp_apps.Model.User;
 import anwarabdullahn.com.villacorp_apps.Request.LoginRequest;
@@ -23,4 +24,7 @@ public interface VillaService {
 
     @GET("profile/")
     Call<Profile> profile();
+
+    @GET("pesan/")
+    Call<Pesans> pesan();
 }
