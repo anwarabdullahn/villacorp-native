@@ -6,6 +6,7 @@ import anwarabdullahn.com.villacorp_apps.Model.Pesans;
 import anwarabdullahn.com.villacorp_apps.Model.Profile;
 import anwarabdullahn.com.villacorp_apps.Model.User;
 import anwarabdullahn.com.villacorp_apps.Request.LoginRequest;
+import anwarabdullahn.com.villacorp_apps.Request.PesanRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -25,6 +26,6 @@ public interface VillaService {
     @GET("profile/")
     Call<Profile> profile();
 
-    @GET("pesan/")
-    Call<Pesans> pesan();
+    @POST("pesan/")
+    Call<Pesans> pesan(@Body PesanRequest body);
 }

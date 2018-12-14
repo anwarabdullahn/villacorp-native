@@ -3,11 +3,15 @@ package anwarabdullahn.com.villacorp_apps.Model
 import com.google.gson.annotations.SerializedName
 
 data class Pesans(
+
+    @SerializedName("success")
+    var success: Boolean,
+
     @SerializedName("jumlah_pesan")
     var jumlah_pesan: String,
 
     @SerializedName("pesan")
-    var pesan: List<Pesan>
+    var pesan: MutableList<Pesan>
 )
 
 data class Pesan(
@@ -28,4 +32,5 @@ data class Pesan(
 
     @SerializedName("status")
     var status: Boolean
+
 )
