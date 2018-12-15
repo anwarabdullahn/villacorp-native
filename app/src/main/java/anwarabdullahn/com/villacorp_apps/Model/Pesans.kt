@@ -31,6 +31,6 @@ data class Pesan(
     var waktu: String,
 
     @SerializedName("status")
-    var status: Boolean
+    var status: String
 
 )

@@ -30,20 +30,22 @@ class  PesanFragment: Fragment(){
     internal var previousTotal : Int = 0
     internal var viewThreshold: Int = 12
     val body = PesanRequest()
-    var int: Int? = 1
-    internal lateinit var adapter : PesanRecyclerAdapter
+    var page: Int? = 1
+    lateinit var adapter : PesanRecyclerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val contenView = LayoutInflater.from(container?.context).inflate(R.layout.fragment_pesan, container,false)
+
         val recyclerView = contenView.findViewById<RecyclerView>(R.id.recyclerView)
 
         recyclerView.layoutManager = LinearLayoutManager(contenView.context, LinearLayout.VERTICAL,false)
-        body.page = int
+        recyclerView.setHasFixedSize(true)
+        body.page = page
 
         API.service().pesan(body).enqueue(object : APICallback<Pesans>() {
             override fun onSuccess(pesans: Pesans) {
-                activity!!.toast("Berhasil Logout")
-                val adapter = PesanRecyclerAdapter(pesans.pesan)
+                activity!!.toast("Load Pertama")
+                adapter = PesanRecyclerAdapter(pesans.pesan)
                 recyclerView.adapter = adapter
             }
 
@@ -70,8 +72,8 @@ class  PesanFragment: Fragment(){
                         }
                     }
                     if (!isLoading&&(totalItemCount-visibleItemCount)<=(pastVisibleItems+viewThreshold)){
-                        body.page = int!!.plus(1)
-                        activity!!.toast("Load Kedua")
+
+                        activity!!.toast("Load" + body.page.toString())
                         Log.d("body",body.page.toString())
                         loadMore()
                         isLoading = true
@@ -87,21 +89,23 @@ class  PesanFragment: Fragment(){
     }
 
     internal fun loadMore(){
-
+        body.page = page!! +1
         API.service().pesan(body).enqueue(object : APICallback<Pesans>() {
             override fun onSuccess(pesans: Pesans) {
-                if (pesans.success == true){
+                if (pesans.success == false){
                     adapter.addmore(pesans.pesan)
                 } else {
-
+                    activity!!.toast(pesans.pesan.toString())
                 }
             }
 
             override fun onError(error: APIError?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.d("Error" , error!!.msg)
+                activity!!.toast(error!!.msg)
             }
 
         })
+        page = body.page.toInt()
     }
 }
 
