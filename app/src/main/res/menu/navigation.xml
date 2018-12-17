@@ -17,7 +17,7 @@
             android:title="@string/title_message"/>
 
     <item
-            android:id="@+id/navigation_excuse"
+            android:id="@+id/navigation_panduan"
             android:icon="@drawable/ic_pen"
             android:title="@string/title_excuse"/>
 

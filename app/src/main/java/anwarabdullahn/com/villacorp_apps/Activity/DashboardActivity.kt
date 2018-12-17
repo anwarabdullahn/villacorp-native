@@ -3,10 +3,8 @@ package anwarabdullahn.com.villacorp_apps.Activity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import anwarabdullahn.com.villacorp_apps.Activity.Fragment.InfoFragment
-import anwarabdullahn.com.villacorp_apps.Activity.Fragment.ProfileFragment
-import anwarabdullahn.com.villacorp_apps.Activity.Fragment.PesanFragment
-import anwarabdullahn.com.villacorp_apps.Activity.Fragment.TabHomeFragment
+import android.view.MenuItem
+import anwarabdullahn.com.villacorp_apps.Activity.Fragment.*
 import anwarabdullahn.com.villacorp_apps.R
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
@@ -28,8 +26,8 @@ class DashboardActivity : AppCompatActivity() {
                 fragmentNotif()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_home -> {
-                fragmentHome()
+            R.id.navigation_panduan -> {
+                fragmentPanduan()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_profile -> {
@@ -81,4 +79,15 @@ class DashboardActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    fun fragmentPanduan(){
+        val transaction = manager.beginTransaction()
+        val fragment = PanduanFragment()
+        transaction.replace(R.id.holderFragment,fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    override fun onBackPressed() {
+        moveTaskToBack(true)
+    }
 }

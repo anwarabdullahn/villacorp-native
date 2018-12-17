@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * Created by anwarabdullahn on 6/12/18.
  */
 public class API {
-    private static final String ROOT_URL = "http://test.villacorp.systems/api/";
+    private static final String ROOT_URL = "http://villacorp.systems/api/";
     private static final String TOKEN = "TOKEN";
     private static final String USER = "USER";
     private static VillaService SERVICE;

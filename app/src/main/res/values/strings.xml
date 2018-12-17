@@ -16,6 +16,6 @@
     <string name="title_message">Pesan</string>
     <string name="title_profile">Akun</string>
     <string name="title_info">Info</string>
-    <string name="title_excuse">Pengajuan</string>
+    <string name="title_excuse">Panduan</string>
     <string name="logout">Keluar</string>
 </resources>

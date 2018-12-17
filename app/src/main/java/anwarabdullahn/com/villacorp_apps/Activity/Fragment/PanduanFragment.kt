@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import anwarabdullahn.com.villacorp_apps.R
 
-class  FirstFragment: Fragment(){
+class  PanduanFragment: Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LayoutInflater.from(container?.context).inflate(R.layout.first_layout, container,false)
+        return LayoutInflater.from(container?.context).inflate(R.layout.fragment_panduan, container,false)
     }
 }

@@ -2,13 +2,13 @@ package anwarabdullahn.com.villacorp_apps.API;
 
 public class APIResponse {
 
-    private String message;
+    private String msg;
 
     public String getMessage() {
-        return message;
+        return msg;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.msg = message;
     }
 }

@@ -7,7 +7,7 @@ data class Pesans(
     @SerializedName("success")
     var success: Boolean,
 
-    @SerializedName("jumlah_pesan")
+    @SerializedName("belum_dibaca")
     var jumlah_pesan: String,
 
     @SerializedName("pesan")

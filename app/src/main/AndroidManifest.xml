@@ -32,6 +32,8 @@
                 android:name=".Activity.DashboardActivity"
                 android:label="@string/title_activity_dashboard">
         </activity>
+        <activity android:name=".Activity.PesanDetailActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -14,9 +14,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff">
-        <ImageView android:layout_width="170dp" android:layout_height="25dp"
-                   android:src="@drawable/logo_villacorp_text" tools:layout_editor_absoluteY="13dp"
-                   tools:layout_editor_absoluteX="16dp"/>
+
+            <ImageView android:layout_width="170dp" android:layout_height="25dp"
+                       android:src="@drawable/logo_villacorp_text" app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout
@@ -25,8 +27,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/navigation"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-    />
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
@@ -40,5 +41,4 @@
             app:layout_constraintRight_toRightOf="parent"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/navigation"/>
-
 </android.support.constraint.ConstraintLayout>

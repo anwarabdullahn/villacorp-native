@@ -7,6 +7,8 @@ import anwarabdullahn.com.villacorp_apps.Model.Profile;
 import anwarabdullahn.com.villacorp_apps.Model.User;
 import anwarabdullahn.com.villacorp_apps.Request.LoginRequest;
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest;
+import anwarabdullahn.com.villacorp_apps.Request.ReadRequest;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -28,4 +30,7 @@ public interface VillaService {
 
     @POST("pesan/")
     Call<Pesans> pesan(@Body PesanRequest body);
+
+    @POST("read/")
+    Call<APIResponse> read(@Body ReadRequest body);
 }
