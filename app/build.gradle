@@ -44,4 +44,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.0.0'
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:2.0.3'
 }

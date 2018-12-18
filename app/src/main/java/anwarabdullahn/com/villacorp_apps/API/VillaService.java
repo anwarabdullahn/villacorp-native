@@ -1,10 +1,7 @@
 package anwarabdullahn.com.villacorp_apps.API;
 
 
-import anwarabdullahn.com.villacorp_apps.Model.Info;
-import anwarabdullahn.com.villacorp_apps.Model.Pesans;
-import anwarabdullahn.com.villacorp_apps.Model.Profile;
-import anwarabdullahn.com.villacorp_apps.Model.User;
+import anwarabdullahn.com.villacorp_apps.Model.*;
 import anwarabdullahn.com.villacorp_apps.Request.LoginRequest;
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest;
 import anwarabdullahn.com.villacorp_apps.Request.ReadRequest;
@@ -33,4 +30,7 @@ public interface VillaService {
 
     @POST("read/")
     Call<APIResponse> read(@Body ReadRequest body);
+
+    @GET("agenda/")
+    Call<AgendaSlider> agendaSlider();
 }
