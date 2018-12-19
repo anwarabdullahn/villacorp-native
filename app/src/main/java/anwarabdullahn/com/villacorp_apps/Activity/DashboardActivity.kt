@@ -1,7 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity
 
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -57,8 +56,6 @@ class DashboardActivity : AppCompatActivity() {
         fragmentHome()
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-//        Handler().postDelayed({ displayData() },5000)
 
         timer = Timer()
         timer.scheduleAtFixedRate(MyTimerTask(),2000,4000)
