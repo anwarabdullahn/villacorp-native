@@ -1,17 +1,28 @@
 package anwarabdullahn.com.villacorp_apps.Activity
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
 import anwarabdullahn.com.villacorp_apps.Activity.Fragment.*
 import anwarabdullahn.com.villacorp_apps.R
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import anwarabdullahn.com.villacorp_apps.API.API
+import anwarabdullahn.com.villacorp_apps.API.APICallback
+import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.Model.Pesans
+import anwarabdullahn.com.villacorp_apps.Request.PesanRequest
+import org.jetbrains.anko.toast
+import java.util.*
+
 
 class DashboardActivity : AppCompatActivity() {
 
     val manager = supportFragmentManager
+    val body = PesanRequest()
+    var page: Int? = 1
+    lateinit var timer: Timer
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -46,6 +57,11 @@ class DashboardActivity : AppCompatActivity() {
         fragmentHome()
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+//        Handler().postDelayed({ displayData() },5000)
+
+        timer = Timer()
+        timer.scheduleAtFixedRate(MyTimerTask(),2000,4000)
     }
 
     fun fragmentHome(){
@@ -91,5 +107,36 @@ class DashboardActivity : AppCompatActivity() {
     override fun onBackPressed() {
         moveTaskToBack(true)
     }
+
+    inner class MyTimerTask : TimerTask() {
+        override fun run() {
+            runOnUiThread {
+                displayData()
+            }
+        }
+    }
+
+    fun displayData(){
+        body.page = page
+        API.service().pesan(body).enqueue(object :APICallback<Pesans>() {
+            override fun onSuccess(t: Pesans?) {
+                if(t!!.jumlah_pesan == "0" ){
+                    badgeTxt.visibility = View.GONE
+                } else {
+                    badgeTxt.visibility = View.VISIBLE
+                    badgeTxt.text = t!!.jumlah_pesan
+                }
+            }
+
+            override fun onError(error: APIError?) {
+                toast(error!!.msg)
+            }
+
+        })
+    }
+
+
+
+
 
 }

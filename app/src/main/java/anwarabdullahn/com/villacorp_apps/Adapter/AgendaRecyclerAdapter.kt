@@ -33,9 +33,9 @@ class AgendaRecyclerAdapter(val agendaList: MutableList<Agenda>) : RecyclerView.
         p0.ruanganTxt.text = agenda.ruangan
         p0.hariTxt.text = agenda.hari+", "
         p0.dateTxt.text = agenda.tanggal
-        p0.mulaiTxt.text = agenda.jam_mulai
-        p0.selesaiTxt.text = " - " + agenda.jam_selesai
-        p0.depTxt.text = "Dept, "+agenda.department
+        p0.mulaiTxt.text = "Mulai: " + agenda.jam_mulai
+        p0.selesaiTxt.text = " - Sampai: " + agenda.jam_selesai
+        p0.depTxt.text = "Dept. "+agenda.department
 
         val r = Random()
         val red = r.nextInt(255 - 0 + 1) + 0

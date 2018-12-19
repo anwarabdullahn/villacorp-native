@@ -35,8 +35,6 @@ class  ProfileFragment: Fragment(){
             content()
             swipeUp.isRefreshing = false
         }
-
-
         return contentView
 
     }

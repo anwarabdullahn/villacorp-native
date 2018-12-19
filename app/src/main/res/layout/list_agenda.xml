@@ -8,7 +8,9 @@
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
                                         android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-                                        android:id="@+id/agendaContainer">
+                                        android:id="@+id/agendaContainer"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        android:layout_marginBottom="4dp" android:layout_marginTop="2dp">
         <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
                                                      android:layout_height="match_parent">
             <TextView android:layout_width="0dp" android:layout_height="25dp" android:text="Remark"
