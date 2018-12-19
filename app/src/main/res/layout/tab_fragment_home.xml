@@ -1,102 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#eee">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/scrollView"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent" android:layout_height="match_parent">
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#eee">
+        <android.support.v4.view.ViewPager android:layout_width="match_parent"
+                                           android:id="@+id/viewPager"
+                                           app:layout_constraintEnd_toEndOf="parent"
+                                           app:layout_constraintStart_toStartOf="parent"
+                                           app:layout_constraintTop_toTopOf="parent"
+                                           android:layout_height="200dp" android:layout_marginTop="8dp"
+                                           android:layout_marginStart="8dp" android:layout_marginEnd="8dp">
 
-    <android.support.v4.view.ViewPager android:layout_width="match_parent"
-                                       android:id="@+id/viewPager"
-                                       app:layout_constraintEnd_toEndOf="parent"
-                                       app:layout_constraintStart_toStartOf="parent"
-                                       app:layout_constraintTop_toTopOf="parent"
-                                       android:layout_height="200dp" android:layout_marginTop="8dp"
-                                       android:layout_marginStart="8dp" android:layout_marginEnd="8dp">
+        </android.support.v4.view.ViewPager>
 
-    </android.support.v4.view.ViewPager>
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:background="@drawable/bg_button"
+                        app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/viewPager" android:id="@+id/relativeLayout">
+            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                    android:id="@+id/dots_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:dotsColor="@color/colorPrimaryDarkMore"
+                    app:dotsCornerRadius="8dp"
+                    app:dotsSize="10dp"
+                    app:dotsSpacing="3dp"
+                    app:dotsStrokeWidth="1dp"
+            />
+        </RelativeLayout>
 
-    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+        <android.support.v7.widget.CardView android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                                            android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+                                            app:layout_constraintTop_toBottomOf="@+id/viewPager"
+                                            android:id="@+id/cardView2">
+            <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                                         android:layout_height="match_parent">
+
+                <ImageButton android:layout_width="50dp" android:layout_height="50dp"
+                             android:background="@drawable/circle_menu_green" android:src="@drawable/ic_change_off"
+                             android:tint="@color/colorWhite"
+                             android:adjustViewBounds="true"
+                             android:padding="8dp"
+                             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+                             android:layout_marginTop="24dp" android:layout_marginStart="8dp"
+                             android:id="@+id/tukarLiburBtn" android:scaleType="fitXY"
+                             app:layout_constraintEnd_toStartOf="@+id/dopBtn" android:layout_marginEnd="8dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="Tukar Libur"
+                          android:textSize="12sp" android:textAlignment="center"
+                          android:layout_marginTop="4dp" app:layout_constraintTop_toBottomOf="@+id/tukarLiburBtn"
+                          app:layout_constraintEnd_toEndOf="@+id/tukarLiburBtn"
+                          app:layout_constraintStart_toStartOf="@+id/tukarLiburBtn" android:id="@+id/textView"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="Izin Lainnya"
+                          android:textSize="12sp" android:textAlignment="center"
+                          android:id="@+id/textView27"
+                          app:layout_constraintEnd_toEndOf="@+id/izinLainnyaBtn"
+                          app:layout_constraintStart_toStartOf="@+id/izinLainnyaBtn"
+                          app:layout_constraintTop_toBottomOf="@+id/izinLainnyaBtn" android:layout_marginTop="4dp"/>
+                <TextView android:layout_width="80dp" android:layout_height="wrap_content"
+                          android:text="Keluar Sementara"
+                          android:textSize="12sp" android:textAlignment="center"
+                          android:id="@+id/textView28"
+                          app:layout_constraintEnd_toEndOf="@+id/keluarSementaraBtn"
+                          app:layout_constraintStart_toStartOf="@+id/keluarSementaraBtn" android:layout_marginTop="4dp"
+                          app:layout_constraintTop_toBottomOf="@+id/keluarSementaraBtn"
+                />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="Lembur"
+                          android:textSize="12sp" android:textAlignment="center"
+                          android:id="@+id/textView29"
+                          app:layout_constraintEnd_toEndOf="@+id/lemberBtn"
+                          app:layout_constraintStart_toStartOf="@+id/lemberBtn" android:layout_marginTop="4dp"
+                          app:layout_constraintTop_toBottomOf="@+id/lemberBtn"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="Lainnya"
+                          android:textSize="12sp" android:textAlignment="center"
+                          android:id="@+id/textView30"
+                          app:layout_constraintEnd_toEndOf="@+id/lainnyaBtn"
+                          app:layout_constraintStart_toStartOf="@+id/lainnyaBtn" android:layout_marginTop="4dp"
+                          app:layout_constraintTop_toBottomOf="@+id/lainnyaBtn"/>
+                <TextView android:layout_width="80dp" android:layout_height="wrap_content"
+                          android:text="Telat &amp; Pulang Cepat"
+                          android:textSize="12sp" android:textAlignment="center"
+                          android:id="@+id/textView6"
+                          app:layout_constraintEnd_toEndOf="@+id/telatPulangBtn"
+                          android:layout_marginTop="4dp" app:layout_constraintTop_toBottomOf="@+id/telatPulangBtn"
+                          app:layout_constraintStart_toStartOf="@+id/telatPulangBtn"
+                          app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"/>
+                <TextView android:layout_width="80dp" android:layout_height="wrap_content"
+                          android:text="Cuti Dibayar"
+                          android:textSize="12sp" android:textAlignment="center"
+                          android:id="@+id/textView25"
+                          app:layout_constraintEnd_toEndOf="@+id/cutiDibayarBtn"
+                          app:layout_constraintStart_toStartOf="@+id/cutiDibayarBtn" android:layout_marginTop="4dp"
+                          app:layout_constraintTop_toBottomOf="@+id/cutiDibayarBtn"/>
+                <TextView android:layout_width="80dp" android:layout_height="wrap_content"
+                          android:text="DOP"
+                          android:textSize="12sp" android:textAlignment="center"
+                          android:id="@+id/textView26"
+                          app:layout_constraintEnd_toEndOf="@+id/dopBtn"
+                          app:layout_constraintStart_toStartOf="@+id/dopBtn" android:layout_marginTop="4dp"
+                          app:layout_constraintTop_toBottomOf="@+id/dopBtn"/>
+                <ImageButton android:layout_width="50dp" android:layout_height="50dp"
+                             android:background="@drawable/circle_menu_purple" android:src="@drawable/ic_izin"
+                             android:tint="@color/colorWhite" android:padding="8dp" android:scaleType="fitXY"
+                             android:id="@+id/izinLainnyaBtn"
+                             app:layout_constraintEnd_toEndOf="parent"
+                             android:layout_marginEnd="8dp" android:layout_marginTop="24dp"
+                             app:layout_constraintTop_toTopOf="parent"
+                             app:layout_constraintStart_toEndOf="@+id/cutiDibayarBtn"
+                             android:layout_marginStart="8dp"/>
+                <ImageButton android:layout_width="50dp" android:layout_height="50dp"
+                             android:background="@drawable/circle_menu_red" android:padding="8dp"
+                             android:scaleType="fitXY"
+                             android:id="@+id/keluarSementaraBtn" android:src="@drawable/ic_keluar_sementara"
+                             android:tint="@color/colorWhite"
+                             app:layout_constraintStart_toEndOf="@+id/telatPulangBtn" android:layout_marginStart="8dp"
+                             app:layout_constraintEnd_toStartOf="@+id/lemberBtn" android:layout_marginEnd="8dp"
+                             android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textView26"/>
+                <ImageButton android:layout_width="50dp" android:layout_height="50dp" android:padding="8dp"
+                             android:scaleType="fitXY"
+                             android:background="@drawable/circle_menu_gum" android:src="@drawable/ic_lembur"
+                             android:tint="@color/colorWhite"
+                             android:id="@+id/lemberBtn"
+                             app:layout_constraintStart_toEndOf="@+id/keluarSementaraBtn"
+                             android:layout_marginStart="8dp"
+                             app:layout_constraintEnd_toStartOf="@+id/lainnyaBtn" android:layout_marginEnd="8dp"
+                             android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textView25"/>
+                <ImageButton android:layout_width="50dp" android:layout_height="50dp"
+                             android:background="@drawable/circle_menu_orange" android:src="@drawable/ic_more"
+                             android:tint="@color/colorWhite"
+                             android:padding="8dp" android:scaleType="fitXY"
+                             android:id="@+id/lainnyaBtn"
+                             app:layout_constraintStart_toEndOf="@+id/lemberBtn" android:layout_marginStart="8dp"
+                             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+                             android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textView27"/>
+                <ImageButton android:layout_width="50dp" android:layout_height="50dp"
+                             android:background="@drawable/circle_menu_blue" android:src="@drawable/ic_people_come"
+                             android:tint="@color/colorWhite" android:padding="8dp" android:scaleType="fitXY"
+                             android:id="@+id/telatPulangBtn"
+                             android:layout_marginTop="16dp"
+                             app:layout_constraintTop_toBottomOf="@+id/textView"
+                             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                             app:layout_constraintEnd_toStartOf="@+id/keluarSementaraBtn"
+                             android:layout_marginEnd="8dp"/>
+                <ImageButton android:layout_width="50dp" android:layout_height="50dp"
+                             android:background="@drawable/circle_menu_pink" android:src="@drawable/ic_dop"
+                             android:tint="@color/colorWhite"
+                             app:layout_constraintTop_toTopOf="parent" android:padding="8dp" android:scaleType="fitXY"
+                             android:layout_marginTop="24dp"
+                             android:id="@+id/dopBtn"
+                             app:layout_constraintEnd_toStartOf="@+id/cutiDibayarBtn" android:layout_marginEnd="8dp"
+                             app:layout_constraintStart_toEndOf="@+id/tukarLiburBtn" android:layout_marginStart="8dp"/>
+                <ImageButton android:layout_width="50dp" android:layout_height="50dp"
+                             android:background="@drawable/circle_menu_yellow" android:src="@drawable/ic_cuti"
+                             android:tint="@color/colorWhite" android:padding="8dp" android:scaleType="fitXY"
+                             app:layout_constraintTop_toTopOf="parent"
+                             android:layout_marginTop="24dp"
+                             android:id="@+id/cutiDibayarBtn"
+                             app:layout_constraintStart_toEndOf="@+id/dopBtn" android:layout_marginStart="8dp"
+                             app:layout_constraintEnd_toStartOf="@+id/izinLainnyaBtn" android:layout_marginEnd="8dp"/>
+
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView2"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:background="@drawable/bg_button"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/viewPager" android:id="@+id/relativeLayout">
-        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-                android:id="@+id/dots_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:dotsColor="@color/colorPrimaryDarkMore"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="10dp"
-                app:dotsSpacing="3dp"
-                app:dotsStrokeWidth="1dp"
-        />
-    </RelativeLayout>
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <android.support.v7.widget.CardView android:layout_width="0dp"
-                                        android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent"
-                                        android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-                                        android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-                                        app:layout_constraintTop_toBottomOf="@+id/viewPager">
-        <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
-                                                     android:layout_height="match_parent">
-
-            <Button android:layout_width="50dp" android:layout_height="50dp"
-                    android:background="@drawable/bg_menu" android:drawableTop="@drawable/ic_brand"
-                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="32dp" android:layout_marginStart="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/button" android:layout_marginEnd="16dp"
-                    android:id="@+id/button4"/>
-            <Button android:layout_width="50dp" android:layout_height="50dp"
-                    android:background="@drawable/bg_menu" android:drawableTop="@drawable/ic_brand"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="32dp"
-                    android:id="@+id/button5"
-                    app:layout_constraintTop_toBottomOf="@+id/button4" android:layout_marginTop="32dp"
-                    app:layout_constraintEnd_toStartOf="@+id/button6" android:layout_marginEnd="16dp"/>
-            <Button android:layout_width="50dp" android:layout_height="50dp"
-                    android:background="@drawable/bg_menu" android:drawableTop="@drawable/ic_brand"
-                    android:id="@+id/button6"
-                    app:layout_constraintStart_toEndOf="@+id/button5" android:layout_marginStart="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/button7" android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="32dp" app:layout_constraintBottom_toBottomOf="parent"/>
-            <Button android:layout_width="50dp" android:layout_height="50dp"
-                    android:background="@drawable/bg_menu" android:drawableTop="@drawable/ic_brand"
-                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="32dp"
-                    android:id="@+id/button7"
-                    app:layout_constraintStart_toEndOf="@+id/button6" android:layout_marginStart="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/button8" android:layout_marginEnd="16dp"/>
-            <Button android:layout_width="50dp" android:layout_height="50dp"
-                    android:background="@drawable/bg_menu" android:drawableTop="@drawable/ic_brand"
-                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="32dp"
-                    android:id="@+id/button8"
-                    app:layout_constraintStart_toEndOf="@+id/button7" android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"/>
-            <Button android:layout_width="50dp" android:layout_height="50dp"
-                    android:background="@drawable/bg_menu" android:drawableTop="@drawable/ic_brand"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="32dp"
-                    android:id="@+id/button"
-                    app:layout_constraintStart_toEndOf="@+id/button4" android:layout_marginStart="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/button2" android:layout_marginEnd="16dp"/>
-            <Button android:layout_width="50dp" android:layout_height="50dp"
-                    android:background="@drawable/bg_menu" android:drawableTop="@drawable/ic_brand"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="32dp"
-                    android:id="@+id/button2"
-                    app:layout_constraintEnd_toStartOf="@+id/button3" android:layout_marginEnd="16dp"
-                    app:layout_constraintStart_toEndOf="@+id/button" android:layout_marginStart="16dp"/>
-            <Button android:layout_width="50dp" android:layout_height="50dp"
-                    android:background="@drawable/bg_menu" android:drawableTop="@drawable/ic_brand"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="32dp"
-                    android:id="@+id/button3"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-                    app:layout_constraintStart_toEndOf="@+id/button2" android:layout_marginStart="16dp"/>
-
-
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
-
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

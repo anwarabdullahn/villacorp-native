@@ -4,12 +4,18 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.Adapter.AgendaRecyclerAdapter
 import anwarabdullahn.com.villacorp_apps.Adapter.SliderVPAdapter
 import anwarabdullahn.com.villacorp_apps.Model.AgendaSlider
 import anwarabdullahn.com.villacorp_apps.R
@@ -24,13 +30,24 @@ import java.util.*
 class TabHomeFragment : Fragment() {
 
     lateinit var viewPager: ViewPager
+    lateinit var scrollView: ScrollView
     lateinit var adapter: SliderVPAdapter
+    lateinit var adapterAgenda: AgendaRecyclerAdapter
+    lateinit var recyclerView: RecyclerView
     lateinit var timer: Timer
     var sliderSize: Int = 0
     var loadingScreen: DialogFragment = LoadingHelper.getInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val contentView = inflater.inflate(R.layout.tab_fragment_home, null)
+
+        scrollView = contentView.find(R.id.scrollView)
+        scrollView.smoothScrollTo(0,0)
+
+        recyclerView = contentView.find(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(contentView.context, LinearLayout.HORIZONTAL,false)
+        recyclerView.setHasFixedSize(true)
+
         viewPager = contentView.find(R.id.viewPager)
         loadingScreen.show(fragmentManager,"loading Screen")
         val dotsIndicator = contentView.findViewById<WormDotsIndicator>(R.id.dots_indicator)
@@ -39,7 +56,9 @@ class TabHomeFragment : Fragment() {
             override fun onSuccess(t: AgendaSlider) {
                 loadingScreen.dismiss()
                 adapter = SliderVPAdapter(contentView.context, t.slider)
+                adapterAgenda = AgendaRecyclerAdapter(t.agenda)
                 sliderSize = t.slider.size
+                recyclerView.adapter = adapterAgenda
                 viewPager.adapter = adapter
                 dotsIndicator.setViewPager(viewPager)
 
