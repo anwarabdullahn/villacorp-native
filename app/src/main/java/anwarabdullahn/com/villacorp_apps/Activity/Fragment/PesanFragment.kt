@@ -51,8 +51,11 @@ class  PesanFragment: Fragment(){
 
         loadingScreen.show(fragmentManager,"loading Screen")
         content()
+
         contenView.swipeUp.setOnRefreshListener {
+            Log.d("Page" ,page.toString())
             content()
+            contenView.swipeUp.scrollTo(0,0)
             contenView.swipeUp.isRefreshing = false
         }
 
@@ -114,6 +117,10 @@ class  PesanFragment: Fragment(){
     {
         API.service().pesan(body).enqueue(object : APICallback<Pesans>() {
             override fun onSuccess(pesans: Pesans) {
+                when {
+                    body.page > pesans.totalpage    -> body.page = 0
+                    else     -> body.page = body.page
+                }
                 loadingScreen.dismiss()
                 adapter = PesanRecyclerAdapter(pesans.pesan)
                 recyclerView.adapter = adapter

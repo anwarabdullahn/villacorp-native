@@ -18,4 +18,5 @@
     <string name="title_info">Info</string>
     <string name="title_excuse">Panduan</string>
     <string name="logout">Keluar</string>
+    <string name="title_activity_tukar_libur">TukarLiburActivity</string>
 </resources>

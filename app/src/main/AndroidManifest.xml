@@ -20,15 +20,15 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".Activity.MainActivity"
-                android:label="@string/title_activity_main"
-                android:theme="@style/AppTheme">
-        </activity>
-        <activity
                 android:name=".Activity.DashboardActivity"
                 android:label="@string/title_activity_dashboard">
         </activity>
         <activity android:name=".Activity.PesanDetailActivity">
+        </activity>
+        <activity
+                android:name=".Activity.TukarLibur.TukarLiburActivity"
+                android:label="@string/title_activity_tukar_libur"
+                android:theme="@style/AppTheme">
         </activity>
     </application>
 

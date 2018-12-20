@@ -1,5 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
@@ -9,25 +10,26 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.TukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Adapter.AgendaRecyclerAdapter
 import anwarabdullahn.com.villacorp_apps.Adapter.SliderVPAdapter
 import anwarabdullahn.com.villacorp_apps.Model.AgendaSlider
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 import java.util.*
 
 
 
-class TabHomeFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     lateinit var viewPager: ViewPager
     lateinit var scrollView: ScrollView
@@ -39,7 +41,7 @@ class TabHomeFragment : Fragment() {
     var loadingScreen: DialogFragment = LoadingHelper.getInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contentView = inflater.inflate(R.layout.tab_fragment_home, null)
+        val contentView = inflater.inflate(R.layout.fragment_home, null)
 
         scrollView = contentView.find(R.id.scrollView)
         scrollView.smoothScrollTo(0,0)
@@ -71,6 +73,14 @@ class TabHomeFragment : Fragment() {
                 activity!!.toast(error?.msg.toString())
             }
         })
+
+
+//        HRMS Menu
+        contentView.tukarLiburBtn.setOnClickListener {
+            val intent = Intent(contentView.context, TukarLiburActivity::class.java)
+            startActivity(intent)
+        }
+
 
         return contentView
     }

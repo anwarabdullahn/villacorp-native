@@ -7,6 +7,9 @@ data class Pesans(
     @SerializedName("success")
     var success: Boolean,
 
+    @SerializedName("totalpage")
+    var totalpage: Int,
+
     @SerializedName("belum_dibaca")
     var jumlah_pesan: String,
 

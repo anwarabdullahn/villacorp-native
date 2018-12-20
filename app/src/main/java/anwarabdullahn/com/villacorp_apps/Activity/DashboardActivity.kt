@@ -80,7 +80,7 @@ class DashboardActivity : AppCompatActivity() {
 
     fun fragmentHome(){
         val transaction = manager.beginTransaction()
-        val fragment = TabHomeFragment()
+        val fragment = HomeFragment()
         transaction.replace(R.id.holderFragment,fragment)
         transaction.addToBackStack(null)
         transaction.commit()

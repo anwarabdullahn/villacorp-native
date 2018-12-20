@@ -29,10 +29,11 @@ class PesanRecyclerAdapter(val pesanList: MutableList<Pesan>) : RecyclerView.Ada
         val pesan: Pesan = pesanList[p1]
 
         if(pesanList[p1].status == "1"){
-//            p0.bgView.setBackgroundColor((0xffeeeeee).toInt())
+            p0.pesanJudul.setTextColor((0xffaeaeae).toInt())
             p0.pesanImg.setColorFilter((0xffaeaeae).toInt())
-        } else {
+        } else if(pesanList[p1].status == "0") {
             p0.pesanJudul.setTextColor((0xff000000).toInt())
+            p0.pesanImg.setColorFilter((0xff000000).toInt())
         }
 
         p0.pesanJudul.text = pesan.judul
