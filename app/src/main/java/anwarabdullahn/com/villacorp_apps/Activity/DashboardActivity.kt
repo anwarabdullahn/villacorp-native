@@ -12,6 +12,10 @@ import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Model.Pesans
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.toast
 import java.util.*
 
@@ -22,6 +26,7 @@ class DashboardActivity : AppCompatActivity() {
     val body = PesanRequest()
     var page: Int? = 1
     lateinit var timer: Timer
+    lateinit var job: Job
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -56,9 +61,21 @@ class DashboardActivity : AppCompatActivity() {
         fragmentHome()
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+    }
 
-        timer = Timer()
-        timer.scheduleAtFixedRate(MyTimerTask(),2000,4000)
+    override fun onResume() {
+        job = GlobalScope.launch{
+            repeat(1000) {
+                displayData()
+                delay(5000L)
+            }
+        }
+        super.onResume()
+    }
+
+    override fun onPause() {
+        job.cancel()
+        super.onPause()
     }
 
     fun fragmentHome(){
@@ -103,14 +120,6 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         moveTaskToBack(true)
-    }
-
-    inner class MyTimerTask : TimerTask() {
-        override fun run() {
-            runOnUiThread {
-                displayData()
-            }
-        }
     }
 
     fun displayData(){
