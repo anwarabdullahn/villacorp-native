@@ -16,7 +16,7 @@ class PesanRecyclerAdapter(val pesanList: MutableList<Pesan>) : RecyclerView.Ada
 
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-        val contentView = LayoutInflater.from(p0?.context).inflate(R.layout.list_pesan, p0, false)
+        val contentView = LayoutInflater.from(p0.context).inflate(R.layout.list_pesan, p0, false)
 
         return ViewHolder(contentView)
     }

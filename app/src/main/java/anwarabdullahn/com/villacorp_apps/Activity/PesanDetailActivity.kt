@@ -39,7 +39,7 @@ class PesanDetailActivity : AppCompatActivity() {
     }
 
     internal fun content(){
-        body.id = (intent.extras!!.getString("id")).toInt()
+        body.id = (intent.extras.getString("id")).toInt()
         API.service().read(body).enqueue(object: APICallback<APIResponse>(){
             override fun onSuccess(t: APIResponse?) {
                 toast(t!!.message)

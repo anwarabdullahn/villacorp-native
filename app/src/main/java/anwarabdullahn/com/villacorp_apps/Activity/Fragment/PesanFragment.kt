@@ -33,6 +33,7 @@ class  PesanFragment: Fragment(){
     internal var viewThreshold: Int = 12
     val body = PesanRequest()
     var page: Int? = 1
+    var totalPage: Int? = 0
     lateinit var adapter : PesanRecyclerAdapter
     lateinit var progressBar: ProgressBar
     lateinit var recyclerView: RecyclerView
@@ -51,43 +52,27 @@ class  PesanFragment: Fragment(){
 
         loadingScreen.show(fragmentManager,"loading Screen")
         content()
+        swipeDown()
 
         contenView.swipeUp.setOnRefreshListener {
             Log.d("Page" ,page.toString())
-            content()
             contenView.swipeUp.scrollTo(0,0)
             contenView.swipeUp.isRefreshing = false
+            content()
+            reset()
+            swipeDown()
         }
-
-
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                visibleItemCount = recyclerView.layoutManager!!.childCount
-                totalItemCount = recyclerView.layoutManager!!.itemCount
-                pastVisibleItems = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-
-                if(dy>0){
-
-                    if (isLoading){
-                        if (totalItemCount>previousTotal){
-                            isLoading = false
-                            previousTotal = totalItemCount
-                        }
-                    }
-                    if (!isLoading&&(totalItemCount-visibleItemCount)<=(pastVisibleItems+viewThreshold)){
-                        loadMore()
-                        isLoading = true
-                    }
-
-                }
-
-
-            }
-        })
-
         return contenView
+    }
+
+    internal fun reset(){
+        page = 1
+        isLoading = false
+        pastVisibleItems = 0
+        visibleItemCount = 0
+        totalItemCount = 0
+        previousTotal = 0
+        viewThreshold = 12
     }
 
     internal fun loadMore(){
@@ -106,21 +91,23 @@ class  PesanFragment: Fragment(){
             override fun onError(error: APIError?) {
                 progressBar.visibility = View.GONE
                 Log.d("Error" , error!!.msg)
-                activity!!.toast(error!!.msg)
+                activity!!.toast(error.msg)
             }
 
         })
         page = body.page.toInt()
     }
 
-    internal fun content()
-    {
+    internal fun content(){
+        val bodypage: Int = (body.page).toInt()
+        when {
+            bodypage >= totalPage!! -> body.page = 1
+            else     -> body.page = body.page
+        }
+
         API.service().pesan(body).enqueue(object : APICallback<Pesans>() {
             override fun onSuccess(pesans: Pesans) {
-                when {
-                    body.page > pesans.totalpage    -> body.page = 0
-                    else     -> body.page = body.page
-                }
+                totalPage = pesans.totalpage
                 loadingScreen.dismiss()
                 adapter = PesanRecyclerAdapter(pesans.pesan)
                 recyclerView.adapter = adapter
@@ -131,6 +118,31 @@ class  PesanFragment: Fragment(){
                 activity!!.toast(error!!.msg)
             }
 
+        })
+    }
+
+    internal fun swipeDown(){
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                visibleItemCount = recyclerView.layoutManager!!.childCount
+                totalItemCount = recyclerView.layoutManager!!.itemCount
+                pastVisibleItems = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+
+                if(dy>0){
+                    if (isLoading){
+                        if (totalItemCount>previousTotal){
+                            isLoading = false
+                            previousTotal = totalItemCount
+                        }
+                    }
+                    if (!isLoading&&(totalItemCount-visibleItemCount)<=(pastVisibleItems+viewThreshold)){
+                        loadMore()
+                        isLoading = true
+                    }
+                }
+            }
         })
     }
 }

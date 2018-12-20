@@ -26,7 +26,7 @@ class SliderVPAdapter(var context: Context, var sliderList: MutableList<Slider> 
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val v = layoutInflater!!.inflate(R.layout.list_slider, null)
+        val v = layoutInflater.inflate(R.layout.list_slider, null)
         val imageSlider = v.find<ImageView>(R.id.sliderView)
         val slider = sliderList[position]
         Picasso.get().load(slider.file).into(imageSlider)

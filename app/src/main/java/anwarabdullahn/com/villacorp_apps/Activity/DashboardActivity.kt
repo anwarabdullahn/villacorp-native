@@ -125,12 +125,12 @@ class DashboardActivity : AppCompatActivity() {
     fun displayData(){
         body.page = page
         API.service().pesan(body).enqueue(object :APICallback<Pesans>() {
-            override fun onSuccess(t: Pesans?) {
-                if(t!!.jumlah_pesan == "0" ){
+            override fun onSuccess(t: Pesans) {
+                if(t.jumlah_pesan == "0" ){
                     badgeTxt.visibility = View.GONE
                 } else {
                     badgeTxt.visibility = View.VISIBLE
-                    badgeTxt.text = t!!.jumlah_pesan
+                    badgeTxt.text = t.jumlah_pesan
                 }
             }
 

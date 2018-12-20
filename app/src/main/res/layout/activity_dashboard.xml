@@ -6,7 +6,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#cecece"
+        android:background="@color/colorBg"
         tools:context=".Activity.DashboardActivity">
 
     <android.support.v7.widget.Toolbar
