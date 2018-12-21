@@ -37,4 +37,7 @@ public interface VillaService {
 
     @GET("jadwallibur/")
     Call<TukarLibur> jadwallibur(@Query("page") String page);
+
+    @GET("changeoff/")
+    Call<TukarLibur> changeoff(@Query("page") String page);
 }

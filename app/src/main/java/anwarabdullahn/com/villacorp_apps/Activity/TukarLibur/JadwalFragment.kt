@@ -14,9 +14,11 @@ import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Adapter.TukarLiburAdapter.TukarLiburJadwalAdapter
+import anwarabdullahn.com.villacorp_apps.Model.Pengajuan
 import anwarabdullahn.com.villacorp_apps.Model.TukarLibur
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import kotlinx.android.synthetic.main.tukar_libur_jadwal.view.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.toast
 
@@ -40,13 +42,21 @@ class JadwalFragment: Fragment() {
 
         recyclerView = contentView.find(R.id.recyclerView)
         progressBar = contentView.find(R.id.progressBar)
-
         recyclerView.layoutManager = LinearLayoutManager(contentView.context,LinearLayout.VERTICAL,false)
         recyclerView.setHasFixedSize(true)
 
         loadingScreen.show(fragmentManager,"loading")
         content()
         swipeDown()
+
+        contentView.swipeUp.setOnRefreshListener{
+            contentView.swipeUp.scrollTo(0,0)
+            contentView.swipeUp.isRefreshing = false
+            content()
+            reset()
+            swipeDown()
+        }
+
         return contentView
     }
 
@@ -62,8 +72,7 @@ class JadwalFragment: Fragment() {
             override fun onSuccess(t: TukarLibur) {
                 loadingScreen.dismiss()
                 totalPage = t.totalpage.toInt()
-                adapter =
-                        TukarLiburJadwalAdapter(t.jadwal_libur)
+                adapter = TukarLiburJadwalAdapter(t.jadwal_libur)
                 recyclerView.adapter = adapter
             }
 
@@ -75,6 +84,16 @@ class JadwalFragment: Fragment() {
 
         })
 
+    }
+
+    fun reset(){
+        page = 1
+        isLoading = false
+        pastVisibleItems = 0
+        visibleItemCount = 0
+        totalItemCount = 0
+        previousTotal = 0
+        viewThreshold = 12
     }
 
     fun swipeDown(){

@@ -32,7 +32,7 @@ data class Pengajuan(
     var JDID: String,
 
     @SerializedName("nomor")
-    var Kantor: String,
+    var Nomor: String,
 
     @SerializedName("date_old")
     var DateOld: String,

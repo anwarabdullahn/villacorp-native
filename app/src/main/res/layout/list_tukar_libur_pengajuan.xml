@@ -15,30 +15,43 @@
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#ccc"
                   app:layout_constraintTop_toTopOf="parent"
                   app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintEnd_toEndOf="parent"/>
+                  app:layout_constraintEnd_toEndOf="parent" android:id="@+id/view8"/>
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#ccc"
                   app:layout_constraintStart_toStartOf="parent"
                   app:layout_constraintEnd_toEndOf="parent" android:id="@+id/view"
                   app:layout_constraintHorizontal_bias="0.0" app:layout_constraintBottom_toBottomOf="parent"
             />
-            <ImageView android:layout_width="40dp" android:layout_height="60dp" android:src="@drawable/ic_email"
+            <ImageView android:layout_width="30dp" android:layout_height="60dp" android:src="@drawable/ic_change_off"
                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                       android:layout_marginStart="8dp" android:id="@+id/jadwalImg"
+                       android:layout_marginStart="16dp" android:id="@+id/jadwalImg" android:tint="#aeaeae"
                        app:layout_constraintBottom_toBottomOf="parent"/>
-            <ImageView android:layout_width="15dp" android:layout_height="20dp" android:src="@drawable/ic_time"
-                       android:id="@+id/imageView15" android:tint="#aeaeae"
-                       app:layout_constraintTop_toBottomOf="@+id/judulTxt"
-                       app:layout_constraintStart_toEndOf="@+id/jadwalImg" android:layout_marginStart="8dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:text="Judul Pesan"
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:text="Code CO29101801"
+                      android:textAllCaps="true"
                       app:layout_constraintTop_toTopOf="@+id/jadwalImg"
                       app:layout_constraintStart_toEndOf="@+id/jadwalImg"
-                      android:layout_marginTop="10dp" android:id="@+id/judulTxt" android:layout_marginStart="8dp"/>
+                      android:layout_marginTop="10dp" android:id="@+id/codeTxt" android:layout_marginStart="8dp"
+                      android:textStyle="italic" android:layout_marginEnd="8dp"
+                      app:layout_constraintEnd_toStartOf="@+id/statusTxt"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:text="Tanggal Baru"
+                      android:id="@+id/tanggalBaruTxt"
+                      android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/jadwalImg"
+                      app:layout_constraintEnd_toStartOf="@+id/statusTxt" android:layout_marginEnd="8dp"
+                      app:layout_constraintHorizontal_bias="0.0"
+                      app:layout_constraintTop_toBottomOf="@+id/codeTxt"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:text="1 tahun yang lalu"
-                      app:layout_constraintTop_toTopOf="@+id/imageView15"
-                      app:layout_constraintStart_toEndOf="@+id/imageView15" android:layout_marginStart="1dp"
-                      android:id="@+id/pesanWaktuTxt"/>
+                      android:text="Rejected"
+                      android:background="@drawable/circle_menu_red"
+                      android:textColor="@color/colorWhite"
+                      android:paddingHorizontal="5dp"
+                      android:paddingVertical="1dp"
+                      android:id="@+id/statusTxt"
+                      android:textAlignment="center"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      android:layout_marginEnd="16dp" android:layout_marginTop="8dp"
+                      app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+                      app:layout_constraintBottom_toBottomOf="parent"/>
         </android.support.constraint.ConstraintLayout>
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

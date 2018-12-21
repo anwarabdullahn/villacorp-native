@@ -14,9 +14,7 @@ class TukarLiburJadwalAdapter(val jadwalList: MutableList<JadwalLibur>) : Recycl
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val contentView = LayoutInflater.from(p0.context).inflate(R.layout.list_tukar_libur_jadwal, p0, false)
 
-        return ViewHolder(
-            contentView
-        )
+        return ViewHolder(contentView)
     }
 
     override fun getItemCount(): Int {
@@ -24,8 +22,8 @@ class TukarLiburJadwalAdapter(val jadwalList: MutableList<JadwalLibur>) : Recycl
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val jadwalLibur = itemView.find<TextView>(R.id.tanggalLibur)
-        val tempatLibur = itemView.find<TextView>(R.id.tempatTxt)
+        val jadwalLibur = itemView.find<TextView>(R.id.tanggalJadwalTxt)
+        val tempatLibur = itemView.find<TextView>(R.id.tempatJadwalTxt)
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {

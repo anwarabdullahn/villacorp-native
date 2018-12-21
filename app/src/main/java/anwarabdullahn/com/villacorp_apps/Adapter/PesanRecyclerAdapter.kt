@@ -51,7 +51,7 @@ class PesanRecyclerAdapter(val pesanList: MutableList<Pesan>) : RecyclerView.Ada
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val pesanJudul = itemView.findViewById(R.id.tanggalLibur) as TextView
+        val pesanJudul = itemView.findViewById(R.id.judulTxt) as TextView
         val pesanWaktu = itemView.findViewById(R.id.pesanWaktuTxt) as TextView
         val bgView = itemView.findViewById(R.id.bgView) as View
         val pesanImg = itemView.findViewById(R.id.jadwalImg) as ImageView
