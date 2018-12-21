@@ -1,5 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity.Fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
@@ -22,11 +23,12 @@ import kotlinx.android.synthetic.main.fragment_profile.view.*
 import org.jetbrains.anko.*
 
 class  ProfileFragment: Fragment(){
+
+    private lateinit var contentView: View
     var loadingScreen: DialogFragment = LoadingHelper.getInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contentView = inflater.inflate(R.layout.fragment_profile,null)
-
+        contentView = inflater.inflate(R.layout.fragment_profile,null)
         contentView.logoutBtn.setOnClickListener{logout()}
 
         loadingScreen.show(fragmentManager,"loading Screen")
@@ -66,6 +68,7 @@ class  ProfileFragment: Fragment(){
 
     fun content(){
         API.service().profile().enqueue(object : APICallback<Profile>(){
+            @SuppressLint("SetTextI18n")
             override fun onSuccess(profile: Profile) {
                 loadingScreen.dismiss()
                 Picasso.get().load(profile.photo).resize(50, 50).centerCrop().into(photoImg)

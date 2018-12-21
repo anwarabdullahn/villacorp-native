@@ -1,8 +1,10 @@
 package anwarabdullahn.com.villacorp_apps.Activity.Fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,19 +16,21 @@ import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import kotlinx.android.synthetic.main.fragment_info.*
 import kotlinx.android.synthetic.main.fragment_info.view.*
+import org.jetbrains.anko.toast
 
 class  InfoFragment: Fragment(){
+
+    private lateinit var contentView: View
     var loadingScreen: DialogFragment = LoadingHelper.getInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contentView = inflater.inflate(R.layout.fragment_info,null)
-
+        contentView = inflater.inflate(R.layout.fragment_info,null)
 
         loadingScreen.show(fragmentManager,"loading Screen")
         content()
         contentView.swipeUp.setOnRefreshListener {
             content()
-            contentView.swipeUp.isRefreshing = false
+            swipeUp.isRefreshing = false
         }
 
         return contentView
@@ -35,6 +39,7 @@ class  InfoFragment: Fragment(){
 
     fun content(){
         API.service().status().enqueue(object: APICallback<Info>(){
+            @SuppressLint("SetTextI18n")
             override fun onSuccess(info: Info) {
                 loadingScreen.dismiss()
                 if (info.sisaHariKerja == "Permanen"){
@@ -42,6 +47,9 @@ class  InfoFragment: Fragment(){
                 } else {
                     sisaHariKerjaTxt.text = (info.sisaHariKerja).substring(0,8)
                 }
+                Log.d("Benda ","Itu")
+                Log.d("Mananyaa Benda Itu", info.jmlcutitahunan.toString())
+
                 sisaCutiTxt.text = info.jmlsisacuti.toString() + " hari"
                 sisaDOPTxt.text = info.hakdop.toString() + " hari"
                 hariTelatKerjaLambat.text = info.haritelatkerja.lambat.toString() + " hari"
@@ -61,6 +69,7 @@ class  InfoFragment: Fragment(){
 
             override fun onError(error: APIError?) {
                 loadingScreen.dismiss()
+                activity!!.toast(error?.msg.toString())
             }
 
         })

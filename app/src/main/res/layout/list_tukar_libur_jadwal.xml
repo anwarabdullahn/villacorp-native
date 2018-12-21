@@ -15,30 +15,33 @@
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#ccc"
                   app:layout_constraintTop_toTopOf="parent"
                   app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintEnd_toEndOf="parent"/>
+                  app:layout_constraintEnd_toEndOf="parent" android:id="@+id/view8"/>
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#ccc"
                   app:layout_constraintStart_toStartOf="parent"
                   app:layout_constraintEnd_toEndOf="parent" android:id="@+id/view"
                   app:layout_constraintHorizontal_bias="0.0" app:layout_constraintBottom_toBottomOf="parent"
             />
-            <ImageView android:layout_width="40dp" android:layout_height="60dp" android:src="@drawable/ic_email"
+            <ImageView android:layout_width="30dp" android:layout_height="60dp" android:src="@drawable/ic_change_off"
                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                       android:layout_marginStart="8dp" android:id="@+id/jadwalImg"
+                       android:layout_marginStart="16dp" android:id="@+id/jadwalImg" android:tint="#aeaeae"
                        app:layout_constraintBottom_toBottomOf="parent"/>
-            <ImageView android:layout_width="15dp" android:layout_height="20dp" android:src="@drawable/ic_time"
-                       android:id="@+id/imageView15" android:tint="#aeaeae"
-                       app:layout_constraintTop_toBottomOf="@+id/tanggalLibur"
-                       app:layout_constraintStart_toEndOf="@+id/jadwalImg" android:layout_marginStart="8dp"/>
+            <ImageView android:layout_width="30dp" android:layout_height="30dp" android:src="@drawable/ic_pen"
+                       android:id="@+id/tukarLiburBtn" android:tint="#aeaeae"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       android:layout_marginEnd="32dp"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintTop_toTopOf="parent"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:text="Judul Pesan"
+                      android:text="Sunday, 30 December"
                       app:layout_constraintTop_toTopOf="@+id/jadwalImg"
                       app:layout_constraintStart_toEndOf="@+id/jadwalImg"
                       android:layout_marginTop="10dp" android:id="@+id/tanggalLibur" android:layout_marginStart="8dp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:text="1 tahun yang lalu"
-                      app:layout_constraintTop_toTopOf="@+id/imageView15"
-                      app:layout_constraintStart_toEndOf="@+id/imageView15" android:layout_marginStart="1dp"
-                      android:id="@+id/pesanWaktuTxt"/>
+                      android:text="BTM - Office"
+                      android:textAllCaps="true"
+                      android:id="@+id/tempatTxt"
+                      android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/jadwalImg"
+                      app:layout_constraintTop_toBottomOf="@+id/tanggalLibur" android:textStyle="italic"/>
         </android.support.constraint.ConstraintLayout>
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

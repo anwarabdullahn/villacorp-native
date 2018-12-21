@@ -67,7 +67,7 @@ class DashboardActivity : AppCompatActivity() {
         job = GlobalScope.launch{
             repeat(1000) {
                 displayData()
-                delay(5000L)
+                delay(50000L)
             }
         }
         super.onResume()
