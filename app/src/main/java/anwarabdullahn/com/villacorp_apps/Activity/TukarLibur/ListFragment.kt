@@ -58,6 +58,16 @@ class ListFragment: Fragment() {
         return contentView
     }
 
+    internal fun reset(){
+        page = 1
+        isLoading = false
+        pastVisibleItems = 0
+        visibleItemCount = 0
+        totalItemCount = 0
+        previousTotal = 0
+        viewThreshold = 12
+    }
+
     fun content(){
         val pageparams: Int = page
 
@@ -78,19 +88,7 @@ class ListFragment: Fragment() {
                 loadingScreen.dismiss()
                 toast(error.msg)
             }
-
-
         })
-    }
-
-    fun reset(){
-        page = 1
-        isLoading = false
-        pastVisibleItems = 0
-        visibleItemCount = 0
-        totalItemCount = 0
-        previousTotal = 0
-        viewThreshold = 12
     }
 
     fun swipeDown(){

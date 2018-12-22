@@ -14,7 +14,6 @@ import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Adapter.TukarLiburAdapter.TukarLiburJadwalAdapter
-import anwarabdullahn.com.villacorp_apps.Model.Pengajuan
 import anwarabdullahn.com.villacorp_apps.Model.TukarLibur
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
@@ -24,6 +23,7 @@ import org.jetbrains.anko.support.v4.toast
 
 class JadwalFragment: Fragment() {
 
+    lateinit var contentView : View
     internal var isLoading: Boolean = false
     internal var pastVisibleItems : Int = 0
     internal var visibleItemCount : Int = 0
@@ -38,10 +38,11 @@ class JadwalFragment: Fragment() {
     lateinit var adapter: TukarLiburJadwalAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contentView = inflater.inflate(R.layout.tukar_libur_jadwal,container,false)
+        contentView = inflater.inflate(R.layout.tukar_libur_jadwal,container,false)
 
         recyclerView = contentView.find(R.id.recyclerView)
         progressBar = contentView.find(R.id.progressBar)
+
         recyclerView.layoutManager = LinearLayoutManager(contentView.context,LinearLayout.VERTICAL,false)
         recyclerView.setHasFixedSize(true)
 
@@ -58,6 +59,16 @@ class JadwalFragment: Fragment() {
         }
 
         return contentView
+    }
+
+    internal fun reset(){
+        page = 1
+        isLoading = false
+        pastVisibleItems = 0
+        visibleItemCount = 0
+        totalItemCount = 0
+        previousTotal = 0
+        viewThreshold = 12
     }
 
     fun content(){
@@ -84,16 +95,6 @@ class JadwalFragment: Fragment() {
 
         })
 
-    }
-
-    fun reset(){
-        page = 1
-        isLoading = false
-        pastVisibleItems = 0
-        visibleItemCount = 0
-        totalItemCount = 0
-        previousTotal = 0
-        viewThreshold = 12
     }
 
     fun swipeDown(){

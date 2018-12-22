@@ -4,11 +4,10 @@ import android.app.DatePickerDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.DatePicker
 import anwarabdullahn.com.villacorp_apps.R
 import kotlinx.android.synthetic.main.activity_do_tukar_libur.*
-import java.text.SimpleDateFormat
 import java.util.*
+import java.text.SimpleDateFormat
 
 
 class DoTukarLiburActivity : AppCompatActivity(){
@@ -27,21 +26,20 @@ class DoTukarLiburActivity : AppCompatActivity(){
         doTukarTanggalNewDateTxt.setOnClickListener {
 
             val calendar = Calendar.getInstance()
-            val _year = calendar.get(Calendar.YEAR)
-            val _month = calendar.get(Calendar.MONTH)
-            val _day = calendar.get(Calendar.DAY_OF_MONTH)
+            var _year = calendar.get(Calendar.YEAR)
+            var _month = calendar.get(Calendar.MONTH)
+            var _day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog =
-                DatePickerDialog(this, R.style.AlertDialog,
+            val datePickerDialog = DatePickerDialog(this, R.style.AlertDialog,
 
                     DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                        val mDate = convertDate(convertToMillis(dayOfMonth, month, year))
 
-                        val date: String = (dayOfMonth.toString()  + "/" + (month+1) + "/" + year.toString() )
+                        doTukarTanggalNewDateTxt.text = mDate
 
-                        doTukarTanggalNewDateTxt.text = date
                     }, _year, _month, _day)
 
-            datePickerDialog.datePicker.minDate = calendar.timeInMillis + 1*24*60*60*1000
+            datePickerDialog.datePicker.minDate = calendar.timeInMillis + countDay(1)
             datePickerDialog.show()
         }
     }
@@ -50,5 +48,25 @@ class DoTukarLiburActivity : AppCompatActivity(){
         super.onBackPressed()
         return super.onOptionsItemSelected(item)
     }
+
+    //    Date Monday, 23 January 2018
+    fun convertDate(mTime: Long): String {
+        val df = SimpleDateFormat("EEEE, W MMMM yyyy")
+        return df.format(mTime)
+    }
+
+    //    Convert To Millis Date
+    fun convertToMillis(day: Int, month: Int, year: Int): Long {
+        val calendarStart = Calendar.getInstance()
+        calendarStart.set(Calendar.YEAR, year)
+        calendarStart.set(Calendar.MONTH, month)
+        calendarStart.set(Calendar.DAY_OF_MONTH, day)
+        return calendarStart.timeInMillis
+    }
+
+    fun countDay(day: Int): Int {
+        return day*24*60*60*1000
+    }
+
 
 }

@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
 
 
 //        HRMS Menu
-        contentView.statusView.setOnClickListener {
+        contentView.tukarLiburHomeBtn.setOnClickListener {
             val intent = Intent(contentView.context, TukarLiburActivity::class.java)
             startActivity(intent)
         }
