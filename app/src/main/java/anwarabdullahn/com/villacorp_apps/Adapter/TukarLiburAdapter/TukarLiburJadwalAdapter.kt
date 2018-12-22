@@ -1,10 +1,13 @@
 package anwarabdullahn.com.villacorp_apps.Adapter.TukarLiburAdapter
 
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.DoTukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Model.JadwalLibur
 import anwarabdullahn.com.villacorp_apps.R
 import org.jetbrains.anko.find
@@ -24,6 +27,7 @@ class TukarLiburJadwalAdapter(val jadwalList: MutableList<JadwalLibur>) : Recycl
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val jadwalLibur = itemView.find<TextView>(R.id.tanggalJadwalTxt)
         val tempatLibur = itemView.find<TextView>(R.id.tempatJadwalTxt)
+        val aksiJadwalTxt = itemView.find<TextView>(R.id.aksiJadwalTxt)
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
@@ -31,6 +35,11 @@ class TukarLiburJadwalAdapter(val jadwalList: MutableList<JadwalLibur>) : Recycl
 
         p0.jadwalLibur.text = jadwal.DateOff
         p0.tempatLibur.text = jadwal.Kantor
+        p0.aksiJadwalTxt.setOnClickListener {
+            val intent = Intent(p0.itemView.context, DoTukarLiburActivity::class.java)
+            intent.putExtra("oldDate", jadwal.DateOff)
+            startActivity(p0.itemView.context,intent,null)
+        }
     }
 
     fun addmore(jadwal: MutableList<JadwalLibur>){

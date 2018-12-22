@@ -30,6 +30,8 @@
                 android:label="@string/title_activity_tukar_libur"
                 android:theme="@style/AppTheme">
         </activity>
+        <activity android:name=".Activity.TukarLibur.DoTukarLiburActivity">
+        </activity>
     </application>
 
 </manifest>

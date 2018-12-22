@@ -20,8 +20,8 @@
                   app:layout_constraintStart_toStartOf="parent"
                   app:layout_constraintEnd_toEndOf="parent" android:id="@+id/view"
                   app:layout_constraintHorizontal_bias="0.0" app:layout_constraintBottom_toBottomOf="parent"
-            />
-            <ImageView android:layout_width="30dp" android:layout_height="60dp" android:src="@drawable/ic_change_off"
+                  android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/tempatJadwalTxt"/>
+            <ImageView android:layout_width="30dp" android:layout_height="0dp" android:src="@drawable/ic_change_off"
                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                        android:layout_marginStart="16dp" android:id="@+id/jadwalImg" android:tint="#aeaeae"
                        app:layout_constraintBottom_toBottomOf="parent"/>
@@ -31,7 +31,7 @@
                       app:layout_constraintStart_toEndOf="@+id/jadwalImg"
                       android:layout_marginTop="10dp" android:id="@+id/tanggalJadwalTxt"
                       android:layout_marginStart="8dp"
-                      app:layout_constraintEnd_toStartOf="@+id/statusTxt" android:layout_marginEnd="8dp"/>
+                      app:layout_constraintEnd_toStartOf="@+id/aksiJadwalTxt" android:layout_marginEnd="8dp"/>
             <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                       android:text="BTM - Office"
                       android:textAllCaps="true"
@@ -39,15 +39,15 @@
                       android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/jadwalImg"
                       android:textStyle="italic"
                       app:layout_constraintTop_toBottomOf="@+id/tanggalJadwalTxt"
-                      android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/statusTxt"/>
+                      android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/aksiJadwalTxt"/>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:text="Ajukan Libur"
+                      android:text="Tukar Tanggal"
                       android:background="@drawable/circle_menu_blue"
                       android:textColor="@color/colorWhite"
                       android:paddingHorizontal="5dp"
                       android:paddingVertical="1dp"
-                      android:id="@+id/statusTxt"
+                      android:id="@+id/aksiJadwalTxt"
                       android:textAlignment="center"
                       app:layout_constraintEnd_toEndOf="parent"
                       android:layout_marginEnd="16dp" android:layout_marginTop="8dp"
