@@ -2,6 +2,11 @@ package anwarabdullahn.com.villacorp_apps.Activity.Fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
+import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.BottomSheetBehavior.*
+import android.support.design.widget.BottomSheetDialog
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
@@ -32,7 +37,9 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     lateinit var viewPager: ViewPager
+    lateinit var bottomSheetHome : ConstraintLayout
     lateinit var scrollView: ScrollView
+    lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     lateinit var adapter: SliderVPAdapter
     lateinit var adapterAgenda: AgendaRecyclerAdapter
     lateinit var recyclerView: RecyclerView
@@ -43,8 +50,16 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val contentView = inflater.inflate(R.layout.fragment_home, null)
 
-        scrollView = contentView.find(R.id.scrollView)
+        scrollView = contentView.find(R.id.scrollViewHome)
         scrollView.smoothScrollTo(0,0)
+        bottomSheetHome = activity!!.find(R.id.bottomSheetHome)
+        bottomSheetBehavior = from(bottomSheetHome)
+        bottomSheetBehavior.state = STATE_HIDDEN
+
+        contentView.lainnyaHomeBtn.setOnClickListener{
+            bottomSheetBehavior.state = STATE_EXPANDED
+        }
+
 
         recyclerView = contentView.find(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(contentView.context, LinearLayout.HORIZONTAL,false)
