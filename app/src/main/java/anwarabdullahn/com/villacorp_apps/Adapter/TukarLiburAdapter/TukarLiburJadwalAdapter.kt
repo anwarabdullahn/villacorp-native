@@ -32,7 +32,6 @@ class TukarLiburJadwalAdapter(val jadwalList: MutableList<JadwalLibur>) : Recycl
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         val jadwal: JadwalLibur = jadwalList[p1]
-
         p0.jadwalLibur.text = jadwal.DateOff
         p0.tempatLibur.text = jadwal.Kantor
         p0.aksiJadwalTxt.setOnClickListener {

@@ -17,11 +17,11 @@ import anwarabdullahn.com.villacorp_apps.Adapter.TukarLiburAdapter.TukarLiburPen
 import anwarabdullahn.com.villacorp_apps.Model.TukarLibur
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
-import kotlinx.android.synthetic.main.tukar_libur_list.view.*
+import kotlinx.android.synthetic.main.tukar_libur_pengajuan.view.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.toast
 
-class ListFragment: Fragment() {
+class PengajuanFragment: Fragment() {
 
     lateinit var contentView : View
     internal var isLoading: Boolean = false
@@ -38,7 +38,7 @@ class ListFragment: Fragment() {
     lateinit var adapter: TukarLiburPengajuanAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        contentView = inflater.inflate(R.layout.tukar_libur_list,container,false)
+        contentView = inflater.inflate(R.layout.tukar_libur_pengajuan,container,false)
         recyclerView = contentView.find(R.id.recyclerView)
         progressBar = contentView.find(R.id.progressBar)
         recyclerView.layoutManager = LinearLayoutManager(contentView.context, LinearLayout.VERTICAL,false)

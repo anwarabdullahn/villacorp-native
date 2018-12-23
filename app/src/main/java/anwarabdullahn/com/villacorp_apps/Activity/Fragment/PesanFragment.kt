@@ -1,5 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
@@ -14,14 +15,23 @@ import android.widget.ProgressBar
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
 import anwarabdullahn.com.villacorp_apps.Adapter.PesanRecyclerAdapter
 import anwarabdullahn.com.villacorp_apps.Model.Pesans
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import com.r0adkll.slidr.Slidr
+import com.r0adkll.slidr.model.SlidrPosition
 import kotlinx.android.synthetic.main.fragment_pesan.view.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
+import com.r0adkll.slidr.model.SlidrInterface
+import com.r0adkll.slidr.model.SlidrConfig
+
+
+
+
 
 class  PesanFragment: Fragment(){
 
@@ -145,5 +155,6 @@ class  PesanFragment: Fragment(){
             }
         })
     }
+
 }
 

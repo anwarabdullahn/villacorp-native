@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetBehavior.*
-import android.support.design.widget.BottomSheetDialog
-import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
@@ -20,6 +18,7 @@ import android.widget.ScrollView
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
 import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.TukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Adapter.AgendaRecyclerAdapter
 import anwarabdullahn.com.villacorp_apps.Adapter.SliderVPAdapter

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import anwarabdullahn.com.villacorp_apps.R
+import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_do_tukar_libur.*
 import java.util.*
 import java.text.SimpleDateFormat
@@ -16,7 +17,7 @@ class DoTukarLiburActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_do_tukar_libur)
-
+        Slidr.attach(this)
         toolbar.title = "Tukar Tanggal Libur"
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

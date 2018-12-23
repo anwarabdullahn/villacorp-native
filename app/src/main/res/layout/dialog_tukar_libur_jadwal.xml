@@ -4,7 +4,7 @@
                                              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                              android:layout_height="match_parent"
                                              android:background="@color/colorWhite"
-                                             android:id="@+id/bottomSheetHome"
+                                             android:id="@+id/bottomSheetTukarLiburJadwal"
                                              app:layout_behavior="@string/bottom_sheet_behavior"
                                              app:behavior_hideable="true"
                                              app:behavior_peekHeight="0dp">

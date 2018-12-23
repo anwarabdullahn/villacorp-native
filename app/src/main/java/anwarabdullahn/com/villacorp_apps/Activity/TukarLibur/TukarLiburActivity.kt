@@ -1,7 +1,5 @@
 package anwarabdullahn.com.villacorp_apps.Activity.TukarLibur
 
-import android.content.res.Resources
-import android.graphics.drawable.Icon
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 
@@ -9,14 +7,24 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
+import android.support.design.widget.BottomSheetBehavior
 import android.view.MenuItem
 
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.R.drawable.ic_brand
 import kotlinx.android.synthetic.main.activity_tukar_libur.*
+import com.r0adkll.slidr.model.SlidrPosition
+import com.r0adkll.slidr.model.SlidrConfig
+import com.r0adkll.slidr.Slidr
+import com.r0adkll.slidr.model.SlidrInterface
+
+
+
+
 
 class TukarLiburActivity : AppCompatActivity() {
 
+    var slidrInterface: SlidrInterface? = null
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +34,6 @@ class TukarLiburActivity : AppCompatActivity() {
         toolbar.title = "Tukar Libur"
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
 
         container.adapter = mSectionsPagerAdapter
@@ -52,7 +59,7 @@ class TukarLiburActivity : AppCompatActivity() {
                     return JadwalFragment()
                 }
                 1 -> {
-                    return ListFragment()
+                    return PengajuanFragment()
                 }
                 else -> return null
             }
@@ -65,5 +72,4 @@ class TukarLiburActivity : AppCompatActivity() {
             return super.getItemPosition(`object`)
         }
     }
-
 }

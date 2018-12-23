@@ -10,6 +10,7 @@ import anwarabdullahn.com.villacorp_apps.API.APIResponse
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest
 import anwarabdullahn.com.villacorp_apps.Request.ReadRequest
+import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_pesan_detail.*
 import org.jetbrains.anko.toast
 
@@ -20,7 +21,7 @@ class PesanDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pesan_detail)
-
+        Slidr.attach(this)
         toolbar.title = "Pesan"
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
