@@ -1,8 +1,12 @@
 package anwarabdullahn.com.villacorp_apps.Activity
 
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import anwarabdullahn.com.villacorp_apps.Activity.Fragment.*
@@ -11,17 +15,21 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.TukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Model.Pesans
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest
+import com.nispok.snackbar.Snackbar
+import com.nispok.snackbar.SnackbarManager
 import com.r0adkll.slidr.Slidr
 import com.r0adkll.slidr.model.SlidrConfig
 import com.r0adkll.slidr.model.SlidrInterface
 import com.r0adkll.slidr.model.SlidrPosition
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.jetbrains.anko.toast
+import kotlin.concurrent.thread
+import android.support.v4.os.HandlerCompat.postDelayed
+
+
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -60,6 +68,7 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
         fragmentHome()
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -73,6 +82,18 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
         super.onResume()
+        val bundle = intent!!.getStringExtra("result")
+        if (bundle != null && bundle != ""){
+            Handler().postDelayed(Runnable {
+                SnackbarManager.show(
+                    Snackbar.with(applicationContext)
+                        .text(bundle)
+                        .duration(Snackbar.SnackbarDuration.LENGTH_LONG)
+                        .actionLabel("OK"),
+                    this@DashboardActivity
+                )
+            }, 2000)
+        }
     }
 
     override fun onPause() {

@@ -13,13 +13,20 @@
                                        android:layout_height="wrap_content"
                                        app:layout_constraintTop_toTopOf="parent"
                                        app:layout_constraintEnd_toEndOf="parent"
-                                       app:layout_constraintStart_toStartOf="parent" android:id="@+id/toolbar"
+                                       app:layout_constraintStart_toStartOf="parent" android:id="@+id/toolbarDoTukarLibur"
                                        app:layout_constraintHorizontal_bias="0.0">
 
     </android.support.v7.widget.Toolbar>
 
+    <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content"
+                 android:layout_marginTop="8dp"
+                 app:layout_constraintTop_toTopOf="@+id/toolbarDoTukarLibur" android:layout_marginBottom="8dp"
+                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                 android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                 android:layout_marginStart="8dp" android:id="@+id/loadingDoTukarJadwal" android:visibility="gone"/>
+
     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/colorBg"
-          app:layout_constraintTop_toBottomOf="@+id/toolbar" app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/toolbarDoTukarLibur" app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent" android:id="@+id/view9"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tanggal Lama"
@@ -51,14 +58,14 @@
               android:gravity="top"
               android:layout_marginEnd="8dp" android:textSize="16dp" android:layout_marginTop="16dp"
               app:layout_constraintTop_toBottomOf="@+id/textView31" android:textAlignment="viewStart"
-              android:hint="Alasan " android:id="@+id/editText" tools:ignore="RtlCompat"/>
+              android:hint="Alasan " android:id="@+id/alasanTukarLiburTxt" tools:ignore="RtlCompat"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Submit"
               android:textSize="16dp"
               android:background="@drawable/bg_button_dark" android:textColor="@color/colorWhite"
               android:paddingStart="7dp" android:paddingEnd="7dp" android:paddingTop="2dp" android:paddingBottom="2dp"
               android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="32dp"
-              app:layout_constraintTop_toBottomOf="@+id/editText"/>
+              app:layout_constraintTop_toBottomOf="@+id/alasanTukarLiburTxt" android:id="@+id/doTukarLiburSubmitBtn"/>
 
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_date"
                android:layout_marginTop="8dp"

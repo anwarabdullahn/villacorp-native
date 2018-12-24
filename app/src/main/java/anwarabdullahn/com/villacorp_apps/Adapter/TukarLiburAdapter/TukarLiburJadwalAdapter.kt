@@ -36,6 +36,8 @@ class TukarLiburJadwalAdapter(val jadwalList: MutableList<JadwalLibur>) : Recycl
         p0.tempatLibur.text = jadwal.Kantor
         p0.aksiJadwalTxt.setOnClickListener {
             val intent = Intent(p0.itemView.context, DoTukarLiburActivity::class.java)
+            intent.putExtra("id", jadwal.ID)
+            intent.putExtra("jdid", jadwal.JDID)
             intent.putExtra("oldDate", jadwal.DateOff)
             startActivity(p0.itemView.context,intent,null)
         }

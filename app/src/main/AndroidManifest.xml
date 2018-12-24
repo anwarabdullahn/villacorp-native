@@ -23,14 +23,14 @@
                 android:name=".Activity.DashboardActivity"
                 android:label="@string/title_activity_dashboard">
         </activity>
-        <activity android:name=".Activity.PesanDetailActivity">
+        <activity android:theme="@style/AppTheme" android:name=".Activity.PesanDetailActivity">
         </activity>
         <activity
                 android:name=".Activity.TukarLibur.TukarLiburActivity"
                 android:label="@string/title_activity_tukar_libur"
                 android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".Activity.TukarLibur.DoTukarLiburActivity">
+        <activity android:theme="@style/AppTheme" android:name=".Activity.TukarLibur.DoTukarLiburActivity">
         </activity>
     </application>
 

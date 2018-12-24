@@ -17,6 +17,9 @@ data class TukarLibur(
 )
 
 data class JadwalLibur(
+    @SerializedName("id")
+    var ID: String,
+
     @SerializedName("jdid")
     var JDID: String,
 

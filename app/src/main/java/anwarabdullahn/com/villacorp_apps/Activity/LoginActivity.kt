@@ -1,11 +1,13 @@
 package anwarabdullahn.com.villacorp_apps.Activity
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -26,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val intent = Intent(this, DashboardActivity::class.java)
-        var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+        val loadingScreen: DialogFragment = LoadingHelper.getInstance()
 
         if (API.isLoggedIn()) {
             startActivity(intent)
@@ -36,15 +38,18 @@ class LoginActivity : AppCompatActivity() {
         loginBtn.setOnClickListener {
             Log.d("userText", usernameTxt.text.toString())
             if ("".equals(usernameTxt.text.trim().toString())) {
+                hideSoftKeyboard(this@LoginActivity)
                 toast("Username Harus diisi.")
                 return@setOnClickListener
             }
 
             if ("".equals(passwordTxt.text.toString())) {
+                hideSoftKeyboard(this@LoginActivity)
                 toast("Password Harus diisi.")
                 return@setOnClickListener
             }
 
+            hideSoftKeyboard(this@LoginActivity)
             val body = LoginRequest()
             body.identity = usernameTxt.text.toString()
             body.password = passwordTxt.text.toString()
@@ -72,5 +77,14 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    fun hideSoftKeyboard(activity: Activity) {
+        val inputMethodManager = activity.getSystemService(
+            Activity.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(
+            activity.currentFocus!!.windowToken, 0
+        )
     }
 }

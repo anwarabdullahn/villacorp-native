@@ -47,10 +47,10 @@ class  ProfileFragment: Fragment(){
             yesButton {
                 loadingScreen.show(fragmentManager,"loading Screen")
                 API.service().logout().enqueue(object : APICallback<APIResponse>() {
-                    override fun onSuccess(msg: APIResponse?) {
+                    override fun onSuccess(t: APIResponse?) {
                         loadingScreen.dismiss()
                         activity!!.startActivity<LoginActivity>()
-                        activity!!.toast("Berhasil Logout")
+                        activity!!.toast(t!!.msg)
                         activity!!.finish()
                         API.logOut()
                     }

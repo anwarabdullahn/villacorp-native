@@ -8,7 +8,6 @@ import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.API.APIResponse
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Request.PesanRequest
 import anwarabdullahn.com.villacorp_apps.Request.ReadRequest
 import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_pesan_detail.*
@@ -42,12 +41,12 @@ class PesanDetailActivity : AppCompatActivity() {
     internal fun content(){
         body.id = (intent.extras.getString("id")).toInt()
         API.service().read(body).enqueue(object: APICallback<APIResponse>(){
-            override fun onSuccess(t: APIResponse?) {
-                toast(t!!.message)
+            override fun onSuccess(t: APIResponse) {
+                toast(t.msg)
             }
 
-            override fun onError(error: APIError?) {
-                toast(error!!.msg)
+            override fun onError(error: APIError) {
+                toast(error.msg)
             }
 
         })

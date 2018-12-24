@@ -35,7 +35,7 @@ class TukarLiburActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
-
+        Slidr.attach(this)
         container.adapter = mSectionsPagerAdapter
 
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))

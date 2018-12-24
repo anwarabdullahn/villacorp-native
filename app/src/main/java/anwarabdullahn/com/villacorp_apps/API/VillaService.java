@@ -2,6 +2,7 @@ package anwarabdullahn.com.villacorp_apps.API;
 
 
 import anwarabdullahn.com.villacorp_apps.Model.*;
+import anwarabdullahn.com.villacorp_apps.Request.ChangeOffRequest;
 import anwarabdullahn.com.villacorp_apps.Request.LoginRequest;
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest;
 import anwarabdullahn.com.villacorp_apps.Request.ReadRequest;
@@ -40,4 +41,7 @@ public interface VillaService {
 
     @GET("changeoff/")
     Call<TukarLibur> changeoff(@Query("page") String page);
+
+    @POST("changeoff/")
+    Call<APIResponse> changeoff(@Body ChangeOffRequest body);
 }

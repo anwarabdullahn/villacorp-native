@@ -51,4 +51,5 @@ dependencies {
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:2.0.3'
     implementation 'com.sdsmdg.harjot:rotatingtext:1.0.2'
     implementation 'com.r0adkll:slidableactivity:2.0.6'
+    implementation 'com.nispok:snackbar:2.11.+'
 }
