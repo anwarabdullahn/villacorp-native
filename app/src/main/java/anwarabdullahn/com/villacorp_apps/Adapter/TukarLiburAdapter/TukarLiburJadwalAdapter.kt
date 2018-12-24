@@ -47,6 +47,7 @@ class TukarLiburJadwalAdapter(val jadwalList: MutableList<JadwalLibur>) : Recycl
         for (jd in jadwal){
             jadwalList.add(jd)
         }
+        notifyDataSetChanged()
     }
 
 

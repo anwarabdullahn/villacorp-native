@@ -39,13 +39,16 @@ class PengajuanFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = inflater.inflate(R.layout.tukar_libur_pengajuan,container,false)
+
         recyclerView = contentView.find(R.id.recyclerView)
         progressBar = contentView.find(R.id.progressBar)
+
         recyclerView.layoutManager = LinearLayoutManager(contentView.context, LinearLayout.VERTICAL,false)
         recyclerView.setHasFixedSize(true)
 
         loadingScreen.show(fragmentManager,"loading")
         content()
+        swipeDown()
 
         contentView.swipeUp.setOnRefreshListener{
             contentView.swipeUp.scrollTo(0,0)

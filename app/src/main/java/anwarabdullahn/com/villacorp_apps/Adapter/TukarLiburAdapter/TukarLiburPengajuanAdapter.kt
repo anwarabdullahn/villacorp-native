@@ -52,5 +52,6 @@ class TukarLiburPengajuanAdapter(val pengajuanList: MutableList<Pengajuan>) : Re
         for (pg in pengajuan){
             pengajuanList.add(pg)
         }
+        notifyDataSetChanged()
     }
 }

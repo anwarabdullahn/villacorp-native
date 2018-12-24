@@ -93,6 +93,7 @@ class DashboardActivity : AppCompatActivity() {
                     this@DashboardActivity
                 )
             }, 2000)
+            intent.putExtra("result", "")
         }
     }
 
