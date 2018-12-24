@@ -21,15 +21,21 @@ import org.jetbrains.anko.toast
 import java.util.*
 import java.text.SimpleDateFormat
 import android.app.Activity
+import android.graphics.Color
 import android.support.v4.app.DialogFragment
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import org.jetbrains.anko.find
 
 
 class DoTukarLiburActivity : AppCompatActivity(){
 
     private var new_date: String? = null
+    lateinit var alasanTukarLiburTxt: EditText
+
+    val loadingScreen: DialogFragment = LoadingHelper.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +44,8 @@ class DoTukarLiburActivity : AppCompatActivity(){
         toolbarDoTukarLibur.title = "Tukar Tanggal Libur"
         setSupportActionBar(toolbarDoTukarLibur)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        alasanTukarLiburTxt = find(R.id.alasanTukarLiburTxt)
 
         doTukarTanggalOldDateTxt.text = intent.extras!!.getString("oldDate")
 
@@ -76,6 +84,12 @@ class DoTukarLiburActivity : AppCompatActivity(){
             }
 
             hideSoftKeyboard(this@DoTukarLiburActivity)
+            alasanTukarLiburTxt.isEnabled = false
+            alasanTukarLiburTxt.isFocusable = false
+            doTukarLiburSubmitBtn.background = resources.getDrawable(R.drawable.bg_button)
+            doTukarTanggalOldDateTxt.setTextColor(Color.parseColor("#757575"))
+            doTukarTanggalNewDateTxt.setTextColor(Color.parseColor("#757575"))
+
             val body = ChangeOffRequest()
             body.id = intent.extras!!.getString("id")
             body.jdid = intent.extras!!.getString("jdid")
@@ -83,17 +97,23 @@ class DoTukarLiburActivity : AppCompatActivity(){
             body.new_date = new_date as String
             body.reason = alasanTukarLiburTxt.text.toString()
 
-            loadingDoTukarJadwal.visibility = View.VISIBLE
+
+            loadingScreen.show(supportFragmentManager,"loading Screen")
             API.service().changeoff(body).enqueue(object : APICallback<APIResponse>(){
                 override fun onSuccess(t: APIResponse?) {
-                    loadingDoTukarJadwal.visibility = View.GONE
+                    loadingScreen.dismiss()
                     val intent = Intent(this@DoTukarLiburActivity, DashboardActivity::class.java)
                         intent.putExtra("result", t!!.msg)
                     startActivity(intent)
                 }
 
                 override fun onError(error: APIError?) {
-                    loadingDoTukarJadwal.visibility = View.GONE
+                    loadingScreen.dismiss()
+                    doTukarTanggalOldDateTxt.setTextColor(Color.parseColor("#d44b21"))
+                    doTukarTanggalNewDateTxt.setTextColor(Color.parseColor("#d44b21"))
+                    alasanTukarLiburTxt.isEnabled = true
+                    alasanTukarLiburTxt.isFocusable = true
+                    doTukarLiburSubmitBtn.background = resources.getDrawable(R.drawable.bg_button_dark)
                     SnackbarManager.show(
                         Snackbar.with(applicationContext)
                             .text(error!!.msg)

@@ -31,8 +31,8 @@ data class JadwalLibur(
 )
 
 data class Pengajuan(
-    @SerializedName("id_date")
-    var JDID: String,
+    @SerializedName("id_change_off")
+    var IdChangeOff: String,
 
     @SerializedName("nomor")
     var Nomor: String,
@@ -43,7 +43,16 @@ data class Pengajuan(
     @SerializedName("date_new")
     var DateNew: String,
 
+    @SerializedName("input_date")
+    var InputDate: String,
+
     @SerializedName("status")
-    var Status: String
+    var Status: String,
+
+    @SerializedName("alasan")
+    var Alasan: String,
+
+    @SerializedName("input_by")
+    var InputBy: String
 )
 

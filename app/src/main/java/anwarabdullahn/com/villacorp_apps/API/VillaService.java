@@ -8,10 +8,7 @@ import anwarabdullahn.com.villacorp_apps.Request.PesanRequest;
 import anwarabdullahn.com.villacorp_apps.Request.ReadRequest;
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 public interface VillaService {
 
@@ -44,4 +41,7 @@ public interface VillaService {
 
     @POST("changeoff/")
     Call<APIResponse> changeoff(@Body ChangeOffRequest body);
+
+    @DELETE("changeoff/")
+    Call<TukarLibur> deletechangeoff(@Query("id") String id);
 }

@@ -1,11 +1,14 @@
 package anwarabdullahn.com.villacorp_apps.Adapter.TukarLiburAdapter
 
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.DoTukarLiburDetail
 import anwarabdullahn.com.villacorp_apps.Model.Pengajuan
 import anwarabdullahn.com.villacorp_apps.R
 import org.jetbrains.anko.find
@@ -36,6 +39,18 @@ class TukarLiburPengajuanAdapter(val pengajuanList: MutableList<Pengajuan>) : Re
         } else{
             p0.statusTxt.text = "On Process"
             p0.statusTxt.background =  p0.yellowColor
+        }
+        p0.statusTxt.setOnClickListener {
+            val intent = Intent(p0.itemView.context, DoTukarLiburDetail::class.java)
+                intent.putExtra("IdChangeOff", pengajuan.IdChangeOff)
+                intent.putExtra("Nomor", pengajuan.Nomor)
+                intent.putExtra("DateOld", pengajuan.DateOld)
+                intent.putExtra("DateNew", pengajuan.DateNew)
+                intent.putExtra("InputDate", pengajuan.InputDate)
+                intent.putExtra("Status", pengajuan.Status)
+                intent.putExtra("Alasan", pengajuan.Alasan)
+                intent.putExtra("InputBy", pengajuan.InputBy)
+            startActivity(p0.itemView.context,intent,null)
         }
     }
 
