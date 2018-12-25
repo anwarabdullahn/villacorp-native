@@ -84,11 +84,6 @@ class DoTukarLiburActivity : AppCompatActivity(){
             }
 
             hideSoftKeyboard(this@DoTukarLiburActivity)
-            alasanTukarLiburTxt.isEnabled = false
-            alasanTukarLiburTxt.isFocusable = false
-            doTukarLiburSubmitBtn.background = resources.getDrawable(R.drawable.bg_button)
-            doTukarTanggalOldDateTxt.setTextColor(Color.parseColor("#757575"))
-            doTukarTanggalNewDateTxt.setTextColor(Color.parseColor("#757575"))
 
             val body = ChangeOffRequest()
             body.id = intent.extras!!.getString("id")
@@ -109,11 +104,6 @@ class DoTukarLiburActivity : AppCompatActivity(){
 
                 override fun onError(error: APIError?) {
                     loadingScreen.dismiss()
-                    doTukarTanggalOldDateTxt.setTextColor(Color.parseColor("#d44b21"))
-                    doTukarTanggalNewDateTxt.setTextColor(Color.parseColor("#d44b21"))
-                    alasanTukarLiburTxt.isEnabled = true
-                    alasanTukarLiburTxt.isFocusable = true
-                    doTukarLiburSubmitBtn.background = resources.getDrawable(R.drawable.bg_button_dark)
                     SnackbarManager.show(
                         Snackbar.with(applicationContext)
                             .text(error!!.msg)
@@ -121,7 +111,6 @@ class DoTukarLiburActivity : AppCompatActivity(){
                             .actionLabel("OK")
                         , this@DoTukarLiburActivity)
                 }
-
             })
         }
     }

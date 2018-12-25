@@ -38,6 +38,8 @@
         </activity>
         <activity android:name=".Activity.TukarLibur.DoTukarLiburDetail">
         </activity>
+        <activity android:name=".Activity.InOut.InOutActivity">
+        </activity>
     </application>
 
 </manifest>

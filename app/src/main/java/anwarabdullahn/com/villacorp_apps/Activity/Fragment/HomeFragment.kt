@@ -19,6 +19,7 @@ import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
+import anwarabdullahn.com.villacorp_apps.Activity.InOut.InOutActivity
 import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.TukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Adapter.AgendaRecyclerAdapter
 import anwarabdullahn.com.villacorp_apps.Adapter.SliderVPAdapter
@@ -92,6 +93,11 @@ class HomeFragment : Fragment() {
 //        HRMS Menu
         contentView.tukarLiburHomeBtn.setOnClickListener {
             val intent = Intent(contentView.context, TukarLiburActivity::class.java)
+            startActivity(intent)
+        }
+
+        contentView.telatPulangBtn.setOnClickListener {
+            val intent = Intent(contentView.context, InOutActivity::class.java)
             startActivity(intent)
         }
 
