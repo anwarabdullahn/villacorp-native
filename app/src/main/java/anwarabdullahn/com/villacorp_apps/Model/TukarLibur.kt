@@ -46,6 +46,12 @@ data class Pengajuan(
     @SerializedName("input_date")
     var InputDate: String,
 
+    @SerializedName("update_by")
+    var UpdateBy: String,
+
+    @SerializedName("reject_reason")
+    var RejectReason: String,
+
     @SerializedName("status")
     var Status: String,
 

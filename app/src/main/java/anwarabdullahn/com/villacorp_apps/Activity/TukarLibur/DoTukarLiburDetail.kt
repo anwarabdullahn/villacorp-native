@@ -45,14 +45,29 @@ class DoTukarLiburDetail : AppCompatActivity() {
             doPengajuanSubmitBtn.visibility = View.VISIBLE
             statusPengajuanTxt.text = "On Process"
             statusPengajuanTxt.background = resources.getDrawable(R.drawable.circle_menu_yellow)
+            updatedByPengajuanTukarLiburLabel.visibility = View.GONE
+            updatedByPengajuanTukarLiburTxt.visibility = View.GONE
+            alasanDitolakLabelPengajuanTukarLibur.visibility = View.GONE
+            alasanPengajuanTxt2.visibility = View.GONE
         } else if(intent.extras!!.getString("Status") == "1") {
             doPengajuanSubmitBtn.visibility = View.GONE
             statusPengajuanTxt.text = "Approved"
             statusPengajuanTxt.background = resources.getDrawable(R.drawable.circle_menu_green)
+            updatedByPengajuanTukarLiburLabel.visibility = View.VISIBLE
+            updatedByPengajuanTukarLiburTxt.visibility = View.VISIBLE
+            updatedByPengajuanTukarLiburTxt.text = intent.extras!!.getString("UpdatedBy")
+            alasanDitolakLabelPengajuanTukarLibur.visibility = View.GONE
+            alasanPengajuanTxt2.visibility = View.GONE
         } else {
             doPengajuanSubmitBtn.visibility = View.GONE
             statusPengajuanTxt.text = "Rejected"
             statusPengajuanTxt.background = resources.getDrawable(R.drawable.circle_menu_red)
+            updatedByPengajuanTukarLiburLabel.visibility = View.VISIBLE
+            updatedByPengajuanTukarLiburTxt.visibility = View.VISIBLE
+            updatedByPengajuanTukarLiburTxt.text = intent.extras!!.getString("UpdatedBy")
+            alasanDitolakLabelPengajuanTukarLibur.visibility = View.VISIBLE
+            alasanPengajuanTxt2.hint = intent.extras!!.getString("RejectReason")
+            alasanPengajuanTxt2.visibility = View.VISIBLE
         }
 
         doPengajuanSubmitBtn.setOnClickListener {

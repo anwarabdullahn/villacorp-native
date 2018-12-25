@@ -50,6 +50,8 @@ class TukarLiburPengajuanAdapter(val pengajuanList: MutableList<Pengajuan>) : Re
                 intent.putExtra("Status", pengajuan.Status)
                 intent.putExtra("Alasan", pengajuan.Alasan)
                 intent.putExtra("InputBy", pengajuan.InputBy)
+                intent.putExtra("UpdatedBy", pengajuan.UpdateBy)
+                intent.putExtra("RejectReason", pengajuan.RejectReason)
             startActivity(p0.itemView.context,intent,null)
         }
     }
