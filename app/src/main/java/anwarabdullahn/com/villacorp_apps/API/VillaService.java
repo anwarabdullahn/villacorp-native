@@ -43,5 +43,5 @@ public interface VillaService {
     Call<APIResponse> changeoff(@Body ChangeOffRequest body);
 
     @DELETE("changeoff/")
-    Call<TukarLibur> deletechangeoff(@Query("id") String id);
+    Call<APIResponse> deletechangeoff(@Query("id") String id);
 }
