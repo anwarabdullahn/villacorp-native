@@ -40,6 +40,8 @@
         </activity>
         <activity android:name=".Activity.InOut.InOutActivity">
         </activity>
+        <activity android:name=".Activity.InOut.DoInOutActivity">
+        </activity>
     </application>
 
 </manifest>

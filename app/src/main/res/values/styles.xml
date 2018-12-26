@@ -25,4 +25,9 @@
     <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
+
+    <style name="custom_fab">
+        <item name="android:background">@drawable/bg_button</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
 </resources>

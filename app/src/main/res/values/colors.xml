@@ -8,4 +8,12 @@
     <color name="colorWhite">#fff</color>
     <color name="colorBg">#cecece</color>
     <color name="colorDefault">#757575</color>
+    <color name="colorBlue">#014479</color>
+    <color name="colorGreen">#155861</color>
+    <color name="colorGum">#65638A</color>
+    <color name="colorPink">#DD2F52</color>
+    <color name="colorPurple">#590455</color>
+    <color name="colorRed">#6C1710</color>
+    <color name="colorYellow">#E1AD19</color>
+
 </resources>

@@ -30,15 +30,19 @@ class TukarLiburPengajuanAdapter(val pengajuanList: MutableList<Pengajuan>) : Re
         val pengajuan = pengajuanList[p1]
         p0.codeTxt.text = pengajuan.Nomor
         p0.jadwalBaruTxt.text = pengajuan.DateNew
-        if (pengajuan.Status == "2"){
-            p0.statusTxt.text = "Rejected"
-            p0.statusTxt.background =  p0.redColor
-        } else if (pengajuan.Status == "1"){
-            p0.statusTxt.text = "Approved"
-            p0.statusTxt.background =  p0.greenColor
-        } else{
-            p0.statusTxt.text = "On Process"
-            p0.statusTxt.background =  p0.yellowColor
+        when {
+            pengajuan.Status == "2" -> {
+                p0.statusTxt.text = "Rejected"
+                p0.statusTxt.background =  p0.redColor
+            }
+            pengajuan.Status == "1" -> {
+                p0.statusTxt.text = "Approved"
+                p0.statusTxt.background =  p0.greenColor
+            }
+            else -> {
+                p0.statusTxt.text = "On Process"
+                p0.statusTxt.background =  p0.yellowColor
+            }
         }
         p0.statusTxt.setOnClickListener {
             val intent = Intent(p0.itemView.context, DoTukarLiburDetail::class.java)

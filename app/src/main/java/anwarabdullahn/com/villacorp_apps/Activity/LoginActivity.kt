@@ -49,7 +49,6 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            hideSoftKeyboard(this@LoginActivity)
             val body = LoginRequest()
             body.identity = usernameTxt.text.toString()
             body.password = passwordTxt.text.toString()

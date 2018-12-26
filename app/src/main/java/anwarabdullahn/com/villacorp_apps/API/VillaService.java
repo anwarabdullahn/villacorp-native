@@ -44,4 +44,8 @@ public interface VillaService {
 
     @DELETE("changeoff/")
     Call<APIResponse> deletechangeoff(@Query("id") String id);
+
+
+    @GET("changeinout/")
+    Call<InOuts> changeinout(@Query("page") String page);
 }
