@@ -19,7 +19,6 @@ import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import kotlinx.android.synthetic.main.activity_in_out.*
 import org.jetbrains.anko.find
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 
 class InOutActivity : AppCompatActivity() {
@@ -66,7 +65,7 @@ class InOutActivity : AppCompatActivity() {
 //      Menu In Out
         pulangCepatBtn.setOnClickListener {
             val intent = Intent(this, DoInOutActivity::class.java)
-            intent.putExtra("Type", 1)
+            intent.putExtra("Type", 0)
             intent.putExtra("Title", "Pulang Cepat")
             startActivity(intent)
         }
@@ -78,13 +77,13 @@ class InOutActivity : AppCompatActivity() {
         }
         datangTelatBtn.setOnClickListener {
             val intent = Intent(this, DoInOutActivity::class.java)
-            intent.putExtra("Type", 1)
+            intent.putExtra("Type", 2)
             intent.putExtra("Title", "Datang Telat")
             startActivity(intent)
         }
         disDatangTelatBtn.setOnClickListener {
             val intent = Intent(this, DoInOutActivity::class.java)
-            intent.putExtra("Type", 1)
+            intent.putExtra("Type", 3)
             intent.putExtra("Title", "Datang Telat (Dispensasi)")
             startActivity(intent)
         }
