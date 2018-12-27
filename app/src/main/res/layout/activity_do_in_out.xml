@@ -29,20 +29,27 @@
                       android:text="Tanggal"
                       android:layout_marginTop="1dp"
                       app:layout_constraintTop_toTopOf="@+id/imageView19" app:layout_constraintStart_toStartOf="parent"
-                      android:layout_marginStart="16dp" android:id="@+id/textView36"/>
+                      android:layout_marginStart="16dp" android:id="@+id/textView36" android:textAlignment="viewStart"/>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                       android:text="Pilih Tanggal"
-                      android:id="@+id/tanggalInOutTxt" android:layout_marginTop="1dp"
+                      android:id="@+id/tanggalInOutTxtBtn" android:layout_marginTop="1dp"
                       app:layout_constraintTop_toTopOf="@+id/imageView19"
                       app:layout_constraintEnd_toStartOf="@+id/imageView19" android:layout_marginEnd="4dp"
-                      android:textColor="@color/colorAccent"/>
+                      android:textColor="@color/colorAccent" app:layout_constraintStart_toEndOf="@+id/textView36"
+                      android:layout_marginStart="8dp" android:textAlignment="textEnd"/>
             <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                        android:src="@drawable/ic_date"
                        android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
                        app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
                        android:id="@+id/imageView19"/>
 
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                       android:src="@drawable/ic_dashboard"
+                       android:id="@+id/imageView21"
+                       android:layout_marginEnd="16dp"
+                       app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="16dp"
+                       app:layout_constraintTop_toBottomOf="@+id/imageView19"/>
             <EditText android:layout_width="0dp"
                       app:layout_constraintStart_toStartOf="parent"
                       app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="16dp"
@@ -52,16 +59,30 @@
                       android:layout_marginEnd="16dp" android:textSize="16dp"
                       android:textAlignment="viewStart"
                       android:hint="Alasan " android:id="@+id/alasanInOutTxt" tools:ignore="RtlCompat"
-                      app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp"
-                      app:layout_constraintTop_toBottomOf="@+id/textView36"/>
+                      app:layout_constraintHorizontal_bias="0.0"
+                      android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/imageView21"/>
 
             <Button android:layout_width="0dp" android:layout_height="wrap_content" android:text="Submit"
                     android:textSize="16sp"
                     android:background="@drawable/bg_button_dark" android:textColor="@color/colorWhite"
                     android:paddingStart="7dp" android:paddingEnd="7dp"
-                    android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="32dp"
                     app:layout_constraintTop_toBottomOf="@+id/alasanInOutTxt" android:id="@+id/doInOutSubmitBtn"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="File"
+                      app:layout_constraintStart_toStartOf="parent"
+                      android:layout_marginStart="16dp"
+                      android:textAlignment="viewStart" android:layout_marginTop="1dp"
+                      app:layout_constraintTop_toTopOf="@+id/imageView21" android:id="@+id/textView40"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:text="Pilih File"
+                      android:id="@+id/fileInOutTxt"
+                      android:layout_marginTop="1dp"
+                      app:layout_constraintTop_toTopOf="@+id/imageView21"
+                      app:layout_constraintEnd_toStartOf="@+id/imageView21" android:layout_marginEnd="4dp"
+                      android:textColor="@color/colorAccent" app:layout_constraintStart_toEndOf="@+id/textView40"
+                      android:layout_marginStart="8dp" android:textAlignment="textEnd"/>
 
         </android.support.constraint.ConstraintLayout>
 

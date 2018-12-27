@@ -123,7 +123,7 @@ class DoTukarLiburActivity : AppCompatActivity(){
     //    Date Monday, 23 January 2018
     @SuppressLint("SimpleDateFormat")
     fun convertDate(mTime: Long): String {
-        val df = SimpleDateFormat("EEEE, W MMMM yyyy")
+        val df = SimpleDateFormat("EEEE, d MMMM yyyy")
         return df.format(mTime)
     }
 

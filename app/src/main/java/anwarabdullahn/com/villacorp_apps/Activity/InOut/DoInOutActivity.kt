@@ -2,9 +2,11 @@ package anwarabdullahn.com.villacorp_apps.Activity.InOut
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import anwarabdullahn.com.villacorp_apps.R
 import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_do_in_out.*
@@ -13,7 +15,17 @@ import org.jetbrains.anko.yesButton
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DoInOutActivity : AppCompatActivity() {
+
+
+class DoInOutActivity : AppCompatActivity(), View.OnClickListener {
+
+    val mMediaUri : Uri? = null
+    val fileUri: Uri? = null
+    val mediaPath: String? = null
+    var mediaImageLocation = ""
+    var postPath: String? = ""
+
+    private var new_date: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +46,7 @@ class DoInOutActivity : AppCompatActivity() {
             yesButton {  }
         }.show()
 
-        tanggalInOutTxt.setOnClickListener {
+        tanggalInOutTxtBtn.setOnClickListener {
             val calendar = Calendar.getInstance()
             val _year = calendar.get(Calendar.YEAR)
             val _month = calendar.get(Calendar.MONTH)
@@ -43,16 +55,22 @@ class DoInOutActivity : AppCompatActivity() {
             val datePickerDialog = DatePickerDialog(this, R.style.AlertDialog,
 
                 DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                    val newdate = convertDate(convertToMillis(dayOfMonth, month, year))
+                    new_date = convertDate(convertToMillis(dayOfMonth, month, year))
 
-                    tanggalInOutTxt.text = newdate
+                    tanggalInOutTxtBtn.text = new_date
 
                 }, _year, _month, _day)
 
-            datePickerDialog.datePicker.minDate = calendar.timeInMillis - countDay(15)
-            datePickerDialog.datePicker.maxDate = calendar.timeInMillis + countDay(15)
+            datePickerDialog.datePicker.minDate = calendar.timeInMillis
+            datePickerDialog.datePicker.maxDate = calendar.timeInMillis + countDay(6)
             datePickerDialog.show()
         }
+
+    }
+
+
+    override fun onClick(v: View?) {
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -63,7 +81,7 @@ class DoInOutActivity : AppCompatActivity() {
     //    Date Monday, 23 January 2018
     @SuppressLint("SimpleDateFormat")
     fun convertDate(mTime: Long): String {
-        val df = SimpleDateFormat("EEEE, W MMMM yyyy")
+        val df = SimpleDateFormat("EEEE, d MMMM yyyy")
         return df.format(mTime)
     }
 
