@@ -48,4 +48,8 @@ public interface VillaService {
 
     @GET("changeinout/")
     Call<InOuts> changeinout(@Query("page") String page);
+
+    @POST("changeinout/")
+    Call<APIResponse> changeinout(@Body RequestBody body);
+
 }

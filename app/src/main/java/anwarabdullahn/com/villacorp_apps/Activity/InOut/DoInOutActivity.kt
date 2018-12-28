@@ -1,15 +1,12 @@
 package anwarabdullahn.com.villacorp_apps.Activity.InOut
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.support.v7.app.AlertDialog
 import android.view.MenuItem
@@ -21,26 +18,34 @@ import org.jetbrains.anko.toast
 import org.jetbrains.anko.yesButton
 import java.text.SimpleDateFormat
 import java.util.*
-import android.content.pm.PackageManager
-import android.support.v4.app.ActivityCompat
-import android.widget.Toast
-import android.support.v4.content.ContextCompat
 import android.util.Log
-import java.util.jar.Manifest
+import anwarabdullahn.com.villacorp_apps.API.API
+import anwarabdullahn.com.villacorp_apps.API.APICallback
+import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import pl.aprilapps.easyphotopicker.DefaultCallback
+import pl.aprilapps.easyphotopicker.EasyImage
+import java.io.*
 
 
 class DoInOutActivity : AppCompatActivity(){
 
-    var RESULT_CAMERA : Int = 1
-    var SELECT_FILE: Int = 0
+    var CAPTURE_IMAGE : Int = 1
+    var SELECT_GALLERY: Int = 0
 
     private var new_date: String? = null
+    lateinit var stringUri: String
+    lateinit var mFile: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_do_in_out)
 
         toolbar.title = intent.extras!!.getString("Title")
+        var type :String = intent.extras!!.getString("Type")!!.toString()
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         Slidr.attach(this)
@@ -80,6 +85,26 @@ class DoInOutActivity : AppCompatActivity(){
             selectImage()
         }
 
+        doInOutSubmitBtn.setOnClickListener {
+
+            var body = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("userfile", mFile.name, RequestBody.create(MediaType.parse("image/jpeg"), mFile))
+                .addFormDataPart("in_out", type)
+                .addFormDataPart("tanggal", tanggalInOutTxtBtn.text.toString())
+                .addFormDataPart("reason", alasanInOutTxt.text.toString())
+                .build()
+
+            API.service().changeinout(body).enqueue(object : APICallback<APIResponse>(){
+                override fun onSuccess(t: APIResponse?) {
+                    toast(t!!.msg)
+                }
+
+                override fun onError(error: APIError?) {
+                    toast(error!!.msg)
+                }
+            })
+        }
     }
 
 
@@ -91,15 +116,10 @@ class DoInOutActivity : AppCompatActivity(){
             when {
                 items[which] == "Camera" -> {
 
-                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(intent, RESULT_CAMERA)
-
+                    EasyImage.openCamera(this@DoInOutActivity , CAPTURE_IMAGE)
                 }
                 items[which] == "Gallery" -> {
-
-                    val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    intent.type = "image/*"
-                    startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE)
+                    EasyImage.openGallery(this@DoInOutActivity, SELECT_GALLERY)
 
                 }
                 items[which] == "Cancel" -> dialog.dismiss()
@@ -111,18 +131,23 @@ class DoInOutActivity : AppCompatActivity(){
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == Activity.RESULT_OK){
-
-            if (resultCode == RESULT_CAMERA){
-
-                var bundle = data!!.extras
-                val bmp = bundle.get("data") as Bitmap
-
-            } else if (resultCode == SELECT_FILE ){
-                val selectedImageUri = data!!.data
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, object : DefaultCallback() {
+            override fun onImagePickerError(e: Exception?, source: EasyImage.ImageSource?, type: Int) {
+                //Some error handling
             }
 
-        }
+            override fun onImagePicked(imageFile: File, source: EasyImage.ImageSource, type: Int) {
+                //Handle the image
+                mFile = imageFile
+            }
+
+            override fun onCanceled(source: EasyImage.ImageSource?, type: Int) {
+                if (source == EasyImage.ImageSource.CAMERA) {
+                    val photoFile = EasyImage.lastlyTakenButCanceledPhoto(this@DoInOutActivity)
+                    photoFile?.delete()
+                }
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -131,7 +156,6 @@ class DoInOutActivity : AppCompatActivity(){
     }
 
     //    Date Monday, 23 January 2018
-    @SuppressLint("SimpleDateFormat")
     fun convertDate(mTime: Long): String {
         val df = SimpleDateFormat("EEEE, d MMMM yyyy")
         return df.format(mTime)
