@@ -65,7 +65,7 @@ class InOutActivity : AppCompatActivity() {
 //      Menu In Out
         pulangCepatBtn.setOnClickListener {
             val intent = Intent(this, DoInOutActivity::class.java)
-            intent.putExtra("Type", "0")
+            intent.putExtra("Type", "3")
             intent.putExtra("Title", "Pulang Cepat")
             startActivity(intent)
         }
@@ -83,7 +83,7 @@ class InOutActivity : AppCompatActivity() {
         }
         disDatangTelatBtn.setOnClickListener {
             val intent = Intent(this, DoInOutActivity::class.java)
-            intent.putExtra("Type", "3")
+            intent.putExtra("Type", "0")
             intent.putExtra("Title", "Datang Telat (Dispensasi)")
             startActivity(intent)
         }

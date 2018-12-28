@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.MenuItem
 import anwarabdullahn.com.villacorp_apps.R
@@ -19,10 +20,15 @@ import org.jetbrains.anko.yesButton
 import java.text.SimpleDateFormat
 import java.util.*
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
+import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import com.nispok.snackbar.Snackbar
+import com.nispok.snackbar.SnackbarManager
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -37,8 +43,9 @@ class DoInOutActivity : AppCompatActivity(){
     var SELECT_GALLERY: Int = 0
 
     private var new_date: String? = null
-    lateinit var stringUri: String
     lateinit var mFile: File
+    val loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    lateinit var body: MultipartBody
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +56,7 @@ class DoInOutActivity : AppCompatActivity(){
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         Slidr.attach(this)
-
+        mFile = File("A")
         alert("Dispensasi Datang Telat & Pulang Cepat (Tidak Potong Gaji)\n" +
                 "1. Force Majeur : Ban bocor, tabrakan (wajib melampirkan photo) \n" +
                 "2. Personal : Urusan pribadi yang sifatnya penting \n" +
@@ -80,28 +87,65 @@ class DoInOutActivity : AppCompatActivity(){
             datePickerDialog.show()
         }
 
-        fileInOutChooserBtn.setOnClickListener {
-            toast("Ketekan")
+        fileInOutTxt.setOnClickListener {
+
             selectImage()
         }
 
         doInOutSubmitBtn.setOnClickListener {
 
-            var body = MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("userfile", mFile.name, RequestBody.create(MediaType.parse("image/jpeg"), mFile))
-                .addFormDataPart("in_out", type)
-                .addFormDataPart("tanggal", tanggalInOutTxtBtn.text.toString())
-                .addFormDataPart("reason", alasanInOutTxt.text.toString())
-                .build()
+            if (new_date == "" || new_date == null){
+                hideSoftKeyboard(this@DoInOutActivity)
+                toast("Tanggal Baru Belum dipilih.")
+                return@setOnClickListener
+            }
+
+            if (alasanInOutTxt.text.toString() == ""){
+                hideSoftKeyboard(this@DoInOutActivity)
+                toast("Alasan harus diisi.")
+                return@setOnClickListener
+            }
+
+            if (!mFile.isFile && (type == "1" || type == "0")){
+                toast("File Belum dipilih.")
+                return@setOnClickListener
+            }
+
+            if(type == "1" || type == "0"){
+                body = MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("userfile", mFile.name, RequestBody.create(MediaType.parse("image/jpeg"), mFile))
+                    .addFormDataPart("in_out", type)
+                    .addFormDataPart("tanggal", tanggalInOutTxtBtn.text.toString())
+                    .addFormDataPart("reason", alasanInOutTxt.text.toString())
+                    .build()
+            } else {
+                body = MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("in_out", type)
+                    .addFormDataPart("tanggal", tanggalInOutTxtBtn.text.toString())
+                    .addFormDataPart("reason", alasanInOutTxt.text.toString())
+                    .build()
+            }
+
+            loadingScreen.show(supportFragmentManager,"loading Screen")
 
             API.service().changeinout(body).enqueue(object : APICallback<APIResponse>(){
                 override fun onSuccess(t: APIResponse?) {
-                    toast(t!!.msg)
+                    loadingScreen.dismiss()
+                    val intent = Intent(this@DoInOutActivity, DashboardActivity::class.java)
+                    intent.putExtra("result", t!!.msg)
+                    startActivity(intent)
                 }
 
                 override fun onError(error: APIError?) {
-                    toast(error!!.msg)
+                    loadingScreen.dismiss()
+                    SnackbarManager.show(
+                        Snackbar.with(applicationContext)
+                            .text(error!!.msg)
+                            .duration(Snackbar.SnackbarDuration.LENGTH_LONG)
+                            .actionLabel("OK")
+                        , this@DoInOutActivity)
                 }
             })
         }
@@ -139,6 +183,7 @@ class DoInOutActivity : AppCompatActivity(){
             override fun onImagePicked(imageFile: File, source: EasyImage.ImageSource, type: Int) {
                 //Handle the image
                 mFile = imageFile
+                fileInOutTxt.text = imageFile.name
             }
 
             override fun onCanceled(source: EasyImage.ImageSource?, type: Int) {
@@ -172,6 +217,15 @@ class DoInOutActivity : AppCompatActivity(){
 
     fun countDay(day: Int): Int {
         return day*24*60*60*1000
+    }
+
+    fun hideSoftKeyboard(activity: Activity) {
+        val inputMethodManager = activity.getSystemService(
+            Activity.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(
+            activity.currentFocus!!.windowToken, 0
+        )
     }
 
 }
