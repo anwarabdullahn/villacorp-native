@@ -43,7 +43,7 @@ class DoInOutActivity : AppCompatActivity(){
     var SELECT_GALLERY: Int = 0
 
     private var new_date: String? = null
-    lateinit var mFile: File
+    var mFile: File? = null
     val loadingScreen: DialogFragment = LoadingHelper.getInstance()
     lateinit var body: MultipartBody
 
@@ -56,7 +56,6 @@ class DoInOutActivity : AppCompatActivity(){
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         Slidr.attach(this)
-        mFile = File("A")
         alert("Dispensasi Datang Telat & Pulang Cepat (Tidak Potong Gaji)\n" +
                 "1. Force Majeur : Ban bocor, tabrakan (wajib melampirkan photo) \n" +
                 "2. Personal : Urusan pribadi yang sifatnya penting \n" +
@@ -88,7 +87,6 @@ class DoInOutActivity : AppCompatActivity(){
         }
 
         fileInOutTxt.setOnClickListener {
-
             selectImage()
         }
 
@@ -106,15 +104,15 @@ class DoInOutActivity : AppCompatActivity(){
                 return@setOnClickListener
             }
 
-            if (!mFile.isFile && (type == "1" || type == "0")){
+            if (mFile == null&& (type == "1" || type == "0")){
                 toast("File Belum dipilih.")
                 return@setOnClickListener
             }
 
-            if(type == "1" || type == "0"){
+            if((type == "1" || type == "0") && mFile!!.isFile){
                 body = MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("userfile", mFile.name, RequestBody.create(MediaType.parse("image/jpeg"), mFile))
+                    .addFormDataPart("userfile", mFile!!.name, RequestBody.create(MediaType.parse("image/jpeg"), mFile!!))
                     .addFormDataPart("in_out", type)
                     .addFormDataPart("tanggal", tanggalInOutTxtBtn.text.toString())
                     .addFormDataPart("reason", alasanInOutTxt.text.toString())
