@@ -37,9 +37,9 @@ import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.*
 
 
-class DoInOutActivity : AppCompatActivity(){
+class DoInOutActivity : AppCompatActivity() {
 
-    var CAPTURE_IMAGE : Int = 1
+    var CAPTURE_IMAGE: Int = 1
     var SELECT_GALLERY: Int = 0
 
     private var new_date: String? = null
@@ -52,18 +52,20 @@ class DoInOutActivity : AppCompatActivity(){
         setContentView(R.layout.activity_do_in_out)
 
         toolbar.title = intent.extras!!.getString("Title")
-        var type :String = intent.extras!!.getString("Type")!!.toString()
+        var type: String = intent.extras!!.getString("Type")!!.toString()
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         Slidr.attach(this)
-        alert("Dispensasi Datang Telat & Pulang Cepat (Tidak Potong Gaji)\n" +
-                "1. Force Majeur : Ban bocor, tabrakan (wajib melampirkan photo) \n" +
-                "2. Personal : Urusan pribadi yang sifatnya penting \n" +
-                "NB : Maksimal izin 120 menit dalam satu periode payroll (late in atau early out) satu kali.\n\n" +
-                "Datang Telat & Pulang Cepat (Potong Gaji)\n" +
-                "Yang tidak termasuk dalam kriteria diatas \n" +
-                "NB : Potongan sesuai dengan ketentuan yang berlaku", "Telat & Pulang Cepat") {
-            yesButton {  }
+        alert(
+            "Dispensasi Datang Telat & Pulang Cepat (Tidak Potong Gaji)\n" +
+                    "1. Force Majeur : Ban bocor, tabrakan (wajib melampirkan photo) \n" +
+                    "2. Personal : Urusan pribadi yang sifatnya penting \n" +
+                    "NB : Maksimal izin 120 menit dalam satu periode payroll (late in atau early out) satu kali.\n\n" +
+                    "Datang Telat & Pulang Cepat (Potong Gaji)\n" +
+                    "Yang tidak termasuk dalam kriteria diatas \n" +
+                    "NB : Potongan sesuai dengan ketentuan yang berlaku", "Telat & Pulang Cepat"
+        ) {
+            yesButton { }
         }.show()
 
         tanggalInOutTxtBtn.setOnClickListener {
@@ -72,14 +74,16 @@ class DoInOutActivity : AppCompatActivity(){
             val _month = calendar.get(Calendar.MONTH)
             val _day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog = DatePickerDialog(this, R.style.AlertDialog,
+            val datePickerDialog = DatePickerDialog(
+                this, R.style.AlertDialog,
 
                 DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     new_date = convertDate(convertToMillis(dayOfMonth, month, year))
 
                     tanggalInOutTxtBtn.text = new_date
 
-                }, _year, _month, _day)
+                }, _year, _month, _day
+            )
 
             datePickerDialog.datePicker.minDate = calendar.timeInMillis
             datePickerDialog.datePicker.maxDate = calendar.timeInMillis + countDay(6)
@@ -92,27 +96,43 @@ class DoInOutActivity : AppCompatActivity(){
 
         doInOutSubmitBtn.setOnClickListener {
 
-            if (new_date == "" || new_date == null){
+            if (new_date == "" || new_date == null) {
                 hideSoftKeyboard(this@DoInOutActivity)
                 toast("Tanggal Baru Belum dipilih.")
                 return@setOnClickListener
             }
 
-            if (alasanInOutTxt.text.toString() == ""){
+            if (alasanInOutTxt.text.toString() == "") {
                 hideSoftKeyboard(this@DoInOutActivity)
                 toast("Alasan harus diisi.")
                 return@setOnClickListener
             }
 
-            if (mFile == null&& (type == "1" || type == "0")){
+            if (mFile == null && (type == "1" || type == "0")) {
                 toast("File Belum dipilih.")
                 return@setOnClickListener
             }
 
-            if((type == "1" || type == "0") && mFile!!.isFile){
+            if ((type == "1" || type == "0") && mFile!!.isFile) {
                 body = MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("userfile", mFile!!.name, RequestBody.create(MediaType.parse("image/jpeg"), mFile!!))
+                    .addFormDataPart(
+                        "userfile",
+                        mFile!!.name,
+                        RequestBody.create(MediaType.parse("image/jpeg"), mFile!!)
+                    )
+                    .addFormDataPart("in_out", type)
+                    .addFormDataPart("tanggal", tanggalInOutTxtBtn.text.toString())
+                    .addFormDataPart("reason", alasanInOutTxt.text.toString())
+                    .build()
+            } else if (mFile!!.isFile) {
+                body = MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart(
+                        "userfile",
+                        mFile!!.name,
+                        RequestBody.create(MediaType.parse("image/jpeg"), mFile!!)
+                    )
                     .addFormDataPart("in_out", type)
                     .addFormDataPart("tanggal", tanggalInOutTxtBtn.text.toString())
                     .addFormDataPart("reason", alasanInOutTxt.text.toString())
@@ -126,9 +146,9 @@ class DoInOutActivity : AppCompatActivity(){
                     .build()
             }
 
-            loadingScreen.show(supportFragmentManager,"loading Screen")
+            loadingScreen.show(supportFragmentManager, "loading Screen")
 
-            API.service().changeinout(body).enqueue(object : APICallback<APIResponse>(){
+            API.service().changeinout(body).enqueue(object : APICallback<APIResponse>() {
                 override fun onSuccess(t: APIResponse?) {
                     loadingScreen.dismiss()
                     val intent = Intent(this@DoInOutActivity, DashboardActivity::class.java)
@@ -138,12 +158,7 @@ class DoInOutActivity : AppCompatActivity(){
 
                 override fun onError(error: APIError?) {
                     loadingScreen.dismiss()
-                    SnackbarManager.show(
-                        Snackbar.with(applicationContext)
-                            .text(error!!.msg)
-                            .duration(Snackbar.SnackbarDuration.LENGTH_LONG)
-                            .actionLabel("OK")
-                        , this@DoInOutActivity)
+                    toast(error!!.msg)
                 }
             })
         }
@@ -158,7 +173,7 @@ class DoInOutActivity : AppCompatActivity(){
             when {
                 items[which] == "Camera" -> {
 
-                    EasyImage.openCamera(this@DoInOutActivity , CAPTURE_IMAGE)
+                    EasyImage.openCamera(this@DoInOutActivity, CAPTURE_IMAGE)
                 }
                 items[which] == "Gallery" -> {
                     EasyImage.openGallery(this@DoInOutActivity, SELECT_GALLERY)
@@ -214,7 +229,7 @@ class DoInOutActivity : AppCompatActivity(){
     }
 
     fun countDay(day: Int): Int {
-        return day*24*60*60*1000
+        return day * 24 * 60 * 60 * 1000
     }
 
     fun hideSoftKeyboard(activity: Activity) {
