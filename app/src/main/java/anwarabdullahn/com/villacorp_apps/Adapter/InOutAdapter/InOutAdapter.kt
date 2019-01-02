@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import anwarabdullahn.com.villacorp_apps.Activity.InOut.DoInOutDetail
 import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.DoTukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Model.InOut
 import anwarabdullahn.com.villacorp_apps.Model.JadwalLibur
@@ -53,6 +54,22 @@ class InOutAdapter(val inOutList: MutableList<InOut>) : RecyclerView.Adapter <In
                 p0.statusTxt.text = "On Process"
                 p0.statusTxt.background =  p0.yellowColor
             }
+        }
+
+        p0.statusTxt.setOnClickListener {
+            val intent = Intent(p0.itemView.context, DoInOutDetail::class.java)
+            intent.putExtra("id_inout", inOut.IdInOut)
+            intent.putExtra("nomor", inOut.Nomor)
+            intent.putExtra("type_inout", inOut.TypeInOut)
+            intent.putExtra("date_inout", inOut.DateInOut)
+            intent.putExtra("nama", inOut.Nama)
+            intent.putExtra("alasan", inOut.Reason)
+            intent.putExtra("update_by", inOut.UpdateBy)
+            intent.putExtra("input_by", inOut.InputBy)
+            intent.putExtra("reject_reason", inOut.RejectReason)
+            intent.putExtra("lampiran", inOut.Lampiran)
+            intent.putExtra("status", inOut.StatusInOut)
+            startActivity(p0.itemView.context,intent,null)
         }
     }
 
