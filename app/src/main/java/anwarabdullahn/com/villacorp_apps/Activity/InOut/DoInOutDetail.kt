@@ -40,6 +40,9 @@ class DoInOutDetail : AppCompatActivity() {
         var RejectReason = intent.extras!!.getString("reject_reason")
         var UpdateBy = intent.extras!!.getString("update_by")
 
+
+        Picasso.get().load(Lampiran).placeholder(R.drawable.ic_dashboard).into(imagesContainer)
+
         toolbar.title = "Pengajuan Detail"
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -48,7 +51,7 @@ class DoInOutDetail : AppCompatActivity() {
         nomorTxt.text = Nomor
         inputByTxt.text = InputBy
         alasanTxt.hint = Reason
-        Picasso.get().load(Lampiran).into(imagesContainer)
+
         dateTxt.text = Date
         namaTxt.text = Nama
 

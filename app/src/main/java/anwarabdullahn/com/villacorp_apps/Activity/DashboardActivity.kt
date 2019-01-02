@@ -86,7 +86,7 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onResume() {
         job = GlobalScope.launch{
-            repeat(1000) {
+            repeat(40000) {
                 displayData()
                 delay(50000L)
             }

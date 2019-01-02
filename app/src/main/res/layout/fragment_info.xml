@@ -185,7 +185,7 @@
 
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                               android:text="Cuti Tahunan" android:fontFamily="sans-serif-smallcaps"
-                              android:textSize="16sp"
+                              android:textSize="16dp"
                               app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                               android:layout_marginTop="8dp" android:layout_marginStart="8dp"
                               android:id="@+id/textView9"/>
@@ -367,7 +367,8 @@
                               android:text="Total Waktu Pulang Duluan" android:textSize="14dp"
                               app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                               android:layout_marginTop="8dp" android:layout_marginStart="8dp"
-                              android:id="@+id/textView5"/>
+                              android:id="@+id/textView5" app:layout_constraintEnd_toEndOf="parent"
+                              android:layout_marginEnd="8dp"/>
 
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                               android:id="@+id/telatKerjaEarly" android:text="telatKerjaEarly"
