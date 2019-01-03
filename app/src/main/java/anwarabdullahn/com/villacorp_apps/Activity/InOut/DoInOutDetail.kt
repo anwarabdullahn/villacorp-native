@@ -41,7 +41,7 @@ class DoInOutDetail : AppCompatActivity() {
         var UpdateBy = intent.extras!!.getString("update_by")
 
 
-        Picasso.get().load(Lampiran).placeholder(R.drawable.ic_dashboard).into(imagesContainer)
+        Picasso.get().load(Lampiran).into(imagesContainer)
 
         toolbar.title = "Pengajuan Detail"
         setSupportActionBar(toolbar)

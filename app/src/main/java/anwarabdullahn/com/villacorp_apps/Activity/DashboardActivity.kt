@@ -40,7 +40,6 @@ class DashboardActivity : AppCompatActivity() {
     val manager = supportFragmentManager
     val body = PesanRequest()
     var page: Int? = 1
-    lateinit var job: Job
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -80,17 +79,12 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         fragmentHome()
-
+        displayData()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
     override fun onResume() {
-        job = GlobalScope.launch{
-            repeat(40000) {
-                displayData()
-                delay(50000L)
-            }
-        }
+        displayData()
         super.onResume()
         val bundle = intent!!.getStringExtra("result")
         if (bundle != null && bundle != ""){
@@ -108,7 +102,6 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        job.cancel()
         super.onPause()
     }
 
