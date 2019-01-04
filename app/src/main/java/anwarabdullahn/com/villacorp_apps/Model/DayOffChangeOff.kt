@@ -8,5 +8,5 @@ data class DayOffChangeOff(
     var success: Boolean,
 
     @SerializedName("offday")
-    var offday: Array
+    var offday: ArrayList<String>
 )

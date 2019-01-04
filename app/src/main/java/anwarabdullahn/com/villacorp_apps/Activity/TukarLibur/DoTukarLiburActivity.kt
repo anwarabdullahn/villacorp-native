@@ -23,9 +23,11 @@ import android.app.Activity
 import android.app.PendingIntent.getActivity
 import android.graphics.Color
 import android.support.v4.app.DialogFragment
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import anwarabdullahn.com.villacorp_apps.Model.DayOffChangeOff
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.list_tukar_libur_pengajuan.*
@@ -37,6 +39,7 @@ class DoTukarLiburActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
 
     private var new_date: String? = null
+    lateinit var holidays: ArrayList<String>
     lateinit var alasanTukarLiburTxt: EditText
 
     val loadingScreen: DialogFragment = LoadingHelper.getInstance()
@@ -142,33 +145,52 @@ class DoTukarLiburActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     }
 
     fun showDatePicker() {
-        var calendar = Calendar.getInstance()
-        val dpd = DatePickerDialog.newInstance(
-                this,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-        )
-        dpd.vibrate(true)
-        dpd.minDate = calendar
-        dpd.version = DatePickerDialog.Version.VERSION_2
-        dpd.show(fragmentManager, "DatePickerDialog")
 
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
-        val holidays = arrayOf("2019-01-07", "2019-01-05", "2019-01-10")
-        var date: java.util.Date? = null
-        for (i in 0 until holidays.size) {
-            try {
-                date = sdf.parse(holidays[i])
-            } catch (e: ParseException) {
-                e.printStackTrace()
+        API.service().dayoffchangeoff().enqueue(object: APICallback<DayOffChangeOff>() {
+            override fun onSuccess(t: DayOffChangeOff) {
+
+//                Log.d("nganu", t.offday.toString())
+
+                var calendar = Calendar.getInstance()
+                val dpd = DatePickerDialog.newInstance(
+                    this@DoTukarLiburActivity,
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                )
+                dpd.vibrate(true)
+                dpd.minDate = calendar
+                dpd.version = DatePickerDialog.Version.VERSION_2
+                dpd.show(fragmentManager, "DatePickerDialog")
+
+                val sdf = SimpleDateFormat("yyyy-MM-dd")
+                holidays = ArrayList(t.offday)
+                
+                var date: java.util.Date? = null
+                for (i in 0 until holidays.size) {
+                    try {
+                        date = sdf.parse(holidays[i])
+                    } catch (e: ParseException) {
+                        e.printStackTrace()
+                    }
+                    calendar = dateToCalendar(date)
+                    val dates = ArrayList<Calendar>()
+                    dates.add(calendar)
+                    val display = dates.toTypedArray()
+                    dpd.disabledDays = display
+                }
+
             }
-            calendar = dateToCalendar(date)
-            val dates = ArrayList<Calendar>()
-            dates.add(calendar)
-            val display = dates.toTypedArray()
-            dpd.disabledDays = display
-        }
+
+            override fun onError(error: APIError) {
+                toast(error.msg)
+                return
+            }
+
+        })
+
+
+
     }
     private fun dateToCalendar(date: Date?): Calendar {
         val calendar = Calendar.getInstance()

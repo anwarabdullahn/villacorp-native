@@ -55,7 +55,6 @@ public interface VillaService {
     Call<APIResponse> deletechangeinout(@Query("id") String id);
 
     @GET("dayoffchangeoff/")
-    Call<AgendaSlider> dayoffchangeoff();
-
+    Call<DayOffChangeOff> dayoffchangeoff();
 
 }
