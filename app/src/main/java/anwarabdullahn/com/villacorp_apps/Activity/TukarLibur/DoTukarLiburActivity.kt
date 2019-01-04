@@ -1,7 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity.TukarLibur
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -21,16 +20,21 @@ import org.jetbrains.anko.toast
 import java.util.*
 import java.text.SimpleDateFormat
 import android.app.Activity
+import android.app.PendingIntent.getActivity
 import android.graphics.Color
 import android.support.v4.app.DialogFragment
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import kotlinx.android.synthetic.main.list_tukar_libur_pengajuan.*
 import org.jetbrains.anko.find
+import java.text.ParseException
 
 
-class DoTukarLiburActivity : AppCompatActivity(){
+class DoTukarLiburActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+
 
     private var new_date: String? = null
     lateinit var alasanTukarLiburTxt: EditText
@@ -51,33 +55,54 @@ class DoTukarLiburActivity : AppCompatActivity(){
 
         doTukarTanggalNewDateTxt.setOnClickListener {
 
-            val calendar = Calendar.getInstance()
-            val _year = calendar.get(Calendar.YEAR)
-            val _month = calendar.get(Calendar.MONTH)
-            val _day = calendar.get(Calendar.DAY_OF_MONTH)
+//            val calendar = Calendar.getInstance()
+//            val _year = calendar.get(Calendar.YEAR)
+//            val _month = calendar.get(Calendar.MONTH)
+//            val _day = calendar.get(Calendar.DAY_OF_MONTH)
+//
+//            val datePickerDialog = DatePickerDialog(this, R.style.AlertDialog,
+//
+//                    DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+//                        new_date = convertDate(convertToMillis(dayOfMonth, month, year))
+//
+//                        doTukarTanggalNewDateTxt.text = new_date
+//
+//                    }, _year, _month, _day)
+//
+//            datePickerDialog.datePicker.minDate = calendar.timeInMillis + countDay(1)
+//            datePickerDialog.show()
+//            val holidays = arrayOf("07-03-2018", "05-03-2018", "10-03-2018")
+//            val now = Calendar.getInstance()
+//            val _year = now.get(Calendar.YEAR)
+//            val _month = now.get(Calendar.MONTH)
+//            val _day = now.get(Calendar.DAY_OF_MONTH)
+//            var calendar = GregorianCalendar(_year, _month,_day+1)
+//
+//            val dpd = DatePickerDialog.newInstance(
+//                this@DoTukarLiburActivity,
+//                now.get(Calendar.YEAR),
+//                now.get(Calendar.MONTH),
+//                now.get(Calendar.DAY_OF_MONTH)
+//            )
+//            dpd.vibrate(true)
+//            dpd.minDate = calendar
+////            dpd.disabledDays =
+//            dpd.setVersion(DatePickerDialog.Version.VERSION_2)
+//            dpd.show(fragmentManager, "Datepickerdialog")
 
-            val datePickerDialog = DatePickerDialog(this, R.style.AlertDialog,
+            showDatePicker()
 
-                    DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                        new_date = convertDate(convertToMillis(dayOfMonth, month, year))
-
-                        doTukarTanggalNewDateTxt.text = new_date
-
-                    }, _year, _month, _day)
-
-            datePickerDialog.datePicker.minDate = calendar.timeInMillis + countDay(1)
-            datePickerDialog.show()
         }
 
         doTukarLiburSubmitBtn.setOnClickListener {
 
-            if (new_date == "" || new_date == null){
+            if (new_date == "" || new_date == null) {
                 hideSoftKeyboard(this@DoTukarLiburActivity)
                 toast("Tanggal Baru Belum dipilih.")
                 return@setOnClickListener
             }
 
-            if (alasanTukarLiburTxt.text.toString() == ""){
+            if (alasanTukarLiburTxt.text.toString() == "") {
                 hideSoftKeyboard(this@DoTukarLiburActivity)
                 toast("Alasan Harus diisi.")
                 return@setOnClickListener
@@ -93,12 +118,12 @@ class DoTukarLiburActivity : AppCompatActivity(){
             body.reason = alasanTukarLiburTxt.text.toString()
 
 
-            loadingScreen.show(supportFragmentManager,"loading Screen")
-            API.service().changeoff(body).enqueue(object : APICallback<APIResponse>(){
+            loadingScreen.show(supportFragmentManager, "loading Screen")
+            API.service().changeoff(body).enqueue(object : APICallback<APIResponse>() {
                 override fun onSuccess(t: APIResponse?) {
                     loadingScreen.dismiss()
                     val intent = Intent(this@DoTukarLiburActivity, DashboardActivity::class.java)
-                        intent.putExtra("result", t!!.msg)
+                    intent.putExtra("result", t!!.msg)
                     startActivity(intent)
                 }
 
@@ -109,10 +134,51 @@ class DoTukarLiburActivity : AppCompatActivity(){
                             .text(error!!.msg)
                             .duration(Snackbar.SnackbarDuration.LENGTH_LONG)
                             .actionLabel("OK")
-                        , this@DoTukarLiburActivity)
+                        , this@DoTukarLiburActivity
+                    )
                 }
             })
         }
+    }
+
+    fun showDatePicker() {
+        var calendar = Calendar.getInstance()
+        val dpd = DatePickerDialog.newInstance(
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        dpd.vibrate(true)
+        dpd.minDate = calendar
+        dpd.version = DatePickerDialog.Version.VERSION_2
+        dpd.show(fragmentManager, "DatePickerDialog")
+
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val holidays = arrayOf("2019-01-07", "2019-01-05", "2019-01-10")
+        var date: java.util.Date? = null
+        for (i in 0 until holidays.size) {
+            try {
+                date = sdf.parse(holidays[i])
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+            calendar = dateToCalendar(date)
+            val dates = ArrayList<Calendar>()
+            dates.add(calendar)
+            val display = dates.toTypedArray()
+            dpd.disabledDays = display
+        }
+    }
+    private fun dateToCalendar(date: Date?): Calendar {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        return calendar
+    }
+
+    override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        new_date = convertDate(convertToMillis(dayOfMonth, monthOfYear, year))
+        doTukarTanggalNewDateTxt.text = new_date
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -137,7 +203,7 @@ class DoTukarLiburActivity : AppCompatActivity(){
     }
 
     fun countDay(day: Int): Int {
-        return day*24*60*60*1000
+        return day * 24 * 60 * 60 * 1000
     }
 
     fun hideSoftKeyboard(activity: Activity) {

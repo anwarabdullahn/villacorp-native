@@ -1,12 +1,13 @@
 package anwarabdullahn.com.villacorp_apps.Activity.InOut
 
 import android.app.Activity
-import android.app.DatePickerDialog
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.MediaStore
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
@@ -37,7 +38,7 @@ import pl.aprilapps.easyphotopicker.EasyImage
 import java.io.*
 
 
-class DoInOutActivity : AppCompatActivity() {
+class DoInOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     var CAPTURE_IMAGE: Int = 1
     var SELECT_GALLERY: Int = 0
@@ -56,38 +57,56 @@ class DoInOutActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         Slidr.attach(this)
-        alert(
-            "Dispensasi Datang Telat & Pulang Cepat (Tidak Potong Gaji)\n" +
-                    "1. Force Majeur : Ban bocor, tabrakan (wajib melampirkan photo) \n" +
-                    "2. Personal : Urusan pribadi yang sifatnya penting \n" +
-                    "NB : Maksimal izin 120 menit dalam satu periode payroll (late in atau early out) satu kali.\n\n" +
-                    "Datang Telat & Pulang Cepat (Potong Gaji)\n" +
-                    "Yang tidak termasuk dalam kriteria diatas \n" +
-                    "NB : Potongan sesuai dengan ketentuan yang berlaku", "Telat & Pulang Cepat"
-        ) {
-            yesButton { }
-        }.show()
+
+        Handler().postDelayed({
+            alert(
+                "Dispensasi Datang Telat & Pulang Cepat (Tidak Potong Gaji)\n" +
+                        "1. Force Majeur : Ban bocor, tabrakan (wajib melampirkan photo) \n" +
+                        "2. Personal : Urusan pribadi yang sifatnya penting \n" +
+                        "NB : Maksimal izin 120 menit dalam satu periode payroll (late in atau early out) satu kali.\n\n" +
+                        "Datang Telat & Pulang Cepat (Potong Gaji)\n" +
+                        "Yang tidak termasuk dalam kriteria diatas \n" +
+                        "NB : Potongan sesuai dengan ketentuan yang berlaku", "Telat & Pulang Cepat"
+            ) {
+                yesButton { }
+            }.show()
+        }, 2000)
 
         tanggalInOutTxtBtn.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val _year = calendar.get(Calendar.YEAR)
-            val _month = calendar.get(Calendar.MONTH)
-            val _day = calendar.get(Calendar.DAY_OF_MONTH)
-
-            val datePickerDialog = DatePickerDialog(
-                this, R.style.AlertDialog,
-
-                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                    new_date = convertDate(convertToMillis(dayOfMonth, month, year))
-
-                    tanggalInOutTxtBtn.text = new_date
-
-                }, _year, _month, _day
+//            val calendar = Calendar.getInstance()
+//            val _year = calendar.get(Calendar.YEAR)
+//            val _month = calendar.get(Calendar.MONTH)
+//            val _day = calendar.get(Calendar.DAY_OF_MONTH)
+//            val datePickerDialog = DatePickerDialog(
+//                this, R.style.AlertDialog,
+//
+//                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+//                    new_date = convertDate(convertToMillis(dayOfMonth, month, year))
+//
+//                    tanggalInOutTxtBtn.text = new_date
+//
+//                }, _year, _month, _day
+//            )
+//
+//            datePickerDialog.datePicker.minDate = calendar.timeInMillis
+//            datePickerDialog.datePicker.maxDate = calendar.timeInMillis + countDay(6)
+//            datePickerDialog.show()
+            var now = Calendar.getInstance()
+            var _year = now.get(Calendar.YEAR)
+            var _month = now.get(Calendar.MONTH)
+            var _day = now.get(Calendar.DAY_OF_MONTH)
+            var dpd = DatePickerDialog.newInstance(
+                this@DoInOutActivity,
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
             )
-
-            datePickerDialog.datePicker.minDate = calendar.timeInMillis
-            datePickerDialog.datePicker.maxDate = calendar.timeInMillis + countDay(6)
-            datePickerDialog.show()
+            dpd.vibrate(true)
+            dpd.minDate = now
+            dpd.maxDate = GregorianCalendar(_year, _month,_day+6)
+//            dpd.disabledDays =
+            dpd.setVersion(DatePickerDialog.Version.VERSION_2)
+            dpd.show(fragmentManager, "Datepickerdialog")
         }
 
         fileInOutTxt.setOnClickListener {
@@ -213,6 +232,10 @@ class DoInOutActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        new_date = convertDate(convertToMillis(dayOfMonth, monthOfYear, year))
+        tanggalInOutTxtBtn.text = new_date
+    }
     //    Date Monday, 23 January 2018
     fun convertDate(mTime: Long): String {
         val df = SimpleDateFormat("EEEE, d MMMM yyyy")
@@ -240,5 +263,4 @@ class DoInOutActivity : AppCompatActivity() {
             activity.currentFocus!!.windowToken, 0
         )
     }
-
 }
