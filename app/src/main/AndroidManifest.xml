@@ -58,6 +58,8 @@
         </activity>
         <activity android:name=".Activity.InOut.DoInOutDetail">
         </activity>
+        <activity android:name=".Activity.DOP.DOPActivity">
+        </activity>
     </application>
 
 </manifest>

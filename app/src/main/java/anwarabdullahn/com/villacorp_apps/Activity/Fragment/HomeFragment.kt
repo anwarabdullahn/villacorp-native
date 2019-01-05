@@ -18,6 +18,7 @@ import android.widget.ScrollView
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.Activity.DOP.DOPActivity
 import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
 import anwarabdullahn.com.villacorp_apps.Activity.InOut.InOutActivity
 import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.TukarLiburActivity
@@ -98,6 +99,11 @@ class HomeFragment : Fragment() {
 
         contentView.telatPulangBtn.setOnClickListener {
             val intent = Intent(contentView.context, InOutActivity::class.java)
+            startActivity(intent)
+        }
+
+        contentView.dopBtn.setOnClickListener {
+            val intent = Intent(contentView.context, DOPActivity::class.java)
             startActivity(intent)
         }
 

@@ -72,8 +72,6 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this@LoginActivity, error.msg, Toast.LENGTH_SHORT).show()
                 }
             })
-
-
         }
 
     }

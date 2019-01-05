@@ -30,6 +30,9 @@ public interface VillaService {
     @POST("read/")
     Call<APIResponse> read(@Body ReadRequest body);
 
+    @GET("dayoffchangeoff/")
+    Call<DayOffChangeOff> dayoffchangeoff();
+
     @GET("agenda/")
     Call<AgendaSlider> agendaSlider();
 
@@ -54,7 +57,6 @@ public interface VillaService {
     @DELETE("changeinout/")
     Call<APIResponse> deletechangeinout(@Query("id") String id);
 
-    @GET("dayoffchangeoff/")
-    Call<DayOffChangeOff> dayoffchangeoff();
-
+    @GET("dop/")
+    Call<DOP> dop(@Query("page") String page);
 }
