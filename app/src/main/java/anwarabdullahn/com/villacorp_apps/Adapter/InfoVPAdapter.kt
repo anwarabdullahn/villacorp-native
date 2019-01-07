@@ -6,13 +6,13 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import anwarabdullahn.com.villacorp_apps.Model.Slider
+import android.widget.TextView
+import anwarabdullahn.com.villacorp_apps.Model.InfoSlider
 import anwarabdullahn.com.villacorp_apps.R
-import com.squareup.picasso.Picasso
+import me.grantland.widget.AutofitHelper
 import org.jetbrains.anko.find
 
-class SliderVPAdapter(var context: Context, var sliderList: MutableList<Slider> ): PagerAdapter() {
+class InfoVPAdapter(var context: Context, var infoList: MutableList<InfoSlider> ): PagerAdapter() {
 
     internal lateinit var layoutInflater: LayoutInflater
 
@@ -21,15 +21,16 @@ class SliderVPAdapter(var context: Context, var sliderList: MutableList<Slider> 
     }
 
     override fun getCount(): Int {
-        return sliderList.size
+        return infoList.size
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val v = layoutInflater.inflate(R.layout.list_slider, null)
-        val imageSlider = v.find<ImageView>(R.id.sliderView)
-        val slider = sliderList[position]
-        Picasso.get().load(slider.file).into(imageSlider)
+        val v = layoutInflater.inflate(R.layout.list_info, null)
+        val textInfo = v.find<TextView>(R.id.textFit)
+        AutofitHelper.create(textInfo)
+        val info = infoList[position]
+        textInfo.text = info.remark
         val vp = container as ViewPager
         vp.addView(v, 0)
         return v

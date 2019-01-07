@@ -19,33 +19,35 @@ import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Activity.DOP.DOPActivity
-import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
 import anwarabdullahn.com.villacorp_apps.Activity.InOut.InOutActivity
 import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.TukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Adapter.AgendaRecyclerAdapter
+import anwarabdullahn.com.villacorp_apps.Adapter.InfoVPAdapter
 import anwarabdullahn.com.villacorp_apps.Adapter.SliderVPAdapter
 import anwarabdullahn.com.villacorp_apps.Model.AgendaSlider
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import me.grantland.widget.AutofitHelper
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 import java.util.*
 
-
-
 class HomeFragment : Fragment() {
 
     lateinit var viewPager: ViewPager
+    lateinit var infoViewPager: ViewPager
     lateinit var bottomSheetHome : ConstraintLayout
     lateinit var scrollView: ScrollView
-    lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     lateinit var adapter: SliderVPAdapter
+    lateinit var adapterInfo: InfoVPAdapter
     lateinit var adapterAgenda: AgendaRecyclerAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var timer: Timer
     var sliderSize: Int = 0
+    var infoSize: Int = 0
     var loadingScreen: DialogFragment = LoadingHelper.getInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -67,18 +69,24 @@ class HomeFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
 
         viewPager = contentView.find(R.id.viewPager)
+        infoViewPager= contentView.find(R.id.infoViewPager)
         loadingScreen.show(fragmentManager,"loading Screen")
         val dotsIndicator = contentView.findViewById<WormDotsIndicator>(R.id.dots_indicator)
+        val dotsIndicatorInfo = contentView.findViewById<WormDotsIndicator>(R.id.dots_indicator_info)
 
         API.service().agendaSlider().enqueue(object : APICallback<AgendaSlider>() {
             override fun onSuccess(t: AgendaSlider) {
                 loadingScreen.dismiss()
                 adapter = SliderVPAdapter(contentView.context, t.slider)
+                adapterInfo = InfoVPAdapter(contentView.context, t.info)
                 adapterAgenda = AgendaRecyclerAdapter(t.agenda)
                 sliderSize = t.slider.size
+                infoSize = t.info.size
                 recyclerView.adapter = adapterAgenda
                 viewPager.adapter = adapter
+                infoViewPager.adapter = adapterInfo
                 dotsIndicator.setViewPager(viewPager)
+                dotsIndicatorInfo.setViewPager(infoViewPager)
 
                 timer = Timer()
                 timer.scheduleAtFixedRate(MyTimerTask(),2000,4000)
@@ -113,6 +121,7 @@ class HomeFragment : Fragment() {
 
     inner class MyTimerTask : TimerTask() {
         var page = 0
+        var pageinfo = 0
         override fun run() {
             if (activity == null)
                 return
@@ -121,6 +130,12 @@ class HomeFragment : Fragment() {
                     page = 0
                 } else {
                     viewPager.currentItem = page ++
+                }
+
+                if (pageinfo > infoSize){
+                    pageinfo = 0
+                } else {
+                    infoViewPager.currentItem = pageinfo ++
                 }
             }
         }

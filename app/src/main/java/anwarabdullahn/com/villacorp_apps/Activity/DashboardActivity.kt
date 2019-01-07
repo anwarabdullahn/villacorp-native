@@ -6,33 +6,27 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.BottomSheetBehavior.*
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
 import anwarabdullahn.com.villacorp_apps.Activity.Fragment.*
 import anwarabdullahn.com.villacorp_apps.R
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.TukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Model.Pesans
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest
 import com.nispok.snackbar.Snackbar
 import com.nispok.snackbar.SnackbarManager
-import com.r0adkll.slidr.Slidr
-import com.r0adkll.slidr.model.SlidrConfig
-import com.r0adkll.slidr.model.SlidrInterface
-import com.r0adkll.slidr.model.SlidrPosition
 import kotlinx.coroutines.*
 import org.jetbrains.anko.toast
-import kotlin.concurrent.thread
-import android.support.v4.os.HandlerCompat.postDelayed
-
-
+import kotlinx.android.synthetic.main.dialog_home_menu_bottomsheet.*
+import org.jetbrains.anko.find
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -40,6 +34,9 @@ class DashboardActivity : AppCompatActivity() {
     val manager = supportFragmentManager
     val body = PesanRequest()
     var page: Int? = 1
+
+    lateinit var bottomSheetHome : ConstraintLayout
+    lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -76,6 +73,12 @@ class DashboardActivity : AppCompatActivity() {
             if(checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA),1)
             }
+        }
+        bottomSheetHome = find(R.id.bottomSheetHome)
+        bottomSheetBehavior = from(bottomSheetHome)
+        bottomSheetBehavior.state = STATE_HIDDEN
+        minimizeBtn.setOnClickListener {
+            bottomSheetBehavior.state = STATE_HIDDEN
         }
 
         fragmentHome()

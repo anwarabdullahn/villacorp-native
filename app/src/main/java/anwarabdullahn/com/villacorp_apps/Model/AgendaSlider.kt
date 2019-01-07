@@ -10,7 +10,10 @@ data class AgendaSlider(
     var slider: MutableList<Slider>,
 
     @SerializedName("agenda")
-    var agenda: MutableList<Agenda>
+    var agenda: MutableList<Agenda>,
+
+    @SerializedName("info")
+    var info: MutableList<InfoSlider>
 )
 
 class Slider (
@@ -42,4 +45,9 @@ class Agenda (
 
     @SerializedName("department")
     var department: String
+)
+
+class InfoSlider(
+    @SerializedName("remark")
+    var remark: String
 )
