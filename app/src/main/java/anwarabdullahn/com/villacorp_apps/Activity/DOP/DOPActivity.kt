@@ -1,5 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity.DOP
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -14,6 +15,7 @@ import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Adapter.DOP.DOPAdapter
 import anwarabdullahn.com.villacorp_apps.Model.DOP
+import anwarabdullahn.com.villacorp_apps.Model.DOPHoliday
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import kotlinx.android.synthetic.main.activity_dop.*
@@ -59,6 +61,27 @@ class DOPActivity : AppCompatActivity() {
             content()
             reset()
             swipeDown()
+        }
+
+        dopMasukBtn.setOnClickListener {
+            API.service().dopholiday().enqueue(object: APICallback<DOPHoliday>(){
+                override fun onSuccess(t: DOPHoliday?) {
+                    if (t!!.holiday.size != 0){
+                        val doDOPIn= Intent(this@DOPActivity, DoDOPInActivity::class.java)
+                        startActivity(doDOPIn)
+                        return
+                    } else {
+                        toast("Tidak Memiliki Jadwal DOP")
+                        return
+                    }
+                }
+
+                override fun onError(error: APIError?) {
+                    toast(error!!.msg)
+                    return
+                }
+
+            })
         }
     }
 

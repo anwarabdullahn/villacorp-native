@@ -33,6 +33,12 @@ public interface VillaService {
     @GET("dayoffchangeoff/")
     Call<DayOffChangeOff> dayoffchangeoff();
 
+    @GET("dop/in")
+    Call<DOPHoliday> dopholiday();
+
+    @POST("dop/in")
+    Call<APIResponse> dopin(@Body RequestBody body);
+
     @GET("agenda/")
     Call<AgendaSlider> agendaSlider();
 

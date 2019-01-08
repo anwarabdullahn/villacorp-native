@@ -60,6 +60,8 @@
         </activity>
         <activity android:name=".Activity.DOP.DOPActivity">
         </activity>
+        <activity android:name=".Activity.DOP.DoDOPInActivity">
+        </activity>
     </application>
 
 </manifest>
