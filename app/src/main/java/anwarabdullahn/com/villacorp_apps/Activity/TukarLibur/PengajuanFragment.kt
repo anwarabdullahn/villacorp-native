@@ -17,6 +17,7 @@ import anwarabdullahn.com.villacorp_apps.Adapter.TukarLiburAdapter.TukarLiburPen
 import anwarabdullahn.com.villacorp_apps.Model.TukarLibur
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import kotlinx.android.synthetic.main.tukar_libur_pengajuan.*
 import kotlinx.android.synthetic.main.tukar_libur_pengajuan.view.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.toast
@@ -81,6 +82,9 @@ class PengajuanFragment: Fragment() {
 
         API.service().changeoff(page.toString()).enqueue(object : APICallback<TukarLibur>(){
             override fun onSuccess(t: TukarLibur) {
+                if(t.Pengajuan.size == 0){
+                    frameKosong.visibility = View.VISIBLE
+                }
                 loadingScreen.dismiss()
                 totalPage = t.totalpage.toInt()
                 adapter = TukarLiburPengajuanAdapter(t.Pengajuan)

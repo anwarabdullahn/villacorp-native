@@ -1,9 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity.TukarLibur
 
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.BottomSheetBehavior.*
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -13,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import android.widget.ScrollView
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
@@ -21,6 +17,7 @@ import anwarabdullahn.com.villacorp_apps.Adapter.TukarLiburAdapter.TukarLiburJad
 import anwarabdullahn.com.villacorp_apps.Model.TukarLibur
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import kotlinx.android.synthetic.main.tukar_libur_jadwal.*
 import kotlinx.android.synthetic.main.tukar_libur_jadwal.view.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.support.v4.toast
@@ -85,6 +82,9 @@ class JadwalFragment: Fragment() {
 
         API.service().jadwallibur(page.toString()).enqueue(object : APICallback<TukarLibur>(){
             override fun onSuccess(t: TukarLibur) {
+                if(t.jadwal_libur.size == 0){
+                    frameKosong.visibility = View.VISIBLE
+                }
                 loadingScreen.dismiss()
                 totalPage = t.totalpage.toInt()
                 adapter = TukarLiburJadwalAdapter(t.jadwal_libur)

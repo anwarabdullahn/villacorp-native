@@ -111,6 +111,9 @@ class InOutActivity : AppCompatActivity() {
 
         API.service().changeinout(page.toString()).enqueue(object : APICallback<InOuts>(){
             override fun onSuccess(t: InOuts) {
+                if(t.InOut.size == 0){
+                    frameKosong.visibility = View.VISIBLE
+                }
                 loadingScreen.dismiss()
                 totalPage = t.TotalPage.toInt()
                 adapter = InOutAdapter(t.InOut)
