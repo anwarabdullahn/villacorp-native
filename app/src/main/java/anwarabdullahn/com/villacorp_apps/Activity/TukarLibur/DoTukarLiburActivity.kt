@@ -20,17 +20,12 @@ import org.jetbrains.anko.toast
 import java.util.*
 import java.text.SimpleDateFormat
 import android.app.Activity
-import android.app.PendingIntent.getActivity
-import android.graphics.Color
 import android.support.v4.app.DialogFragment
-import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import anwarabdullahn.com.villacorp_apps.Model.DayOffChangeOff
+import anwarabdullahn.com.villacorp_apps.Model.OffDay
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
-import kotlinx.android.synthetic.main.list_tukar_libur_pengajuan.*
 import org.jetbrains.anko.find
 import java.text.ParseException
 
@@ -146,8 +141,8 @@ class DoTukarLiburActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
     fun showDatePicker() {
 
-        API.service().dayoffchangeoff().enqueue(object: APICallback<DayOffChangeOff>() {
-            override fun onSuccess(t: DayOffChangeOff) {
+        API.service().offday().enqueue(object: APICallback<OffDay>() {
+            override fun onSuccess(t: OffDay) {
 
 //                Log.d("nganu", t.offday.toString())
 

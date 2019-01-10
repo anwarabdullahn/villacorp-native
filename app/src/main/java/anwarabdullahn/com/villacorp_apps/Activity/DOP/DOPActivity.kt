@@ -15,7 +15,8 @@ import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Adapter.DOP.DOPAdapter
 import anwarabdullahn.com.villacorp_apps.Model.DOP
-import anwarabdullahn.com.villacorp_apps.Model.DOPHoliday
+import anwarabdullahn.com.villacorp_apps.Model.DOPMasuk
+import anwarabdullahn.com.villacorp_apps.Model.PublicHoliday
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import kotlinx.android.synthetic.main.activity_dop.*
@@ -64,8 +65,8 @@ class DOPActivity : AppCompatActivity() {
         }
 
         dopMasukBtn.setOnClickListener {
-            API.service().dopholiday().enqueue(object: APICallback<DOPHoliday>(){
-                override fun onSuccess(t: DOPHoliday?) {
+            API.service().dopholiday().enqueue(object: APICallback<PublicHoliday>(){
+                override fun onSuccess(t: PublicHoliday?) {
                     if (t!!.holiday.size != 0){
                         val doDOPIn= Intent(this@DOPActivity, DoDOPInActivity::class.java)
                         startActivity(doDOPIn)
@@ -81,6 +82,26 @@ class DOPActivity : AppCompatActivity() {
                     return
                 }
 
+            })
+        }
+
+        dopLiburBtn.setOnClickListener {
+            API.service().dopmasuk().enqueue(object : APICallback<DOPMasuk>(){
+                override fun onSuccess(t: DOPMasuk?) {
+                    if (t!!.TglDOPIn.size != 0){
+                        val doDOPIn= Intent(this@DOPActivity, DoDOPOutActivity::class.java)
+                        startActivity(doDOPIn)
+                        return
+                    } else {
+                        toast("Tidak Memiliki Jadwal DOP Masuk")
+                        return
+                    }
+                }
+
+                override fun onError(error: APIError?) {
+                    toast(error!!.msg)
+                    return
+                }
             })
         }
     }

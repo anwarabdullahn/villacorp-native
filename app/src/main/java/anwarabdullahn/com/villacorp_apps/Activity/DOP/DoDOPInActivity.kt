@@ -12,7 +12,7 @@ import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.API.APIResponse
 import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
-import anwarabdullahn.com.villacorp_apps.Model.DOPHoliday
+import anwarabdullahn.com.villacorp_apps.Model.PublicHoliday
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
 import com.r0adkll.slidr.Slidr
@@ -88,8 +88,8 @@ class DoDOPInActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
 
 
     fun showDatePicker() {
-        API.service().dopholiday().enqueue(object: APICallback<DOPHoliday>() {
-            override fun onSuccess(t: DOPHoliday) {
+        API.service().dopholiday().enqueue(object: APICallback<PublicHoliday>() {
+            override fun onSuccess(t: PublicHoliday) {
 
 //                Log.d("nganu", t.offday.toString())
 

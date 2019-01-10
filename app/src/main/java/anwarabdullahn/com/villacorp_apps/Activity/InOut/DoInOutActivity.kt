@@ -73,24 +73,6 @@ class DoInOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
         }, 2000)
 
         tanggalInOutTxtBtn.setOnClickListener {
-//            val calendar = Calendar.getInstance()
-//            val _year = calendar.get(Calendar.YEAR)
-//            val _month = calendar.get(Calendar.MONTH)
-//            val _day = calendar.get(Calendar.DAY_OF_MONTH)
-//            val datePickerDialog = DatePickerDialog(
-//                this, R.style.AlertDialog,
-//
-//                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-//                    new_date = convertDate(convertToMillis(dayOfMonth, month, year))
-//
-//                    tanggalInOutTxtBtn.text = new_date
-//
-//                }, _year, _month, _day
-//            )
-//
-//            datePickerDialog.datePicker.minDate = calendar.timeInMillis
-//            datePickerDialog.datePicker.maxDate = calendar.timeInMillis + countDay(6)
-//            datePickerDialog.show()
             var now = Calendar.getInstance()
             var _year = now.get(Calendar.YEAR)
             var _month = now.get(Calendar.MONTH)
@@ -104,7 +86,6 @@ class DoInOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
             dpd.vibrate(true)
             dpd.minDate = now
             dpd.maxDate = GregorianCalendar(_year, _month,_day+6)
-//            dpd.disabledDays =
             dpd.setVersion(DatePickerDialog.Version.VERSION_2)
             dpd.show(fragmentManager, "Datepickerdialog")
         }

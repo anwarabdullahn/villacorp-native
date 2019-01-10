@@ -30,14 +30,26 @@ public interface VillaService {
     @POST("read/")
     Call<APIResponse> read(@Body ReadRequest body);
 
-    @GET("dayoffchangeoff/")
-    Call<DayOffChangeOff> dayoffchangeoff();
+    @GET("offday/")
+    Call<OffDay> offday();
 
     @GET("dop/in")
-    Call<DOPHoliday> dopholiday();
+    Call<PublicHoliday> dopholiday();
+
+    @GET("dop/out")
+    Call<DOPMasuk> dopmasuk();
+
+    @POST("dop/out")
+    Call<APIResponse> postdop(@Body RequestBody body);
 
     @POST("dop/in")
     Call<APIResponse> dopin(@Body RequestBody body);
+
+    @GET("dop/")
+    Call<DOP> dop(@Query("page") String page);
+
+    @POST("dop/")
+    Call<MaxDOP> maxdop(@Body RequestBody body);
 
     @GET("agenda/")
     Call<AgendaSlider> agendaSlider();
@@ -63,6 +75,4 @@ public interface VillaService {
     @DELETE("changeinout/")
     Call<APIResponse> deletechangeinout(@Query("id") String id);
 
-    @GET("dop/")
-    Call<DOP> dop(@Query("page") String page);
 }
