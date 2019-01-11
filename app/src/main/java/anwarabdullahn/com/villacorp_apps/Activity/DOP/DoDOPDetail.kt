@@ -42,7 +42,7 @@ class DoDOPDetail : AppCompatActivity() {
         val Reason = intent.extras!!.getString("alasan") as String
         val Expired =  intent.extras!!.getString("expired")
         val Status =  intent.extras!!.getString("status") as String
-        val StatusAmbil =  intent.extras!!.getString("status_ambil") as String
+        val StatusAmbil =  intent.extras!!.getString("status_ambil")
         val RejectReason = intent.extras!!.getString("reject_reason")
         val UpdateBy = intent.extras!!.getString("update_by")
 
@@ -51,31 +51,48 @@ class DoDOPDetail : AppCompatActivity() {
                 expiredLabel.visibility = View.GONE
                 expiredTxt.visibility = View.GONE
                 expiredTxt.text = ""
+                statusAmbilLabel.visibility = View.GONE
+                statusAmbilTxt.visibility = View.GONE
             }
             Type == "0" && Status == "1" -> {
                 expiredLabel.visibility = View.GONE
                 expiredTxt.visibility = View.GONE
                 expiredTxt.text = ""
+                statusAmbilLabel.visibility = View.GONE
+                statusAmbilTxt.visibility = View.GONE
             }
             Type == "0" && Status == "2" -> {
                 expiredLabel.visibility = View.GONE
                 expiredTxt.visibility = View.GONE
                 expiredTxt.text = ""
+                statusAmbilLabel.visibility = View.GONE
+                statusAmbilTxt.visibility = View.GONE
             }
             Type == "1" && Status == "0" -> {
                 expiredLabel.visibility = View.VISIBLE
                 expiredTxt.visibility = View.VISIBLE
                 expiredTxt.text = Expired
+                statusAmbilLabel.visibility = View.GONE
+                statusAmbilTxt.visibility = View.GONE
             }
             Type == "1" && Status == "1" -> {
                 expiredLabel.visibility = View.VISIBLE
                 expiredTxt.visibility = View.VISIBLE
                 expiredTxt.text = Expired
+                if (StatusAmbil == "0"){
+                    statusAmbilTxt.text = "Belum Diambil"
+                    statusAmbilTxt.background = resources.getDrawable(R.drawable.circle_menu_green)
+                } else if(StatusAmbil == "1"){
+                    statusAmbilTxt.text = "Sudah Diambil"
+                    statusAmbilTxt.background = resources.getDrawable(R.drawable.circle_menu_red)
+                }
             }
             Type == "1" && Status == "2" -> {
                 expiredLabel.visibility = View.GONE
                 expiredTxt.visibility = View.GONE
                 expiredTxt.text = ""
+                statusAmbilLabel.visibility = View.GONE
+                statusAmbilTxt.visibility = View.GONE
             }
         }
 
@@ -103,8 +120,6 @@ class DoDOPDetail : AppCompatActivity() {
                 updateTxtBy.visibility = View.GONE
                 rejectLabel.visibility = View.GONE
                 rejectTxt.visibility = View.GONE
-                statusAmbilLabel.visibility = View.GONE
-                statusAmbilTxt.visibility = View.GONE
             }
             "1" -> {
                 doCancelBtn.visibility = View.GONE
@@ -115,15 +130,6 @@ class DoDOPDetail : AppCompatActivity() {
                 updateTxtBy.text = UpdateBy
                 rejectLabel.visibility = View.GONE
                 rejectTxt.visibility = View.GONE
-                statusAmbilLabel.visibility = View.VISIBLE
-                statusAmbilTxt.visibility = View.VISIBLE
-                if (StatusAmbil == "0"){
-                    statusAmbilTxt.text = "Belum Diambil"
-                    statusAmbilTxt.background = resources.getDrawable(R.drawable.circle_menu_green)
-                } else if(StatusAmbil == "1"){
-                    statusAmbilTxt.text = "Sudah Diambil"
-                    statusAmbilTxt.background = resources.getDrawable(R.drawable.circle_menu_red)
-                }
             }
             else -> {
                 doCancelBtn.visibility = View.GONE
@@ -135,8 +141,6 @@ class DoDOPDetail : AppCompatActivity() {
                 rejectLabel.visibility = View.VISIBLE
                 rejectTxt.visibility = View.VISIBLE
                 rejectTxt.hint = RejectReason
-                statusAmbilLabel.visibility = View.GONE
-                statusAmbilTxt.visibility = View.GONE
             }
         }
 
