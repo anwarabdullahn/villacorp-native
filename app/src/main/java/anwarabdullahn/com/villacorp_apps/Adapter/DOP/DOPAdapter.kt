@@ -1,11 +1,14 @@
 package anwarabdullahn.com.villacorp_apps.Adapter.DOP
 
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import anwarabdullahn.com.villacorp_apps.Activity.DOP.DoDOPDetail
 import anwarabdullahn.com.villacorp_apps.Model.DOPFinger
 import anwarabdullahn.com.villacorp_apps.R
 import org.jetbrains.anko.find
@@ -66,6 +69,20 @@ class DOPAdapter(val dopList: MutableList<DOPFinger>) : RecyclerView.Adapter <DO
         }
 
         p0.statusTxt.setOnClickListener {
+            val intent = Intent(p0.itemView.context, DoDOPDetail::class.java)
+            intent.putExtra("id", dop.ID)
+            intent.putExtra("nomor", dop.Nomor)
+            intent.putExtra("type", dop.Type)
+            intent.putExtra("date", dop.Date)
+            intent.putExtra("nama", dop.Nama)
+            intent.putExtra("alasan", dop.Reason)
+            intent.putExtra("update_by", dop.UpdateBy)
+            intent.putExtra("input_by", dop.InputBy)
+            intent.putExtra("reject_reason", dop.RejectReason)
+            intent.putExtra("expired", dop.Expired)
+            intent.putExtra("status", dop.Status)
+            intent.putExtra("status_ambil", dop.StatusAmbil)
+            startActivity(p0.itemView.context,intent,null)
         }
     }
 

@@ -51,6 +51,9 @@ public interface VillaService {
     @POST("dop/")
     Call<MaxDOP> maxdop(@Body RequestBody body);
 
+    @DELETE("dop/")
+    Call<APIResponse> deletedop(@Query("id") String id);
+
     @GET("agenda/")
     Call<AgendaSlider> agendaSlider();
 

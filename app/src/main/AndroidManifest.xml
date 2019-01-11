@@ -64,6 +64,8 @@
         </activity>
         <activity android:name=".Activity.DOP.DoDOPOutActivity">
         </activity>
+        <activity android:name=".Activity.DOP.DoDOPDetail">
+        </activity>
     </application>
 
 </manifest>
