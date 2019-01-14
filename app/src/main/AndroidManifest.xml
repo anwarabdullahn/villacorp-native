@@ -66,6 +66,8 @@
         </activity>
         <activity android:name=".Activity.DOP.DoDOPDetail">
         </activity>
+        <activity android:name=".Activity.LeaveFinger.LeaveFingerActivity">
+        </activity>
     </application>
 
 </manifest>

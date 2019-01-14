@@ -50,3 +50,19 @@ data class DOPFinger(
     @SerializedName("input_by")
     var InputBy: String
 )
+
+class DOPMasuk(
+    @SerializedName("success")
+    var success: Boolean,
+
+    @SerializedName("tglDOPIn")
+    var TglDOPIn: ArrayList<String>
+)
+
+class MaxDOP(
+    @SerializedName("success")
+    var success: Boolean,
+
+    @SerializedName("tanggal")
+    var tanggal: String
+)

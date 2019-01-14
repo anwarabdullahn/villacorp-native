@@ -3,10 +3,11 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/swipeUp"
-        android:layout_height="match_parent" xmlns:fab="http://schemas.android.com/apk/res-auto"
-        tools:context=".Activity.DOP.DOPActivity">
+        tools:context=".Activity.LeaveFinger.LeaveFingerActivity">
 
     <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
@@ -62,7 +63,6 @@
         </FrameLayout>
 
 
-
         <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content"
                      app:layout_constraintEnd_toEndOf="parent"
                      android:id="@+id/progressBar"
@@ -114,22 +114,23 @@
                         android:id="@+id/dopMasukBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_dop"
+                        android:src="@drawable/ic_cuti"
                         android:tint="@color/colorWhite"
-                        fab:fab_colorNormal="@color/colorPurple"
+                        fab:fab_colorNormal="@color/colorYellow"
                         fab:fab_size="mini"
-                        fab:fab_label="DOP Masuk" />
+                        fab:fab_label="Dispensasi / Cuti Khusus"/>
 
                 <com.github.clans.fab.FloatingActionButton
                         android:id="@+id/dopLiburBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:tint="@color/colorWhite"
-                        fab:fab_colorNormal="@color/colorPink"
-                        android:src="@drawable/ic_dop"
+                        fab:fab_colorNormal="@color/colorBlue"
+                        android:src="@drawable/ic_cuti"
                         fab:fab_size="mini"
-                        fab:fab_label="DOP Libur" />
+                        fab:fab_label="Cuti Tahunan"/>
             </com.github.clans.fab.FloatingActionMenu>
         </android.support.design.widget.CoordinatorLayout>
     </android.support.constraint.ConstraintLayout>
+
 </android.support.v4.widget.SwipeRefreshLayout>

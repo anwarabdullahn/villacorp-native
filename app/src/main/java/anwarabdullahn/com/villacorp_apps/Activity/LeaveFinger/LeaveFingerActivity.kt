@@ -1,6 +1,5 @@
-package anwarabdullahn.com.villacorp_apps.Activity.DOP
+package anwarabdullahn.com.villacorp_apps.Activity.LeaveFinger
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -13,17 +12,16 @@ import android.widget.ProgressBar
 import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.Adapter.DOP.DOPAdapter
-import anwarabdullahn.com.villacorp_apps.Model.DOP
-import anwarabdullahn.com.villacorp_apps.Model.DOPMasuk
-import anwarabdullahn.com.villacorp_apps.Model.PublicHoliday
+import anwarabdullahn.com.villacorp_apps.Adapter.LeaveFinger.LeaveFingerAdapter
+import anwarabdullahn.com.villacorp_apps.Model.LeaveFinger
+import anwarabdullahn.com.villacorp_apps.Model.LeaveFingers
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
-import kotlinx.android.synthetic.main.activity_dop.*
-import org.jetbrains.anko.toast
+import kotlinx.android.synthetic.main.activity_leave_finger.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 
-class DOPActivity : AppCompatActivity() {
+class LeaveFingerActivity : AppCompatActivity() {
 
     internal var isLoading: Boolean = false
     internal var pastVisibleItems : Int = 0
@@ -36,20 +34,21 @@ class DOPActivity : AppCompatActivity() {
     lateinit var progressBar: ProgressBar
     lateinit var recyclerView: RecyclerView
     var loadingScreen: DialogFragment = LoadingHelper.getInstance()
-    lateinit var adapter: DOPAdapter
+    lateinit var adapter: LeaveFingerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dop)
+        setContentView(R.layout.activity_leave_finger)
 
-        toolbar.title = "DOP"
+        toolbar.title = "Cuti Dibayar"
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
 
         recyclerView = find(R.id.recyclerView)
         progressBar = find(R.id.progressBar)
 
-        recyclerView.layoutManager = LinearLayoutManager(this@DOPActivity, LinearLayout.VERTICAL,false)
+        recyclerView.layoutManager = LinearLayoutManager(this@LeaveFingerActivity, LinearLayout.VERTICAL,false)
         recyclerView.setHasFixedSize(true)
 
         loadingScreen.show(supportFragmentManager,"loading")
@@ -63,53 +62,6 @@ class DOPActivity : AppCompatActivity() {
             reset()
             swipeDown()
         }
-
-        dopMasukBtn.setOnClickListener {
-            API.service().dopholiday().enqueue(object: APICallback<PublicHoliday>(){
-                override fun onSuccess(t: PublicHoliday?) {
-                    if (t!!.holiday.size != 0){
-                        val doDOPIn= Intent(this@DOPActivity, DoDOPInActivity::class.java)
-                        startActivity(doDOPIn)
-                        return
-                    } else {
-                        toast("Tidak Memiliki Jadwal DOP")
-                        return
-                    }
-                }
-
-                override fun onError(error: APIError?) {
-                    toast(error!!.msg)
-                    return
-                }
-
-            })
-        }
-
-        dopLiburBtn.setOnClickListener {
-            API.service().dopmasuk().enqueue(object : APICallback<DOPMasuk>(){
-                override fun onSuccess(t: DOPMasuk?) {
-                    if (t!!.TglDOPIn.size != 0){
-                        val doDOPIn= Intent(this@DOPActivity, DoDOPOutActivity::class.java)
-                        startActivity(doDOPIn)
-                        return
-                    } else {
-                        toast("Tidak Memiliki Jadwal DOP Masuk")
-                        return
-                    }
-                }
-
-                override fun onError(error: APIError?) {
-                    toast(error!!.msg)
-                    return
-                }
-            })
-        }
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        super.onBackPressed()
-        return super.onOptionsItemSelected(item)
     }
 
 
@@ -131,14 +83,14 @@ class DOPActivity : AppCompatActivity() {
             else -> page
         }
 
-        API.service().dop(page.toString()).enqueue(object : APICallback<DOP>(){
-            override fun onSuccess(t: DOP) {
-                if(t.DOPFinger.size == 0){
+        API.service().leavefinger(page.toString()).enqueue(object : APICallback<LeaveFingers>(){
+            override fun onSuccess(t: LeaveFingers) {
+                if(t.LeaveFinger.size == 0){
                     frameKosong.visibility = View.VISIBLE
                 }
                 loadingScreen.dismiss()
-                totalPage = t.totalpage.toInt()
-                adapter = DOPAdapter(t.DOPFinger)
+                totalPage = t.TotalPage.toInt()
+                adapter = LeaveFingerAdapter(t.LeaveFinger)
                 recyclerView.adapter = adapter
             }
 
@@ -179,11 +131,11 @@ class DOPActivity : AppCompatActivity() {
     fun loadMore(){
         page += 1
         progressBar.visibility = View.VISIBLE
-        API.service().dop(page.toString()).enqueue(object : APICallback<DOP>(){
-            override fun onSuccess(t: DOP) {
+        API.service().leavefinger(page.toString()).enqueue(object : APICallback<LeaveFingers>(){
+            override fun onSuccess(t: LeaveFingers) {
                 progressBar.visibility = View.GONE
-                if (t.DOPFinger.size >= 0){
-                    adapter.addmore(t.DOPFinger)
+                if (t.LeaveFinger.size >= 0){
+                    adapter.addmore(t.LeaveFinger)
                 } else {
                     toast("Nothing to Load!")
                 }
@@ -195,5 +147,11 @@ class DOPActivity : AppCompatActivity() {
 
         })
         page = page
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        super.onBackPressed()
+        return super.onOptionsItemSelected(item)
     }
 }

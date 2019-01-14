@@ -20,6 +20,7 @@ import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Activity.DOP.DOPActivity
 import anwarabdullahn.com.villacorp_apps.Activity.InOut.InOutActivity
+import anwarabdullahn.com.villacorp_apps.Activity.LeaveFinger.LeaveFingerActivity
 import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.TukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Adapter.AgendaRecyclerAdapter
 import anwarabdullahn.com.villacorp_apps.Adapter.InfoVPAdapter
@@ -112,6 +113,11 @@ class HomeFragment : Fragment() {
 
         contentView.dopBtn.setOnClickListener {
             val intent = Intent(contentView.context, DOPActivity::class.java)
+            startActivity(intent)
+        }
+
+        contentView.cutiDibayarBtn.setOnClickListener {
+            val intent = Intent(contentView.context, LeaveFingerActivity::class.java)
             startActivity(intent)
         }
 

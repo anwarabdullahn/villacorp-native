@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:background="@color/colorAccentDark"
+                                             android:layout_height="wrap_content">
+
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                                        android:background="@color/colorWhite"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent">
+        <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                                     android:layout_height="match_parent" android:id="@+id/bgView">
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#ccc"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent" android:id="@+id/view8"/>
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#ccc"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent" android:id="@+id/view"
+                  app:layout_constraintHorizontal_bias="0.0" app:layout_constraintBottom_toBottomOf="parent"
+            />
+            <ImageView android:layout_width="30dp" android:layout_height="60dp" android:src="@drawable/ic_cuti"
+                       app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                       android:layout_marginStart="16dp" android:id="@+id/inOutImg" android:tint="#aeaeae"
+                       app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:text="Code CO29101801"
+                      android:textAllCaps="true"
+                      app:layout_constraintTop_toTopOf="@+id/inOutImg"
+                      app:layout_constraintStart_toEndOf="@+id/inOutImg"
+                      android:layout_marginTop="10dp" android:id="@+id/codeInOutTxt" android:layout_marginStart="8dp"
+                      android:textStyle="italic" android:layout_marginEnd="8dp"
+                      app:layout_constraintEnd_toStartOf="@+id/statusInOutTxt"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:text="Tanggal Baru"
+                      android:id="@+id/tanggalInOutTxt"
+                      android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/inOutImg"
+                      app:layout_constraintEnd_toStartOf="@+id/statusInOutTxt" android:layout_marginEnd="8dp"
+                      app:layout_constraintHorizontal_bias="0.0"
+                      app:layout_constraintTop_toBottomOf="@+id/codeInOutTxt"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="Rejected"
+                      android:background="@drawable/circle_menu_red"
+                      android:textColor="@color/colorWhite"
+                      android:paddingHorizontal="5dp"
+                      android:paddingVertical="1dp"
+                      android:id="@+id/statusInOutTxt"
+                      android:textAlignment="center"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      android:layout_marginEnd="16dp" android:layout_marginTop="8dp"
+                      app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+                      app:layout_constraintBottom_toBottomOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+</android.support.constraint.ConstraintLayout>

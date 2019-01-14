@@ -78,4 +78,7 @@ public interface VillaService {
     @DELETE("changeinout/")
     Call<APIResponse> deletechangeinout(@Query("id") String id);
 
+    @GET("leave_finger/")
+    Call<LeaveFingers> leavefinger(@Query("page") String page);
+
 }
