@@ -19,6 +19,7 @@ import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Activity.DOP.DOPActivity
+import anwarabdullahn.com.villacorp_apps.Activity.IKS.IKSActivity
 import anwarabdullahn.com.villacorp_apps.Activity.InOut.InOutActivity
 import anwarabdullahn.com.villacorp_apps.Activity.LeaveFinger.LeaveFingerActivity
 import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.TukarLiburActivity
@@ -32,6 +33,7 @@ import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import me.grantland.widget.AutofitHelper
 import org.jetbrains.anko.find
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import java.util.*
 
@@ -118,6 +120,12 @@ class HomeFragment : Fragment() {
 
         contentView.cutiDibayarBtn.setOnClickListener {
             val intent = Intent(contentView.context, LeaveFingerActivity::class.java)
+            startActivity(intent)
+        }
+
+        contentView.keluarSementaraBtn.setOnClickListener {
+//            toast("apa")
+            val intent = Intent(contentView.context, IKSActivity::class.java)
             startActivity(intent)
         }
 

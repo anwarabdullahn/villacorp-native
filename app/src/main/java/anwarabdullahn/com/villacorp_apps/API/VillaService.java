@@ -81,4 +81,7 @@ public interface VillaService {
     @GET("leave_finger/")
     Call<LeaveFingers> leavefinger(@Query("page") String page);
 
+    @GET("iks/")
+    Call<IKSs> iks(@Query("page") String page);
+
 }
