@@ -13,7 +13,6 @@ import anwarabdullahn.com.villacorp_apps.API.API
 import anwarabdullahn.com.villacorp_apps.API.APICallback
 import anwarabdullahn.com.villacorp_apps.API.APIError
 import anwarabdullahn.com.villacorp_apps.Adapter.LeaveFinger.LeaveFingerAdapter
-import anwarabdullahn.com.villacorp_apps.Model.LeaveFinger
 import anwarabdullahn.com.villacorp_apps.Model.LeaveFingers
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
