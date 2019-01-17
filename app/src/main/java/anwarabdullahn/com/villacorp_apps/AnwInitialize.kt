@@ -3,7 +3,7 @@ package anwarabdullahn.com.villacorp_apps
 import android.app.Application
 import com.orhanobut.hawk.Hawk
 
-class Initialize : Application() {
+class AnwInitialize : Application() {
 
     override fun onCreate() {
         super.onCreate()
