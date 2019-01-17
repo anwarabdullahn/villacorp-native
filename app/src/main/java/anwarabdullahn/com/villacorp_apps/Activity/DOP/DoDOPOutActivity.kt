@@ -8,16 +8,16 @@ import android.support.v4.app.DialogFragment
 import android.util.Log
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
+import anwarabdullahn.com.villacorp_apps.API.AnwResponse
 import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
 import anwarabdullahn.com.villacorp_apps.Model.DOPMasuk
 import anwarabdullahn.com.villacorp_apps.Model.MaxDOP
 import anwarabdullahn.com.villacorp_apps.Model.OffDay
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import com.r0adkll.slidr.Slidr
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.activity_do_dopout.*
@@ -40,7 +40,7 @@ class DoDOPOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     lateinit var body: MultipartBody
     lateinit var postDOPLibur: MultipartBody
     val sdf = SimpleDateFormat("yyyy-MM-dd")
-    val loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    val loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
     private var dateCalled: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,15 +97,15 @@ class DoDOPOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                     .build()
 
                 loadingScreen.show(supportFragmentManager, "loading Screen")
-                API.service().postdop(postDOPLibur).enqueue(object : APICallback<APIResponse>(){
-                    override fun onSuccess(t: APIResponse?) {
+                AnwAPI.service().postdop(postDOPLibur).enqueue(object : AnwCallback<AnwResponse>(){
+                    override fun onSuccess(t: AnwResponse?) {
                         loadingScreen.dismiss()
                         val intent = Intent(this@DoDOPOutActivity, DashboardActivity::class.java)
                         intent.putExtra("result", t!!.msg)
                         startActivity(intent)
                     }
 
-                    override fun onError(error: APIError?) {
+                    override fun onError(error: AnwError?) {
                         loadingScreen.dismiss()
                         toast(error!!.msg)
                         return
@@ -122,7 +122,7 @@ class DoDOPOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     private fun showDatePicker() {
-        API.service().dopmasuk().enqueue(object: APICallback<DOPMasuk>() {
+        AnwAPI.service().dopmasuk().enqueue(object: AnwCallback<DOPMasuk>() {
             override fun onSuccess(t: DOPMasuk) {
 
                 var calendar = Calendar.getInstance()
@@ -155,7 +155,7 @@ class DoDOPOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
             }
 
-            override fun onError(error: APIError) {
+            override fun onError(error: AnwError) {
                 toast(error.msg)
                 return
             }
@@ -164,7 +164,7 @@ class DoDOPOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     private fun showDatePickerLibur() {
-        API.service().offday().enqueue(object: APICallback<OffDay>() {
+        AnwAPI.service().offday().enqueue(object: AnwCallback<OffDay>() {
             override fun onSuccess(t: OffDay) {
 
                 var calendar = Calendar.getInstance()
@@ -207,7 +207,7 @@ class DoDOPOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
             }
 
-            override fun onError(error: APIError) {
+            override fun onError(error: AnwError) {
                 toast(error.msg)
                 return
             }
@@ -230,12 +230,12 @@ class DoDOPOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
                 .addFormDataPart("tanggal", new_date)
                 .build()
 
-            API.service().maxdop(body).enqueue(object: APICallback<MaxDOP>(){
+            AnwAPI.service().maxdop(body).enqueue(object: AnwCallback<MaxDOP>(){
                 override fun onSuccess(t: MaxDOP) {
                     max_date = t.tanggal
                     Log.d("MaxDate", t.tanggal)
                 }
-                override fun onError(error: APIError?) {
+                override fun onError(error: AnwError?) {
                     toast(error!!.msg)
                 }
             })

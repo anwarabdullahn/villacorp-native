@@ -8,14 +8,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
+import anwarabdullahn.com.villacorp_apps.API.AnwResponse
 import anwarabdullahn.com.villacorp_apps.Activity.LoginActivity
 import anwarabdullahn.com.villacorp_apps.Model.Profile
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import com.orhanobut.hawk.Hawk
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -25,7 +25,7 @@ import org.jetbrains.anko.*
 class  ProfileFragment: Fragment(){
 
     private lateinit var contentView: View
-    var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    var loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = inflater.inflate(R.layout.fragment_profile,null)
@@ -46,16 +46,16 @@ class  ProfileFragment: Fragment(){
         activity!!.alert("Apakah Anda Yakin Ingin Keluar", "Logout") {
             yesButton {
                 loadingScreen.show(fragmentManager,"loading Screen")
-                API.service().logout().enqueue(object : APICallback<APIResponse>() {
-                    override fun onSuccess(t: APIResponse?) {
+                AnwAPI.service().logout().enqueue(object : AnwCallback<AnwResponse>() {
+                    override fun onSuccess(t: AnwResponse?) {
                         loadingScreen.dismiss()
                         activity!!.startActivity<LoginActivity>()
                         activity!!.toast(t!!.msg)
                         activity!!.finish()
-                        API.logOut()
+                        AnwAPI.logOut()
                     }
 
-                    override fun onError(error: APIError?) {
+                    override fun onError(error: AnwError?) {
                         loadingScreen.dismiss()
                         activity!!.toast(error?.msg.toString())
                     }
@@ -67,7 +67,7 @@ class  ProfileFragment: Fragment(){
     }
 
     fun content(){
-        API.service().profile().enqueue(object : APICallback<Profile>(){
+        AnwAPI.service().profile().enqueue(object : AnwCallback<Profile>(){
             @SuppressLint("SetTextI18n")
             override fun onSuccess(profile: Profile) {
                 loadingScreen.dismiss()
@@ -87,7 +87,7 @@ class  ProfileFragment: Fragment(){
                 jadwalKerjaTxt.text = profile.schedule
             }
 
-            override fun onError(error: APIError?) {
+            override fun onError(error: AnwError?) {
                 loadingScreen.dismiss()
                 activity!!.toast(error?.msg.toString())
             }

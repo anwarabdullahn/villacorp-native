@@ -1,6 +1,5 @@
 package anwarabdullahn.com.villacorp_apps.Activity.Fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
@@ -12,25 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Adapter.PesanRecyclerAdapter
 import anwarabdullahn.com.villacorp_apps.Model.Pesans
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
-import com.r0adkll.slidr.Slidr
-import com.r0adkll.slidr.model.SlidrPosition
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import kotlinx.android.synthetic.main.fragment_pesan.view.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
-import com.r0adkll.slidr.model.SlidrInterface
-import com.r0adkll.slidr.model.SlidrConfig
-
-
-
 
 
 class  PesanFragment: Fragment(){
@@ -47,7 +38,7 @@ class  PesanFragment: Fragment(){
     lateinit var adapter : PesanRecyclerAdapter
     lateinit var progressBar: ProgressBar
     lateinit var recyclerView: RecyclerView
-    var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    var loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -88,7 +79,7 @@ class  PesanFragment: Fragment(){
     internal fun loadMore(){
         body.page = page!! +1
         progressBar.visibility = View.VISIBLE
-        API.service().pesan(body).enqueue(object : APICallback<Pesans>() {
+        AnwAPI.service().pesan(body).enqueue(object : AnwCallback<Pesans>() {
             override fun onSuccess(pesans: Pesans) {
                 progressBar.visibility = View.GONE
                 if (pesans.pesan.size >= 0){
@@ -98,7 +89,7 @@ class  PesanFragment: Fragment(){
                 }
             }
 
-            override fun onError(error: APIError?) {
+            override fun onError(error: AnwError?) {
                 progressBar.visibility = View.GONE
                 Log.d("Error" , error!!.msg)
                 activity!!.toast(error.msg)
@@ -115,7 +106,7 @@ class  PesanFragment: Fragment(){
             else     -> body.page = body.page
         }
 
-        API.service().pesan(body).enqueue(object : APICallback<Pesans>() {
+        AnwAPI.service().pesan(body).enqueue(object : AnwCallback<Pesans>() {
             override fun onSuccess(pesans: Pesans) {
                 totalPage = pesans.totalpage
                 loadingScreen.dismiss()
@@ -123,7 +114,7 @@ class  PesanFragment: Fragment(){
                 recyclerView.adapter = adapter
             }
 
-            override fun onError(error: APIError?) {
+            override fun onError(error: AnwError?) {
                 loadingScreen.dismiss()
                 activity!!.toast(error!!.msg)
             }

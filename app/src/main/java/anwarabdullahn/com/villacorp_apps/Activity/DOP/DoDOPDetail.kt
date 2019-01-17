@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.MenuItem
 import android.view.View
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
+import anwarabdullahn.com.villacorp_apps.API.AnwResponse
 import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_do_dopdetail.*
 import org.jetbrains.anko.alert
@@ -22,7 +22,7 @@ import org.jetbrains.anko.yesButton
 
 class DoDOPDetail : AppCompatActivity() {
 
-    val loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    val loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -148,14 +148,14 @@ class DoDOPDetail : AppCompatActivity() {
             alert("Apakah Anda Yakin Ingin Cancel Pengajuan", "DOP Detail") {
                 yesButton {
                     loadingScreen.show(supportFragmentManager,"loading Screen")
-                    API.service().deletedop(Id).enqueue(object : APICallback<APIResponse>(){
-                        override fun onSuccess(t: APIResponse?) {
+                    AnwAPI.service().deletedop(Id).enqueue(object : AnwCallback<AnwResponse>(){
+                        override fun onSuccess(t: AnwResponse?) {
                             loadingScreen.dismiss()
                             val intent = Intent(this@DoDOPDetail, DashboardActivity::class.java)
                             intent.putExtra("result", t!!.msg)
                             startActivity(intent)
                         }
-                        override fun onError(error: APIError?) {
+                        override fun onError(error: AnwError?) {
                             loadingScreen.dismiss()
                             toast(error!!.msg)
                         }

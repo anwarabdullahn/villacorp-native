@@ -10,13 +10,13 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-public interface VillaService {
+public interface AnwService {
 
     @POST("login/")
     Call<User> login(@Body LoginRequest body);
 
     @POST("logout/")
-    Call<APIResponse> logout();
+    Call<AnwResponse> logout();
 
     @GET("info/")
     Call<Info> status();
@@ -28,7 +28,7 @@ public interface VillaService {
     Call<Pesans> pesan(@Body PesanRequest body);
 
     @POST("read/")
-    Call<APIResponse> read(@Body ReadRequest body);
+    Call<AnwResponse> read(@Body ReadRequest body);
 
     @GET("offday/")
     Call<OffDay> offday();
@@ -40,10 +40,10 @@ public interface VillaService {
     Call<DOPMasuk> dopmasuk();
 
     @POST("dop/out")
-    Call<APIResponse> postdop(@Body RequestBody body);
+    Call<AnwResponse> postdop(@Body RequestBody body);
 
     @POST("dop/in")
-    Call<APIResponse> dopin(@Body RequestBody body);
+    Call<AnwResponse> dopin(@Body RequestBody body);
 
     @GET("dop/")
     Call<DOP> dop(@Query("page") String page);
@@ -52,7 +52,7 @@ public interface VillaService {
     Call<MaxDOP> maxdop(@Body RequestBody body);
 
     @DELETE("dop/")
-    Call<APIResponse> deletedop(@Query("id") String id);
+    Call<AnwResponse> deletedop(@Query("id") String id);
 
     @GET("agenda/")
     Call<AgendaSlider> agendaSlider();
@@ -64,19 +64,19 @@ public interface VillaService {
     Call<TukarLibur> changeoff(@Query("page") String page);
 
     @POST("changeoff/")
-    Call<APIResponse> changeoff(@Body ChangeOffRequest body);
+    Call<AnwResponse> changeoff(@Body ChangeOffRequest body);
 
     @DELETE("changeoff/")
-    Call<APIResponse> deletechangeoff(@Query("id") String id);
+    Call<AnwResponse> deletechangeoff(@Query("id") String id);
 
     @GET("changeinout/")
     Call<InOuts> changeinout(@Query("page") String page);
 
     @POST("changeinout/")
-    Call<APIResponse> changeinout(@Body RequestBody body);
+    Call<AnwResponse> changeinout(@Body RequestBody body);
 
     @DELETE("changeinout/")
-    Call<APIResponse> deletechangeinout(@Query("id") String id);
+    Call<AnwResponse> deletechangeinout(@Query("id") String id);
 
     @GET("leave_finger/")
     Call<LeaveFingers> leavefinger(@Query("page") String page);

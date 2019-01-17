@@ -1,8 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity
 
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -16,9 +14,9 @@ import android.view.View
 import anwarabdullahn.com.villacorp_apps.Activity.Fragment.*
 import anwarabdullahn.com.villacorp_apps.R
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Model.Pesans
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest
 import com.nispok.snackbar.Snackbar
@@ -154,7 +152,7 @@ class DashboardActivity : AppCompatActivity() {
 
     fun displayData(){
         body.page = page
-        API.service().pesan(body).enqueue(object :APICallback<Pesans>() {
+        AnwAPI.service().pesan(body).enqueue(object : AnwCallback<Pesans>() {
             override fun onSuccess(t: Pesans) {
                 if(t.jumlah_pesan == "0" ){
                     badgeTxt.visibility = View.GONE
@@ -164,7 +162,7 @@ class DashboardActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onError(error: APIError?) {
+            override fun onError(error: AnwError?) {
                 toast(error!!.msg)
             }
 

@@ -10,13 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Adapter.TukarLiburAdapter.TukarLiburPengajuanAdapter
 import anwarabdullahn.com.villacorp_apps.Model.TukarLibur
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import kotlinx.android.synthetic.main.tukar_libur_pengajuan.*
 import kotlinx.android.synthetic.main.tukar_libur_pengajuan.view.*
 import org.jetbrains.anko.find
@@ -35,7 +35,7 @@ class PengajuanFragment: Fragment() {
     var totalPage: Int? = 0
     lateinit var progressBar: ProgressBar
     lateinit var recyclerView: RecyclerView
-    var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    var loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
     lateinit var adapter: TukarLiburPengajuanAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -80,7 +80,7 @@ class PengajuanFragment: Fragment() {
             else -> page = page
         }
 
-        API.service().changeoff(page.toString()).enqueue(object : APICallback<TukarLibur>(){
+        AnwAPI.service().changeoff(page.toString()).enqueue(object : AnwCallback<TukarLibur>(){
             override fun onSuccess(t: TukarLibur) {
                 if(t.Pengajuan.size == 0){
                     frameKosong.visibility = View.VISIBLE
@@ -91,7 +91,7 @@ class PengajuanFragment: Fragment() {
                 recyclerView.adapter = adapter
             }
 
-            override fun onError(error: APIError) {
+            override fun onError(error: AnwError) {
                 loadingScreen.dismiss()
                 toast(error.msg)
             }
@@ -126,7 +126,7 @@ class PengajuanFragment: Fragment() {
     fun loadMore(){
         page = page+1
         progressBar.visibility = View.VISIBLE
-        API.service().changeoff(page.toString()).enqueue(object : APICallback<TukarLibur>(){
+        AnwAPI.service().changeoff(page.toString()).enqueue(object : AnwCallback<TukarLibur>(){
             override fun onSuccess(t: TukarLibur) {
                 progressBar.visibility = View.GONE
                 if (t.Pengajuan.size >=0){
@@ -137,7 +137,7 @@ class PengajuanFragment: Fragment() {
 
             }
 
-            override fun onError(error: APIError) {
+            override fun onError(error: AnwError) {
                 loadingScreen.dismiss()
                 toast(error.msg)
             }

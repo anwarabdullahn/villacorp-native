@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.MenuItem
 import android.view.View
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
+import anwarabdullahn.com.villacorp_apps.API.AnwResponse
 import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_do_tukar_libur_detail.*
 import org.jetbrains.anko.alert
@@ -31,7 +31,7 @@ class DoTukarLiburDetail : AppCompatActivity() {
         setSupportActionBar(toolbarDoTukarLiburDetail)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val loadingScreen: DialogFragment = LoadingHelper.getInstance()
+        val loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
 
         nomorPengajuanTxt.text = intent.extras!!.getString("Nomor")
         doPengajuanOldDateTxt.text = intent.extras!!.getString("DateOld")
@@ -74,15 +74,15 @@ class DoTukarLiburDetail : AppCompatActivity() {
             alert("Apakah Anda Yakin Ingin Cancel Pengajuan Tukar Libur", "Tukar Libur") {
                 yesButton {
                     loadingScreen.show(supportFragmentManager,"loading Screen")
-                    API.service().deletechangeoff(intent.extras!!.getString("IdChangeOff")).enqueue(object : APICallback<APIResponse>(){
-                        override fun onSuccess(t: APIResponse?) {
+                    AnwAPI.service().deletechangeoff(intent.extras!!.getString("IdChangeOff")).enqueue(object : AnwCallback<AnwResponse>(){
+                        override fun onSuccess(t: AnwResponse?) {
                             loadingScreen.dismiss()
                             val intent = Intent(this@DoTukarLiburDetail, DashboardActivity::class.java)
                             intent.putExtra("result", t!!.msg)
                             startActivity(intent)
                         }
 
-                        override fun onError(error: APIError?) {
+                        override fun onError(error: AnwError?) {
                             loadingScreen.dismiss()
                             toast(error!!.msg)
                         }

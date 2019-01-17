@@ -10,15 +10,15 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Adapter.DOP.DOPAdapter
 import anwarabdullahn.com.villacorp_apps.Model.DOP
 import anwarabdullahn.com.villacorp_apps.Model.DOPMasuk
 import anwarabdullahn.com.villacorp_apps.Model.PublicHoliday
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import kotlinx.android.synthetic.main.activity_dop.*
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.find
@@ -35,7 +35,7 @@ class DOPActivity : AppCompatActivity() {
     var totalPage: Int? = 0
     lateinit var progressBar: ProgressBar
     lateinit var recyclerView: RecyclerView
-    var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    var loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
     lateinit var adapter: DOPAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +65,7 @@ class DOPActivity : AppCompatActivity() {
         }
 
         dopMasukBtn.setOnClickListener {
-            API.service().dopholiday().enqueue(object: APICallback<PublicHoliday>(){
+            AnwAPI.service().dopholiday().enqueue(object: AnwCallback<PublicHoliday>(){
                 override fun onSuccess(t: PublicHoliday?) {
                     if (t!!.holiday.size != 0){
                         val doDOPIn= Intent(this@DOPActivity, DoDOPInActivity::class.java)
@@ -77,7 +77,7 @@ class DOPActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onError(error: APIError?) {
+                override fun onError(error: AnwError?) {
                     toast(error!!.msg)
                     return
                 }
@@ -86,7 +86,7 @@ class DOPActivity : AppCompatActivity() {
         }
 
         dopLiburBtn.setOnClickListener {
-            API.service().dopmasuk().enqueue(object : APICallback<DOPMasuk>(){
+            AnwAPI.service().dopmasuk().enqueue(object : AnwCallback<DOPMasuk>(){
                 override fun onSuccess(t: DOPMasuk?) {
                     if (t!!.TglDOPIn.size != 0){
                         val doDOPIn= Intent(this@DOPActivity, DoDOPOutActivity::class.java)
@@ -98,7 +98,7 @@ class DOPActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onError(error: APIError?) {
+                override fun onError(error: AnwError?) {
                     toast(error!!.msg)
                     return
                 }
@@ -131,7 +131,7 @@ class DOPActivity : AppCompatActivity() {
             else -> page
         }
 
-        API.service().dop(page.toString()).enqueue(object : APICallback<DOP>(){
+        AnwAPI.service().dop(page.toString()).enqueue(object : AnwCallback<DOP>(){
             override fun onSuccess(t: DOP) {
                 if(t.DOPFinger.size == 0){
                     frameKosong.visibility = View.VISIBLE
@@ -142,7 +142,7 @@ class DOPActivity : AppCompatActivity() {
                 recyclerView.adapter = adapter
             }
 
-            override fun onError(error: APIError) {
+            override fun onError(error: AnwError) {
                 loadingScreen.dismiss()
                 toast(error.msg)
             }
@@ -179,7 +179,7 @@ class DOPActivity : AppCompatActivity() {
     fun loadMore(){
         page += 1
         progressBar.visibility = View.VISIBLE
-        API.service().dop(page.toString()).enqueue(object : APICallback<DOP>(){
+        AnwAPI.service().dop(page.toString()).enqueue(object : AnwCallback<DOP>(){
             override fun onSuccess(t: DOP) {
                 progressBar.visibility = View.GONE
                 if (t.DOPFinger.size >= 0){
@@ -188,7 +188,7 @@ class DOPActivity : AppCompatActivity() {
                     toast("Nothing to Load!")
                 }
             }
-            override fun onError(error: APIError?) {
+            override fun onError(error: AnwError?) {
                 progressBar.visibility = View.GONE
                 toast(error!!.msg)
             }

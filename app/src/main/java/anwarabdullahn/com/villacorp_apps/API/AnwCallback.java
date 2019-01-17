@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by anwarabdullahn on 1/23/18.
  */
-public abstract class APICallback<T> implements Callback<T> {
+public abstract class AnwCallback<T> implements Callback<T> {
     @Deprecated
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
@@ -19,10 +19,10 @@ public abstract class APICallback<T> implements Callback<T> {
             Log.d("Response", response.body().toString());
         } else {
             try {
-                APIError error = API.getErrorConverter().convert(response.errorBody());
+                AnwError error = AnwAPI.getErrorConverter().convert(response.errorBody());
                 onError(error);
             } catch (IOException e) {
-                onError(new APIError("Unexpected error"));
+                onError(new AnwError("Unexpected error"));
             }
         }
     }
@@ -30,11 +30,11 @@ public abstract class APICallback<T> implements Callback<T> {
     @Deprecated
     @Override
     public void onFailure(Call<T> call, Throwable t) {
-        onError(new APIError(t.getMessage() + ""));
+        onError(new AnwError(t.getMessage() + ""));
     }
 
     protected abstract void onSuccess(T t);
 
-    protected abstract void onError(APIError error);
+    protected abstract void onError(AnwError error);
 }
 

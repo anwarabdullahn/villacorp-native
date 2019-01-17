@@ -1,3 +1,4 @@
 package anwarabdullahn.com.villacorp_apps.API
 
-class APIResponse(val msg: String)
+class AnwError(val msg: String) {
+}

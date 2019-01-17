@@ -8,12 +8,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Model.Info
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import kotlinx.android.synthetic.main.fragment_info.*
 import kotlinx.android.synthetic.main.fragment_info.view.*
 import org.jetbrains.anko.toast
@@ -21,7 +21,7 @@ import org.jetbrains.anko.toast
 class  InfoFragment: Fragment(){
 
     private lateinit var contentView: View
-    var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    var loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = inflater.inflate(R.layout.fragment_info,null)
@@ -38,7 +38,7 @@ class  InfoFragment: Fragment(){
     }
 
     fun content(){
-        API.service().status().enqueue(object: APICallback<Info>(){
+        AnwAPI.service().status().enqueue(object: AnwCallback<Info>(){
             @SuppressLint("SetTextI18n")
             override fun onSuccess(info: Info) {
                 loadingScreen.dismiss()
@@ -67,7 +67,7 @@ class  InfoFragment: Fragment(){
                 priodeTxt.text = info.periode
             }
 
-            override fun onError(error: APIError?) {
+            override fun onError(error: AnwError?) {
                 loadingScreen.dismiss()
                 activity!!.toast(error?.msg.toString())
             }

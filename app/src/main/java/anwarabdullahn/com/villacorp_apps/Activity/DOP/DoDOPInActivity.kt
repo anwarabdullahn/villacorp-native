@@ -7,14 +7,14 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
+import anwarabdullahn.com.villacorp_apps.API.AnwResponse
 import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
 import anwarabdullahn.com.villacorp_apps.Model.PublicHoliday
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import com.r0adkll.slidr.Slidr
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.activity_do_dopin.*
@@ -29,7 +29,7 @@ class DoDOPInActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
     lateinit var holidays: ArrayList<String>
     lateinit var body: MultipartBody
     private var new_date: String? = null
-    val loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    val loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,15 +63,15 @@ class DoDOPInActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
                 .build()
 
             loadingScreen.show(supportFragmentManager, "loading Screen")
-            API.service().dopin(body).enqueue(object : APICallback<APIResponse>(){
-                override fun onSuccess(t: APIResponse?) {
+            AnwAPI.service().dopin(body).enqueue(object : AnwCallback<AnwResponse>(){
+                override fun onSuccess(t: AnwResponse?) {
                     loadingScreen.dismiss()
                     val intent = Intent(this@DoDOPInActivity, DashboardActivity::class.java)
                     intent.putExtra("result", t!!.msg)
                     startActivity(intent)
                 }
 
-                override fun onError(error: APIError?) {
+                override fun onError(error: AnwError?) {
                     loadingScreen.dismiss()
                     toast(error!!.msg)
                     return
@@ -88,7 +88,7 @@ class DoDOPInActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
 
 
     fun showDatePicker() {
-        API.service().dopholiday().enqueue(object: APICallback<PublicHoliday>() {
+        AnwAPI.service().dopholiday().enqueue(object: AnwCallback<PublicHoliday>() {
             override fun onSuccess(t: PublicHoliday) {
 
 //                Log.d("nganu", t.offday.toString())
@@ -124,7 +124,7 @@ class DoDOPInActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
 
             }
 
-            override fun onError(error: APIError) {
+            override fun onError(error: AnwError) {
                 toast(error.msg)
                 return
             }

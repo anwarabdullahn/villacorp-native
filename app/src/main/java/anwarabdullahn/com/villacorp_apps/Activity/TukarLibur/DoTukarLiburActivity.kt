@@ -5,10 +5,10 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
+import anwarabdullahn.com.villacorp_apps.API.AnwResponse
 import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Request.ChangeOffRequest
@@ -24,7 +24,7 @@ import android.support.v4.app.DialogFragment
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import anwarabdullahn.com.villacorp_apps.Model.OffDay
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import org.jetbrains.anko.find
 import java.text.ParseException
@@ -37,7 +37,7 @@ class DoTukarLiburActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     lateinit var holidays: ArrayList<String>
     lateinit var alasanTukarLiburTxt: EditText
 
-    val loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    val loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,15 +117,15 @@ class DoTukarLiburActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
 
             loadingScreen.show(supportFragmentManager, "loading Screen")
-            API.service().changeoff(body).enqueue(object : APICallback<APIResponse>() {
-                override fun onSuccess(t: APIResponse?) {
+            AnwAPI.service().changeoff(body).enqueue(object : AnwCallback<AnwResponse>() {
+                override fun onSuccess(t: AnwResponse?) {
                     loadingScreen.dismiss()
                     val intent = Intent(this@DoTukarLiburActivity, DashboardActivity::class.java)
                     intent.putExtra("result", t!!.msg)
                     startActivity(intent)
                 }
 
-                override fun onError(error: APIError?) {
+                override fun onError(error: AnwError?) {
                     loadingScreen.dismiss()
                     SnackbarManager.show(
                         Snackbar.with(applicationContext)
@@ -141,7 +141,7 @@ class DoTukarLiburActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
     fun showDatePicker() {
 
-        API.service().offday().enqueue(object: APICallback<OffDay>() {
+        AnwAPI.service().offday().enqueue(object: AnwCallback<OffDay>() {
             override fun onSuccess(t: OffDay) {
 
 //                Log.d("nganu", t.offday.toString())
@@ -177,7 +177,7 @@ class DoTukarLiburActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
             }
 
-            override fun onError(error: APIError) {
+            override fun onError(error: AnwError) {
                 toast(error.msg)
                 return
             }

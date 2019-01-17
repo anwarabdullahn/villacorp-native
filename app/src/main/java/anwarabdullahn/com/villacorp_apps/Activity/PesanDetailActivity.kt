@@ -3,10 +3,10 @@ package anwarabdullahn.com.villacorp_apps.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
+import anwarabdullahn.com.villacorp_apps.API.AnwResponse
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Request.ReadRequest
 import com.r0adkll.slidr.Slidr
@@ -40,12 +40,12 @@ class PesanDetailActivity : AppCompatActivity() {
 
     internal fun content(){
         body.id = (intent.extras.getString("id")).toInt()
-        API.service().read(body).enqueue(object: APICallback<APIResponse>(){
-            override fun onSuccess(t: APIResponse) {
+        AnwAPI.service().read(body).enqueue(object: AnwCallback<AnwResponse>(){
+            override fun onSuccess(t: AnwResponse) {
                 toast(t.msg)
             }
 
-            override fun onError(error: APIError) {
+            override fun onError(error: AnwError) {
                 toast(error.msg)
             }
 

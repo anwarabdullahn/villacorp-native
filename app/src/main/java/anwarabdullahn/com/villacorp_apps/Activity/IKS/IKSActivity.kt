@@ -9,13 +9,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Adapter.IKS.IKSAdapter
 import anwarabdullahn.com.villacorp_apps.Model.IKSs
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import kotlinx.android.synthetic.main.activity_iks.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
@@ -32,7 +32,7 @@ class IKSActivity : AppCompatActivity() {
     var totalPage: Int? = 0
     lateinit var progressBar: ProgressBar
     lateinit var recyclerView: RecyclerView
-    var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    var loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
     lateinit var adapter: IKSAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +81,7 @@ class IKSActivity : AppCompatActivity() {
             else -> page
         }
 
-        API.service().iks(page.toString()).enqueue(object : APICallback<IKSs>(){
+        AnwAPI.service().iks(page.toString()).enqueue(object : AnwCallback<IKSs>(){
             override fun onSuccess(t: IKSs) {
                 if(t.IKS.size == 0){
                     frameKosong.visibility = View.VISIBLE
@@ -92,7 +92,7 @@ class IKSActivity : AppCompatActivity() {
                 recyclerView.adapter = adapter
             }
 
-            override fun onError(error: APIError) {
+            override fun onError(error: AnwError) {
                 loadingScreen.dismiss()
                 toast(error.msg)
             }
@@ -129,7 +129,7 @@ class IKSActivity : AppCompatActivity() {
     fun loadMore(){
         page += 1
         progressBar.visibility = View.VISIBLE
-        API.service().iks(page.toString()).enqueue(object : APICallback<IKSs>(){
+        AnwAPI.service().iks(page.toString()).enqueue(object : AnwCallback<IKSs>(){
             override fun onSuccess(t: IKSs) {
                 progressBar.visibility = View.GONE
                 if (t.IKS.size >= 0){
@@ -138,7 +138,7 @@ class IKSActivity : AppCompatActivity() {
                     toast("Nothing to Load!")
                 }
             }
-            override fun onError(error: APIError?) {
+            override fun onError(error: AnwError?) {
                 progressBar.visibility = View.GONE
                 toast(error!!.msg)
             }

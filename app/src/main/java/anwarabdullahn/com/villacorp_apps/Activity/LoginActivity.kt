@@ -5,19 +5,16 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentManager
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Model.User
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Request.LoginRequest
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
 
@@ -28,9 +25,9 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val intent = Intent(this, DashboardActivity::class.java)
-        val loadingScreen: DialogFragment = LoadingHelper.getInstance()
+        val loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
 
-        if (API.isLoggedIn()) {
+        if (AnwAPI.isLoggedIn()) {
             startActivity(intent)
             finish()
         }
@@ -56,18 +53,18 @@ class LoginActivity : AppCompatActivity() {
             Log.d("password", body.password)
 
             loadingScreen.show(supportFragmentManager,"loading Screen")
-            API.service().login(body).enqueue(object : APICallback<User>() {
+            AnwAPI.service().login(body).enqueue(object : AnwCallback<User>() {
                 override fun onSuccess(user: User) {
                     loadingScreen.dismiss()
                     Log.d("Key User", user.key)
-                    API.setCurrentUser(user)
-                    API.setToken(user.key)
+                    AnwAPI.setCurrentUser(user)
+                    AnwAPI.setToken(user.key)
 
                     startActivity(intent)
                     finish()
                 }
 
-                override fun onError(error: APIError) {
+                override fun onError(error: AnwError) {
                     loadingScreen.dismiss()
                     Toast.makeText(this@LoginActivity, error.msg, Toast.LENGTH_SHORT).show()
                 }

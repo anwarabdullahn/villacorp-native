@@ -9,13 +9,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Adapter.LeaveFinger.LeaveFingerAdapter
 import anwarabdullahn.com.villacorp_apps.Model.LeaveFingers
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import kotlinx.android.synthetic.main.activity_leave_finger.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
@@ -32,7 +32,7 @@ class LeaveFingerActivity : AppCompatActivity() {
     var totalPage: Int? = 0
     lateinit var progressBar: ProgressBar
     lateinit var recyclerView: RecyclerView
-    var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    var loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
     lateinit var adapter: LeaveFingerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +82,7 @@ class LeaveFingerActivity : AppCompatActivity() {
             else -> page
         }
 
-        API.service().leavefinger(page.toString()).enqueue(object : APICallback<LeaveFingers>(){
+        AnwAPI.service().leavefinger(page.toString()).enqueue(object : AnwCallback<LeaveFingers>(){
             override fun onSuccess(t: LeaveFingers) {
                 if(t.LeaveFinger.size == 0){
                     frameKosong.visibility = View.VISIBLE
@@ -93,7 +93,7 @@ class LeaveFingerActivity : AppCompatActivity() {
                 recyclerView.adapter = adapter
             }
 
-            override fun onError(error: APIError) {
+            override fun onError(error: AnwError) {
                 loadingScreen.dismiss()
                 toast(error.msg)
             }
@@ -130,7 +130,7 @@ class LeaveFingerActivity : AppCompatActivity() {
     fun loadMore(){
         page += 1
         progressBar.visibility = View.VISIBLE
-        API.service().leavefinger(page.toString()).enqueue(object : APICallback<LeaveFingers>(){
+        AnwAPI.service().leavefinger(page.toString()).enqueue(object : AnwCallback<LeaveFingers>(){
             override fun onSuccess(t: LeaveFingers) {
                 progressBar.visibility = View.GONE
                 if (t.LeaveFinger.size >= 0){
@@ -139,7 +139,7 @@ class LeaveFingerActivity : AppCompatActivity() {
                     toast("Nothing to Load!")
                 }
             }
-            override fun onError(error: APIError?) {
+            override fun onError(error: AnwError?) {
                 progressBar.visibility = View.GONE
                 toast(error!!.msg)
             }

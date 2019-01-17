@@ -15,9 +15,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Activity.DOP.DOPActivity
 import anwarabdullahn.com.villacorp_apps.Activity.IKS.IKSActivity
 import anwarabdullahn.com.villacorp_apps.Activity.InOut.InOutActivity
@@ -28,12 +28,10 @@ import anwarabdullahn.com.villacorp_apps.Adapter.InfoVPAdapter
 import anwarabdullahn.com.villacorp_apps.Adapter.SliderVPAdapter
 import anwarabdullahn.com.villacorp_apps.Model.AgendaSlider
 import anwarabdullahn.com.villacorp_apps.R
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import me.grantland.widget.AutofitHelper
 import org.jetbrains.anko.find
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import java.util.*
 
@@ -51,7 +49,7 @@ class HomeFragment : Fragment() {
     lateinit var timer: Timer
     var sliderSize: Int = 0
     var infoSize: Int = 0
-    var loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    var loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val contentView = inflater.inflate(R.layout.fragment_home, null)
@@ -77,7 +75,7 @@ class HomeFragment : Fragment() {
         val dotsIndicator = contentView.findViewById<WormDotsIndicator>(R.id.dots_indicator)
         val dotsIndicatorInfo = contentView.findViewById<WormDotsIndicator>(R.id.dots_indicator_info)
 
-        API.service().agendaSlider().enqueue(object : APICallback<AgendaSlider>() {
+        AnwAPI.service().agendaSlider().enqueue(object : AnwCallback<AgendaSlider>() {
             override fun onSuccess(t: AgendaSlider) {
                 loadingScreen.dismiss()
                 adapter = SliderVPAdapter(contentView.context, t.slider)
@@ -95,7 +93,7 @@ class HomeFragment : Fragment() {
                 timer.scheduleAtFixedRate(MyTimerTask(),2000,4000)
             }
 
-            override fun onError(error: APIError?) {
+            override fun onError(error: AnwError?) {
                 loadingScreen.dismiss()
                 activity!!.toast(error?.msg.toString())
             }

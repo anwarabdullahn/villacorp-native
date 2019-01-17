@@ -3,12 +3,9 @@ package anwarabdullahn.com.villacorp_apps.Activity.InOut
 import android.app.Activity
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import android.content.Intent
-import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
-import android.provider.MediaStore
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.MenuItem
@@ -20,16 +17,13 @@ import org.jetbrains.anko.toast
 import org.jetbrains.anko.yesButton
 import java.text.SimpleDateFormat
 import java.util.*
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
-import anwarabdullahn.com.villacorp_apps.API.API
-import anwarabdullahn.com.villacorp_apps.API.APICallback
-import anwarabdullahn.com.villacorp_apps.API.APIError
-import anwarabdullahn.com.villacorp_apps.API.APIResponse
+import anwarabdullahn.com.villacorp_apps.API.AnwAPI
+import anwarabdullahn.com.villacorp_apps.API.AnwCallback
+import anwarabdullahn.com.villacorp_apps.API.AnwError
+import anwarabdullahn.com.villacorp_apps.API.AnwResponse
 import anwarabdullahn.com.villacorp_apps.Activity.DashboardActivity
-import anwarabdullahn.com.villacorp_apps.Utils.LoadingHelper
-import com.nispok.snackbar.Snackbar
-import com.nispok.snackbar.SnackbarManager
+import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -45,7 +39,7 @@ class DoInOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
 
     private var new_date: String? = null
     var mFile: File? = null
-    val loadingScreen: DialogFragment = LoadingHelper.getInstance()
+    val loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
     lateinit var body: MultipartBody
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -148,15 +142,15 @@ class DoInOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
 
             loadingScreen.show(supportFragmentManager, "loading Screen")
 
-            API.service().changeinout(body).enqueue(object : APICallback<APIResponse>() {
-                override fun onSuccess(t: APIResponse?) {
+            AnwAPI.service().changeinout(body).enqueue(object : AnwCallback<AnwResponse>() {
+                override fun onSuccess(t: AnwResponse?) {
                     loadingScreen.dismiss()
                     val intent = Intent(this@DoInOutActivity, DashboardActivity::class.java)
                     intent.putExtra("result", t!!.msg)
                     startActivity(intent)
                 }
 
-                override fun onError(error: APIError?) {
+                override fun onError(error: AnwError?) {
                     loadingScreen.dismiss()
                     toast(error!!.msg)
                 }

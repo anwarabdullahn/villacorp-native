@@ -11,22 +11,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by anwarabdullahn on 6/12/18.
  */
-public class API {
+public class AnwAPI {
     private static final String ROOT_URL = "http://test.villacorp.systems/api/";
 //    private static final String ROOT_URL = "http://villacorp.systems/api/";
     private static final String TOKEN = "TOKEN";
     private static final String USER = "USER";
-    private static VillaService SERVICE;
+    private static AnwService SERVICE;
 
-    private static Converter<ResponseBody, APIError> ERROR_CONVERTER;
+    private static Converter<ResponseBody, AnwError> ERROR_CONVERTER;
 
-    public static VillaService service() {
+    public static AnwService service() {
         if (SERVICE == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -55,16 +54,16 @@ public class API {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            ERROR_CONVERTER = retrofit.responseBodyConverter(APIError.class, new Annotation[0]);
+            ERROR_CONVERTER = retrofit.responseBodyConverter(AnwError.class, new Annotation[0]);
 
-            SERVICE = retrofit.create(VillaService.class);
+            SERVICE = retrofit.create(AnwService.class);
         }
 
         return SERVICE;
 
     }
 
-    static Converter<ResponseBody, APIError> getErrorConverter() {
+    static Converter<ResponseBody, AnwError> getErrorConverter() {
         return ERROR_CONVERTER;
     }
 
