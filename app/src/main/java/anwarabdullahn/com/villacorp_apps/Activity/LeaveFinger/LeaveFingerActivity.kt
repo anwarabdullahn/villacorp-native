@@ -1,5 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity.LeaveFinger
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -14,6 +15,7 @@ import anwarabdullahn.com.villacorp_apps.API.AnwCallback
 import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Adapter.LeaveFinger.LeaveFingerAdapter
 import anwarabdullahn.com.villacorp_apps.Model.LeaveFingers
+import anwarabdullahn.com.villacorp_apps.Model.OffDay
 import anwarabdullahn.com.villacorp_apps.R
 import anwarabdullahn.com.villacorp_apps.Utils.AnwLoadingHelper
 import kotlinx.android.synthetic.main.activity_leave_finger.*
@@ -34,6 +36,7 @@ class LeaveFingerActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     var loadingScreen: DialogFragment = AnwLoadingHelper.getInstance()
     lateinit var adapter: LeaveFingerAdapter
+    var saldoCuti: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,10 +64,62 @@ class LeaveFingerActivity : AppCompatActivity() {
             reset()
             swipeDown()
         }
+
+        cutiDibayarBtn.setOnClickListener {
+            AnwAPI.service().offday().enqueue(object: AnwCallback<OffDay>(){
+                override fun onSuccess(t: OffDay?) {
+                    if (t!!.offday.size != 0){
+                        val intent = Intent(this@LeaveFingerActivity, DoLeaveFinger::class.java)
+                        intent.putExtra("Type", "5")
+                        intent.putExtra("Title", "Cuti Tahunan")
+                        intent.putExtra("SaldoCuti", saldoCuti)
+                        startActivity(intent)
+                    } else {
+                        toast("Tidak Memiliki Jadwal Libur silahkan Hubungi HRD")
+                        return
+                    }
+                }
+
+                override fun onError(error: AnwError?) {
+                    toast(error!!.msg)
+                    return
+                }
+
+            })
+        }
+
+        cutiKhususBtn.setOnClickListener {
+
+            if (saldoCuti==0){
+                toast("Tidak Memiliki Saldo Cuti silahkan Hubungi HRD")
+                return@setOnClickListener
+            }
+
+            AnwAPI.service().offday().enqueue(object: AnwCallback<OffDay>(){
+                override fun onSuccess(t: OffDay?) {
+                    if (t!!.offday.size != 0){
+                        val intent = Intent(this@LeaveFingerActivity, DoLeaveFinger::class.java)
+                        intent.putExtra("Type", "4")
+                        intent.putExtra("Title", "Dispensasi / Cuti Khusus")
+                        intent.putExtra("SaldoCuti", 30)
+                        startActivity(intent)
+                    } else {
+                        toast("Tidak Memiliki Jadwal Libur silahkan Hubungi HRD")
+                        return
+                    }
+                }
+
+                override fun onError(error: AnwError?) {
+                    toast(error!!.msg)
+                    return
+                }
+
+            })
+        }
     }
 
 
-    internal fun reset(){
+    private fun reset(){
         page = 1
         isLoading = false
         pastVisibleItems = 0
@@ -87,6 +142,7 @@ class LeaveFingerActivity : AppCompatActivity() {
                 if(t.LeaveFinger.size == 0){
                     frameKosong.visibility = View.VISIBLE
                 }
+                saldoCuti = t.SaldoCuti
                 loadingScreen.dismiss()
                 totalPage = t.TotalPage.toInt()
                 adapter = LeaveFingerAdapter(t.LeaveFinger)

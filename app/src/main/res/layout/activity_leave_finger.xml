@@ -111,7 +111,7 @@
                     fab:menu_openDirection="up"
                     fab:menu_backgroundColor="@android:color/transparent">
                 <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/dopMasukBtn"
+                        android:id="@+id/cutiKhususBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_cuti"
@@ -121,7 +121,7 @@
                         fab:fab_label="Dispensasi / Cuti Khusus"/>
 
                 <com.github.clans.fab.FloatingActionButton
-                        android:id="@+id/dopLiburBtn"
+                        android:id="@+id/cutiDibayarBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:tint="@color/colorWhite"

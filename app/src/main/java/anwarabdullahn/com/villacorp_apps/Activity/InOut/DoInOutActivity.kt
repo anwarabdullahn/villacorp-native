@@ -52,19 +52,19 @@ class DoInOutActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         Slidr.attach(this)
 
-        Handler().postDelayed({
-            alert(
-                "Dispensasi Datang Telat & Pulang Cepat (Tidak Potong Gaji)\n" +
-                        "1. Force Majeur : Ban bocor, tabrakan (wajib melampirkan photo) \n" +
-                        "2. Personal : Urusan pribadi yang sifatnya penting \n" +
-                        "NB : Maksimal izin 120 menit dalam satu periode payroll (late in atau early out) satu kali.\n\n" +
-                        "Datang Telat & Pulang Cepat (Potong Gaji)\n" +
-                        "Yang tidak termasuk dalam kriteria diatas \n" +
-                        "NB : Potongan sesuai dengan ketentuan yang berlaku", "Telat & Pulang Cepat"
-            ) {
-                yesButton { }
-            }.show()
-        }, 2000)
+//        Handler().postDelayed({
+//            alert(
+//                "Dispensasi Datang Telat & Pulang Cepat (Tidak Potong Gaji)\n" +
+//                        "1. Force Majeur : Ban bocor, tabrakan (wajib melampirkan photo) \n" +
+//                        "2. Personal : Urusan pribadi yang sifatnya penting \n" +
+//                        "NB : Maksimal izin 120 menit dalam satu periode payroll (late in atau early out) satu kali.\n\n" +
+//                        "Datang Telat & Pulang Cepat (Potong Gaji)\n" +
+//                        "Yang tidak termasuk dalam kriteria diatas \n" +
+//                        "NB : Potongan sesuai dengan ketentuan yang berlaku", "Telat & Pulang Cepat"
+//            ) {
+//                yesButton { }
+//            }.show()
+//        }, 2000)
 
         tanggalInOutTxtBtn.setOnClickListener {
             var now = Calendar.getInstance()

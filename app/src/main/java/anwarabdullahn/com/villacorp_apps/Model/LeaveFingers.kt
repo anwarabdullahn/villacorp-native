@@ -9,6 +9,9 @@ class LeaveFingers(
     @SerializedName("totalpage")
     var TotalPage: String,
 
+    @SerializedName("saldocuti")
+    var SaldoCuti: Int,
+
     @SerializedName("leave_finger")
     var LeaveFinger: MutableList<LeaveFinger>
 )
