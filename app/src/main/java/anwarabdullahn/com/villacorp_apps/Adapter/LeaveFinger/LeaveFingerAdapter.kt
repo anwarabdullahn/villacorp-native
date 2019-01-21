@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import anwarabdullahn.com.villacorp_apps.Activity.InOut.DoInOutDetail
+import anwarabdullahn.com.villacorp_apps.Activity.LeaveFinger.DoLeaveFinger
+import anwarabdullahn.com.villacorp_apps.Activity.LeaveFinger.DoLeaveFingerDetails
 import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.DoTukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Model.InOut
 import anwarabdullahn.com.villacorp_apps.Model.JadwalLibur
@@ -58,8 +60,18 @@ class LeaveFingerAdapter(val leaveFingerList: MutableList<LeaveFinger>) : Recycl
         }
 
         p0.statusTxt.setOnClickListener {
-            val intent = Intent(p0.itemView.context, DoInOutDetail::class.java)
-//            intent.putExtra("id_inout", inOut.IdInOut)
+            val intent = Intent(p0.itemView.context, DoLeaveFingerDetails::class.java)
+            intent.putExtra("id", leaveFinger.ID)
+            intent.putExtra("nomor", leaveFinger.Nomor)
+            intent.putExtra("type", leaveFinger.TypeLeave)
+            intent.putExtra("date", leaveFinger.Date)
+            intent.putExtra("nama", leaveFinger.InputBy)
+            intent.putExtra("alasan", leaveFinger.Reason)
+            intent.putExtra("update_by", leaveFinger.UpdateBy)
+            intent.putExtra("input_by", leaveFinger.InputBy)
+            intent.putExtra("reject_reason", leaveFinger.RejectReason)
+            intent.putExtra("lampiran", leaveFinger.Lampiran)
+            intent.putExtra("status", leaveFinger.Status)
             startActivity(p0.itemView.context,intent,null)
         }
     }

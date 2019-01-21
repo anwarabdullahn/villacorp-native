@@ -84,6 +84,9 @@ public interface AnwService {
     @POST("leave_finger/")
     Call<AnwResponse> leavefinger(@Body RequestBody body);
 
+    @DELETE("leave_finger/")
+    Call<AnwResponse> deleteleavefinger(@Query("id") String id);
+
     @GET("iks/")
     Call<IKSs> iks(@Query("page") String page);
 

@@ -316,7 +316,6 @@ class DoLeaveFinger : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         return super.onOptionsItemSelected(item)
     }
 
-
     //    Date Monday, 23 January 2018
     fun convertDate(mTime: Long): String {
         val df = SimpleDateFormat("EEEE, d MMMM yyyy")
