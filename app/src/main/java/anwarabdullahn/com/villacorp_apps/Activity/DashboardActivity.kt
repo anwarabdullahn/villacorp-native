@@ -21,7 +21,6 @@ import anwarabdullahn.com.villacorp_apps.Model.Pesans
 import anwarabdullahn.com.villacorp_apps.Request.PesanRequest
 import com.nispok.snackbar.Snackbar
 import com.nispok.snackbar.SnackbarManager
-import kotlinx.coroutines.*
 import org.jetbrains.anko.toast
 import kotlinx.android.synthetic.main.dialog_home_menu_bottomsheet.*
 import org.jetbrains.anko.find

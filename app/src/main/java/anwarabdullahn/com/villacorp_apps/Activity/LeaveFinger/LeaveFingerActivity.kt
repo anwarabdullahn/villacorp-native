@@ -66,6 +66,10 @@ class LeaveFingerActivity : AppCompatActivity() {
         }
 
         cutiDibayarBtn.setOnClickListener {
+            if (saldoCuti==0){
+                toast("Tidak Memiliki Saldo Cuti silahkan Hubungi HRD")
+                return@setOnClickListener
+            }
             AnwAPI.service().offday().enqueue(object: AnwCallback<OffDay>(){
                 override fun onSuccess(t: OffDay?) {
                     if (t!!.offday.size != 0){
@@ -89,11 +93,6 @@ class LeaveFingerActivity : AppCompatActivity() {
         }
 
         cutiKhususBtn.setOnClickListener {
-
-            if (saldoCuti==0){
-                toast("Tidak Memiliki Saldo Cuti silahkan Hubungi HRD")
-                return@setOnClickListener
-            }
 
             AnwAPI.service().offday().enqueue(object: AnwCallback<OffDay>(){
                 override fun onSuccess(t: OffDay?) {
