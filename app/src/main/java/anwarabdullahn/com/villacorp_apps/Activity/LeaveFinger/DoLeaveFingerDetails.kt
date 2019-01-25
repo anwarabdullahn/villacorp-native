@@ -61,12 +61,12 @@ class DoLeaveFingerDetails : AppCompatActivity() {
             "5" -> {
                 typeTxt.text = "Cuti Tahunan"
             }
-//            "2" -> {
-//                typeTxt.text = "Datang Telat"
-//            }
-//            "3" -> {
-//                typeTxt.text = "Pulang Cepat"
-//            }
+            "1" -> {
+                typeTxt.text = "Izin / Unpaid Leave"
+            }
+            "3" -> {
+                typeTxt.text = "Sakit (MC)"
+            }
         }
 
         when (Status) {

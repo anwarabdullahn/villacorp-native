@@ -26,6 +26,8 @@
             android:roundIcon="@mipmap/ic_apps_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".Activity.LeaveFinger.IzinFingerActivity">
+        </activity>
         <activity android:name=".Activity.LeaveFinger.DoLeaveFingerDetails">
         </activity>
         <activity android:name=".Activity.LeaveFinger.DoDetailLeaveFinger">

@@ -81,6 +81,9 @@ public interface AnwService {
     @GET("leave_finger/")
     Call<LeaveFingers> leavefinger(@Query("page") String page);
 
+    @GET("izin_finger/")
+    Call<LeaveFingers> izinfinger(@Query("page") String page);
+
     @POST("leave_finger/")
     Call<AnwResponse> leavefinger(@Body RequestBody body);
 

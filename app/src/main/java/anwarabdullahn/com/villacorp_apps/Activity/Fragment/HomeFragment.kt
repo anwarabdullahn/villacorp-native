@@ -21,6 +21,7 @@ import anwarabdullahn.com.villacorp_apps.API.AnwError
 import anwarabdullahn.com.villacorp_apps.Activity.DOP.DOPActivity
 import anwarabdullahn.com.villacorp_apps.Activity.IKS.IKSActivity
 import anwarabdullahn.com.villacorp_apps.Activity.InOut.InOutActivity
+import anwarabdullahn.com.villacorp_apps.Activity.LeaveFinger.IzinFingerActivity
 import anwarabdullahn.com.villacorp_apps.Activity.LeaveFinger.LeaveFingerActivity
 import anwarabdullahn.com.villacorp_apps.Activity.TukarLibur.TukarLiburActivity
 import anwarabdullahn.com.villacorp_apps.Adapter.AgendaRecyclerAdapter
@@ -122,8 +123,12 @@ class HomeFragment : Fragment() {
         }
 
         contentView.keluarSementaraBtn.setOnClickListener {
-//            toast("apa")
             val intent = Intent(contentView.context, IKSActivity::class.java)
+            startActivity(intent)
+        }
+
+        contentView.izinLainnyaBtn.setOnClickListener {
+            val intent = Intent(contentView.context, IzinFingerActivity::class.java)
             startActivity(intent)
         }
 
