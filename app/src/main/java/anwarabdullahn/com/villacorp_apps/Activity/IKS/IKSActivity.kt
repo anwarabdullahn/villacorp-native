@@ -1,5 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity.IKS
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -60,6 +61,12 @@ class IKSActivity : AppCompatActivity() {
             reset()
             swipeDown()
         }
+
+        izinKeluarSementaraBtn.setOnClickListener {
+            val intent = Intent(this@IKSActivity, DoIKS::class.java)
+            startActivity(intent)
+        }
+
     }
 
 

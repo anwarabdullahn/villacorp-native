@@ -26,6 +26,10 @@
             android:roundIcon="@mipmap/ic_apps_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".Activity.IKS.ChooseSecurityActivity">
+        </activity>
+        <activity android:name=".Activity.IKS.DoIKS">
+        </activity>
         <activity android:name=".Activity.LeaveFinger.IzinFingerActivity">
         </activity>
         <activity android:name=".Activity.LeaveFinger.DoLeaveFingerDetails">

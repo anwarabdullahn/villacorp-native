@@ -9,7 +9,7 @@ class IKSs(
     @SerializedName("totalpage")
     var TotalPage: String,
 
-    @SerializedName("iks_finger")
+    @SerializedName("ikks_finger")
     var IKS: MutableList<IKS>
 )
 

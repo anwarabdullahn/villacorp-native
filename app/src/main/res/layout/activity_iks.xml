@@ -3,10 +3,10 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:id="@+id/swipeUp"
-        android:background="@color/colorBg"
-        android:layout_height="match_parent" xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:background="@color/colorBg" android:layout_height="match_parent"
         tools:context=".Activity.IKS.IKSActivity">
 
     <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
@@ -109,6 +109,15 @@
                     fab:menu_openDirection="up"
                     fab:menu_backgroundColor="@android:color/transparent"
             >
+                <com.github.clans.fab.FloatingActionButton
+                        android:id="@+id/izinKeluarSementaraBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_keluar_sementara"
+                        android:tint="@color/colorWhite"
+                        fab:fab_colorNormal="@color/colorRed"
+                        fab:fab_size="mini"
+                        fab:fab_label="Izin Keluar Sementara"/>
 
 
             </com.github.clans.fab.FloatingActionMenu>
