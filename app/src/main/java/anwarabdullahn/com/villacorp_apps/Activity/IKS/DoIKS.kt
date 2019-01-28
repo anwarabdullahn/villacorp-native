@@ -1,5 +1,6 @@
 package anwarabdullahn.com.villacorp_apps.Activity.IKS
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -17,6 +18,11 @@ class DoIKS : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         Slidr.attach(this)
+
+        sekuritiBtn.setOnClickListener {
+            val intent = Intent(this@DoIKS, ChooseSecurityActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

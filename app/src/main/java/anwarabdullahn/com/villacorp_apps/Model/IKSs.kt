@@ -15,19 +15,22 @@ class IKSs(
 
 class IKS (
 
-    @SerializedName("id_leave")
+    @SerializedName("id_ikks")
     var ID: String,
 
     @SerializedName("nomor")
     var Nomor: String,
 
-    @SerializedName("type_leave")
-    var Type: String,
-
-    @SerializedName("date_leave")
+    @SerializedName("tanggal")
     var Date: String,
 
-    @SerializedName("ststus_leave")
+    @SerializedName("jam_awal")
+    var FirstTime: String,
+
+    @SerializedName("jam_akhir")
+    var SecondTime: String,
+
+    @SerializedName("status")
     var Status: String
 
 )

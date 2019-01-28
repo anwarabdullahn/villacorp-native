@@ -67,17 +67,8 @@ class DoLeaveFinger : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         Slidr.attach(this)
 
         tanggalBtn.setOnClickListener {
-            if (dateCalled == 1){
-                showDatePicker()
-            } else {
-                alert("Apakah Anda Yakin Ingin Mengganti Tanggal Awal Cuti", title) {
-                    yesButton {
-                        finish()
-                        startActivity(intent)
-                    }
-                    noButton {  }
-                }.show()
-            }
+            dateCalled = 1
+            showDatePicker()
         }
 
         tanggalBtn2.setOnClickListener {
@@ -304,6 +295,8 @@ class DoLeaveFinger : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         if (dateCalled == 1){
             dari_tanggal = convertDate(convertToMillis(dayOfMonth, monthOfYear, year))
             tanggalBtn.text = dari_tanggal
+            sampai_tanggal = null
+            tanggalBtn2.text = "Pilih Tanggal"
         }else {
             sampai_tanggal = convertDate(convertToMillis(dayOfMonth, monthOfYear, year))
             tanggalBtn2.text = sampai_tanggal

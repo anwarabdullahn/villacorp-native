@@ -93,4 +93,7 @@ public interface AnwService {
     @GET("iks/")
     Call<IKSs> iks(@Query("page") String page);
 
+    @GET("sekuriti/")
+    Call<Securitys> security(@Query("page") String page);
+
 }

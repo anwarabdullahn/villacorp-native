@@ -69,7 +69,6 @@ class IKSActivity : AppCompatActivity() {
 
     }
 
-
     internal fun reset(){
         page = 1
         isLoading = false
